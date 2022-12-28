@@ -172,7 +172,7 @@ function 0x26af(uint256 varg0) private {
     return ;
 }
 
-function fortressStorage() public view { 
+function fortressStorage() public view returns (address) { 
     return stor_2_0_19;
 }
 
@@ -187,11 +187,11 @@ function _SafeMul(uint256 varg0, uint256 varg1) private {
     }
 }
 
-function balanceAuction(bytes32 varg0) public view { 
+function balanceAuction(bytes32 varg0) public view returns(uint256) { 
     return owner_d[varg0];
 }
 
-function getFortressCount() public view { 
+function getFortressCount() public view returns(uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x3f0a6f3d, stor_2_0_19).gas(msg.gas - 710);
@@ -199,7 +199,7 @@ function getFortressCount() public view {
     return v1;
 }
 
-function getTroupHash(uint256 _index) public view { 
+function getTroupHash(uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
     v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(stor_4_0_19, _index).gas(msg.gas - 710);
@@ -217,7 +217,7 @@ function createBuilding(bytes16 _name, uint256 _action, uint256 _actionRate, byt
     stor_1 += 1;
 }
 
-function balances(address varg0) public view { 
+function balances(address varg0) public view returns (uint256) { 
     return _balances[varg0];
 }
 
@@ -255,11 +255,11 @@ function unpause() public {
     emit Unpause();
 }
 
-function troupStorage() public view { 
+function troupStorage() public view returns (address) { 
     return stor_4_0_19;
 }
 
-function getFortressesAvailable() public view { 
+function getFortressesAvailable() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1777d529, stor_2_0_19).gas(msg.gas - 710);
@@ -267,7 +267,7 @@ function getFortressesAvailable() public view {
     return v1;
 }
 
-function getTroupIndexLength() public view { 
+function getTroupIndexLength() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
     v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0xf5807181, stor_4_0_19).gas(msg.gas - 710);
@@ -305,16 +305,16 @@ function createFortress(bytes16 _name) public payable {
     stor_1 += 1;
 }
 
-function auctions(uint256 varg0) public view { 
+function auctions(uint256 varg0) public view returns (bytes32) { 
     assert(varg0 < _getAuctionsLength.length);
     return _getAuctionsLength[varg0];
 }
 
-function paused() public view { 
+function paused() public view returns (bool) { 
     return _paused;
 }
 
-function highestBid(bytes32 varg0) public view { 
+function highestBid(bytes32 varg0) public view returns (uint256) { 
     return owner_a[varg0];
 }
 
@@ -328,11 +328,11 @@ function getTroupCosts(bytes32 _troupHash) public view {
     return v2, v1, v0;
 }
 
-function auctionEnd(bytes32 varg0) public view { 
+function auctionEnd(bytes32 varg0) public view returns (uint256) { 
     return owner_8[varg0];
 }
 
-function getHashFromIndex(address _user, uint256 _index) public view { 
+function getHashFromIndex(address _user, uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x54c711ba, stor_2_0_19, address(_user), _index).gas(msg.gas - 710);
@@ -353,7 +353,7 @@ function getTroup(bytes32 _troupHash) public view {
     return v1 & ~0xffffffffffffffffffffffffffffffff, v2, v3, v4, v5;
 }
 
-function stoneHash() public view { 
+function stoneHash() public view returns (bytes32) { 
     return stor_7;
 }
 
@@ -365,7 +365,7 @@ function transferFortress(bytes32 _fortressHash, address _newOwner) public {
     require(v0);
 }
 
-function getUserAuctionsLength(address _user) public view { 
+function getUserAuctionsLength(address _user) public view returns (uint256) { 
     return owner_c[_user];
 }
 
@@ -376,7 +376,7 @@ function pause() public {
     emit Pause();
 }
 
-function goldHash() public view { 
+function goldHash() public view returns (bytes32) { 
     return stor_5;
 }
 
@@ -385,7 +385,7 @@ function getResources(bytes32 _fortressHash) public view {
     return v2, v1, v0;
 }
 
-function owner() public view { 
+function owner() public view returns (address) { 
     return _owner;
 }
 
@@ -424,11 +424,11 @@ function startMinting() public {
     require(v0);
 }
 
-function woodHash() public view { 
+function woodHash() public view returns (bytes32) { 
     return stor_6;
 }
 
-function totalBalance() public view { 
+function totalBalance() public view returns (uint256) { 
     return _totalBalance;
 }
 
@@ -439,12 +439,12 @@ function withdrawExcess(address _withdraw) public {
     require(v0);
 }
 
-function userAuctions(address varg0, uint256 varg1) public view { 
+function userAuctions(address varg0, uint256 varg1) public view returns (bytes32) { 
     assert(varg1 < owner_c[varg0]);
     return STORAGE[keccak256(keccak256(varg0, 12)) + varg1];
 }
 
-function highestBidder(bytes32 varg0) public view { 
+function highestBidder(bytes32 varg0) public view returns (address) { 
     return address(_highestBidder[varg0]);
 }
 
@@ -456,16 +456,16 @@ function getFortress(bytes32 _fortressHash) public view {
     return v1 & ~0xffffffffffffffffffffffffffffffff, address(v2), v3, v4, v5;
 }
 
-function auctionOwner(bytes32 varg0) public view { 
+function auctionOwner(bytes32 varg0) public view returns (address) { 
     return address(owner_9[varg0]);
 }
 
-function getFortressTroups(bytes32 _fortressHash, bytes32 _troupHash) public view { 
+function getFortressTroups(bytes32 _fortressHash, bytes32 _troupHash) public view (uint256 _amount) { 
     v0 = 0x1d04(_troupHash, _fortressHash);
     return v0;
 }
 
-function getAuctionAmount(bytes32 _fortressHash, address _user) public view { 
+function getAuctionAmount(bytes32 _fortressHash, address _user) public view returns (uint256) { 
     return owner_d[keccak256(_fortressHash, _user)];
 }
 
@@ -505,7 +505,7 @@ function bidAuction(bytes32 _fortressHash) public payable {
     }
 }
 
-function getBuildingHash(uint256 _index) public view { 
+function getBuildingHash(uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
     v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, _index).gas(msg.gas - 710);
@@ -513,7 +513,7 @@ function getBuildingHash(uint256 _index) public view {
     return v1;
 }
 
-function getBuildingIndexLength() public view { 
+function getBuildingIndexLength() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
     v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf5807181, stor_3_0_19).gas(msg.gas - 710);
@@ -521,7 +521,7 @@ function getBuildingIndexLength() public view {
     return v1;
 }
 
-function getAuctionsLength() public view { 
+function getAuctionsLength() public view returns (uint256) { 
     return _getAuctionsLength.length;
 }
 
@@ -610,7 +610,7 @@ function upgradeGame(uint256 _newContract) public {
     require(v2);
 }
 
-function buildingStorage() public view { 
+function buildingStorage() public view returns (address) { 
     return stor_3_0_19;
 }
 
@@ -657,7 +657,7 @@ function transferOwnership(address newOwner) public {
     _owner = newOwner;
 }
 
-function getIndexLength(address _user) public view { 
+function getIndexLength(address _user) public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x6dff11, stor_2_0_19, _user).gas(msg.gas - 710);
