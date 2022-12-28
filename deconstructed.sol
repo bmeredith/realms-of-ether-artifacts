@@ -83,7 +83,7 @@ uint256 _x; // STORAGE[0x11]
 uint256 _y; // STORAGE[0x12]
 uint256 stor_13; // STORAGE[0x13]
 uint256 stor_14; // STORAGE[0x14]
-uint256 _owner; // STORAGE[0x0] bytes 0 to 19
+address _owner; // STORAGE[0x0] bytes 0 to 19
 address _fortressStorage; // STORAGE[0x2] bytes 0 to 19
 bool _paused; // STORAGE[0x0] bytes 20 to 20
 address _buildingStorage; // STORAGE[0x3] bytes 0 to 19
@@ -278,9 +278,9 @@ function getTroupIndexLength() public view returns (uint256) {
 function createFortress(bytes16 _name) public payable { 
     require(!_paused);
     require(msg.value >= 0x2386f26fc10000);
-    v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
+    fortressHash = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xbd1fb981, _fortressStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _x, _y, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
+    v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xbd1fb981, _fortressStorage, fortressHash, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _x, _y, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
     require(v1);
     v2 = v3 = _x == _y;
     if (_x != _y) {
@@ -301,7 +301,7 @@ function createFortress(bytes16 _name) public payable {
     }
     _x += stor_13;
     _y += stor_14;
-    emit LogFortressCreated(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, v0, msg.sender, _x, _y);
+    emit LogFortressCreated(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, fortressHash, msg.sender, _x, _y);
     stor_1 += 1;
 }
 
