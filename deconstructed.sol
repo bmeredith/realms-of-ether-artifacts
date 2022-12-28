@@ -224,26 +224,26 @@ function balances(address varg0) public view returns (uint256) {
 function build(bytes32 _fortressHash, bytes32 _buildingHash) public { 
     require(!_paused);
     0x26af(_fortressHash);
-    v0, v1, v2 = 0x1749(_fortressHash);
+    (_wood, _stone, _gold) = 0x1749(_fortressHash);
     v3, v4, v5 = 0x14f4(_buildingHash);
     v6, v7 = 0x1a67(_buildingHash, _fortressHash);
     assert(1 + v7 >= v7);
     v8 = _SafeMul(1 + v7, v5);
     v9 = _SafeMul(1 + v7, v4);
     v10 = _SafeMul(1 + v7, v3);
-    v11 = v12 = v2 >= v8;
+    v11 = v12 = _gold >= v8;
     if (v12) {
-        v11 = v13 = v1 >= v9;
+        v11 = v13 = _stone >= v9;
     }
     if (v11) {
-        v11 = v14 = v0 >= v10;
+        v11 = v14 = _wood >= v10;
     }
     require(v11);
-    assert(v8 <= v2);
-    assert(v9 <= v1);
-    assert(v10 <= v0);
+    assert(v8 <= _gold);
+    assert(v9 <= _stone);
+    assert(v10 <= _wood);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x7b2be003, _fortressStorage, _fortressHash, _buildingHash, v2 - v8, v1 - v9, v0 - v10, 1 + v7).gas(msg.gas - 710);
+    v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x7b2be003, _fortressStorage, _fortressHash, _buildingHash, _gold - v8, _stone - v9, _wood - v10, 1 + v7).gas(msg.gas - 710);
     require(v15);
     emit LogBuild(_fortressHash, _buildingHash);
 }
