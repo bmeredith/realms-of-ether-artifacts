@@ -67,9 +67,9 @@
 
 // Data structures and variables inferred from the use of storage instructions
 uint256 stor_1; // STORAGE[0x1]
-uint256 stor_5; // STORAGE[0x5]
-uint256 stor_6; // STORAGE[0x6]
-uint256 stor_7; // STORAGE[0x7]
+bytes32 _goldHash; // STORAGE[0x5]
+bytes32 _woodHash; // STORAGE[0x6]
+bytes32 _stoneHash; // STORAGE[0x7]
 mapping (uint256 => [uint256]) owner_8; // STORAGE[0x8]
 mapping (uint256 => [uint256]) owner_9; // STORAGE[0x9]
 mapping (uint256 => [uint256]) owner_a; // STORAGE[0xa]
@@ -354,7 +354,7 @@ function getTroup(bytes32 _troupHash) public view {
 }
 
 function stoneHash() public view returns (bytes32) { 
-    return stor_7;
+    return _stoneHash;
 }
 
 function transferFortress(bytes32 _fortressHash, address _newOwner) public { 
@@ -377,7 +377,7 @@ function pause() public {
 }
 
 function goldHash() public view returns (bytes32) { 
-    return stor_5;
+    return _goldHash;
 }
 
 function getResources(bytes32 _fortressHash) public view { 
@@ -425,7 +425,7 @@ function startMinting() public {
 }
 
 function woodHash() public view returns (bytes32) { 
-    return stor_6;
+    return _woodHash;
 }
 
 function totalBalance() public view returns (uint256) { 
@@ -533,7 +533,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
     v2, v3, v4, v5, v6 = 0x12cc(_buildingHash);
     v7, v8, v9 = 0x1749(_fortressHash);
     if (v5 == 1) {
-        if (v3 == stor_5) {
+        if (v3 == _goldHash) {
             assert(1 + v1 >= v1);
             v10 = _SafeMul(1 + v1, v4);
             assert(v10 + v9 >= v9);
@@ -541,7 +541,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
             v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, v10 + v9).gas(msg.gas - 710);
             require(v11);
         }
-        if (v3 == stor_7) {
+        if (v3 == _stoneHash) {
             assert(1 + v1 >= v1);
             v12 = _SafeMul(1 + v1, v4);
             assert(v12 + v8 >= v8);
@@ -549,7 +549,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
             v13 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, _fortressStorage, _fortressHash, v12 + v8).gas(msg.gas - 710);
             require(v13);
         }
-        if (v3 == stor_6) {
+        if (v3 == _woodHash) {
             assert(1 + v1 >= v1);
             v14 = _SafeMul(1 + v1, v4);
             assert(v14 + v7 >= v7);
