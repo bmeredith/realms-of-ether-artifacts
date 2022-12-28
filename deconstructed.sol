@@ -85,7 +85,7 @@ uint256 stor_13; // STORAGE[0x13]
 uint256 stor_14; // STORAGE[0x14]
 uint256 _owner; // STORAGE[0x0] bytes 0 to 19
 address _fortressStorage; // STORAGE[0x2] bytes 0 to 19
-uint256 _paused; // STORAGE[0x0] bytes 20 to 20
+bool _paused; // STORAGE[0x0] bytes 20 to 20
 address _buildingStorage; // STORAGE[0x3] bytes 0 to 19
 address _troupStorage; // STORAGE[0x4] bytes 0 to 19
 
@@ -251,7 +251,7 @@ function build(bytes32 _fortressHash, bytes32 _buildingHash) public {
 function unpause() public { 
     require(_owner == msg.sender);
     require(_paused);
-    _paused = 0;
+    _paused = false;
     emit Unpause();
 }
 
@@ -372,7 +372,7 @@ function getUserAuctionsLength(address _user) public view returns (uint256) {
 function pause() public { 
     require(_owner == msg.sender);
     require(!_paused);
-    _paused = 1;
+    _paused = true;
     emit Pause();
 }
 
