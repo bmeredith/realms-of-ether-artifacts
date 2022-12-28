@@ -381,9 +381,9 @@ function goldHash() public view returns (bytes32) {
     return _goldHash;
 }
 
-function getResources(bytes32 _fortressHash) public view returns (uint256 _wood, uint256 _stone, uint256 _gold) { 
-    (_gold, _stone, _wood) = 0x1749(_fortressHash);
-    return (_wood, _stone, _gold);
+function getResources(bytes32 _fortressHash) public view returns (uint256 _gold, uint256 _stone, uint256 _wood) { 
+    (_wood, _stone, _gold) = 0x1749(_fortressHash);
+    return (_gold, _stone, _wood);
 }
 
 function owner() public view returns (address) { 
