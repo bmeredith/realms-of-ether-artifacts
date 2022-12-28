@@ -404,11 +404,11 @@ function withdraw(bytes32 _fortressHash) public {
 
 function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _intelligence, uint256 _dexterity, uint256 _gold, uint256 _wood, uint256 _stone) public { 
     require(_owner == msg.sender);
-    v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
+    troupHash = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x93fdc929, _troupStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
+    v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x93fdc929, _troupStorage, troupHash, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
-    emit LogTroupCreated(v0);
+    emit LogTroupCreated(troupHash);
     stor_1 += 1;
 }
 
