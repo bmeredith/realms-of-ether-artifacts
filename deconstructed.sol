@@ -532,14 +532,14 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
     v0, v1 = 0x1a67(_buildingHash, _fortressHash);
     require(block.timestamp > v0);
     v2, _troupHash, v4, v5, v6 = 0x12cc(_buildingHash);
-    (_gold, _stone, _wood) = 0x1749(_fortressHash);
+    (_wood, _stone, _gold) = 0x1749(_fortressHash);
     if (v5 == 1) {
         if (_troupHash == _goldHash) {
             assert(1 + v1 >= v1);
             v10 = _SafeMul(1 + v1, v4);
-            assert(v10 + _wood >= _wood);
+            assert(v10 + _gold >= _gold);
             require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-            v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, v10 + _wood).gas(msg.gas - 710);
+            v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, v10 + _gold).gas(msg.gas - 710);
             require(v11);
         }
         if (_troupHash == _stoneHash) {
@@ -553,9 +553,9 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
         if (_troupHash == _woodHash) {
             assert(1 + v1 >= v1);
             v14 = _SafeMul(1 + v1, v4);
-            assert(v14 + _gold >= _gold);
+            assert(v14 + _wood >= _wood);
             require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-            v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, v14 + _gold).gas(msg.gas - 710);
+            v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, v14 + _wood).gas(msg.gas - 710);
             require(v15);
         }
     }
@@ -567,25 +567,25 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
         v21 = _SafeMul(1 + v20, v19);
         v22 = _SafeMul(1 + v20, v18);
         v23 = _SafeMul(1 + v20, v17);
-        v24 = v25 = _wood >= v21;
+        v24 = v25 = _gold >= v21;
         if (v25) {
             v24 = v26 = _stone >= v22;
         }
         if (v24) {
-            v24 = _gold >= v23;
+            v24 = _wood >= v23;
         }
         require(v24);
-        assert(v21 <= _wood);
+        assert(v21 <= _gold);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v27 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, _wood - v21).gas(msg.gas - 710);
+        v27 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, _gold - v21).gas(msg.gas - 710);
         require(v27);
         assert(v22 <= _stone);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
         v28 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, _fortressStorage, _fortressHash, _stone - v22).gas(msg.gas - 710);
         require(v28);
-        assert(v23 <= _gold);
+        assert(v23 <= _wood);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v29 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, _gold - v23).gas(msg.gas - 710);
+        v29 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, _wood - v23).gas(msg.gas - 710);
         require(v29);
         assert(1 + v20 + v16 >= v16);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
