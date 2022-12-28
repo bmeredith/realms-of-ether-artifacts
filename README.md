@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is meant to serve to provide a more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The original smart contract source code remains unavailable and unverified, but using a few different techniques, it is still possible to get a better idea of what lies within.
+This repository is meant to serve to provide a more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The original smart contract source code remains unavailable and unverified, but using a few different techniques it is still possible to get a better idea of what lies within.
 
 ## Breakdown
 
@@ -16,6 +16,10 @@ This repository is meant to serve to provide a more in-depth look into the [Real
   - Add the return type of function calls with named return types, where possible.
   - Update variables within methods where possible (based on hints from abi for a method's output names, events, etc.)
 - `abi.json`: While the source code of the smart contract may not be available, the original ABI is still available and was found on the original [Realms of Ether](https://realmsofether.com/) website.
+
+## Notes
+- All method names are a 1-to-1 match of what would be within the original source code. Any method names that could not be identified have been left as the decompiled MethodID.
+- Not all function parameter names or function output names are 1-to-1 match. Decompilation of those is not possible. It is a best effort to identify those and have the reconstructed contract more readable.
 
 ## Contracts
 
