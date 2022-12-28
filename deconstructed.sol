@@ -79,15 +79,15 @@ mapping (uint256 => [uint256]) owner_d; // STORAGE[0xd]
 mapping (uint256 => [uint256]) _balances; // STORAGE[0xe]
 uint256 _totalBalance; // STORAGE[0xf]
 uint256[] _getAuctionsLength; // STORAGE[0x10]
-uint256 stor_11; // STORAGE[0x11]
-uint256 stor_12; // STORAGE[0x12]
+uint256 _x; // STORAGE[0x11]
+uint256 _y; // STORAGE[0x12]
 uint256 stor_13; // STORAGE[0x13]
 uint256 stor_14; // STORAGE[0x14]
 uint256 _owner; // STORAGE[0x0] bytes 0 to 19
-uint256 stor_2_0_19; // STORAGE[0x2] bytes 0 to 19
+address _fortressStorage; // STORAGE[0x2] bytes 0 to 19
 uint256 _paused; // STORAGE[0x0] bytes 20 to 20
-uint256 stor_3_0_19; // STORAGE[0x3] bytes 0 to 19
-uint256 stor_4_0_19; // STORAGE[0x4] bytes 0 to 19
+address _buildingStorage; // STORAGE[0x3] bytes 0 to 19
+address _troupStorage; // STORAGE[0x4] bytes 0 to 19
 
 // Events
 Unpause();
@@ -97,7 +97,7 @@ OwnershipTransferred(address, address);
 function 0x12cc(uint256 varg0) private { 
     MEM[160 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v0, v1, v2, v3, v4, v5 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0x9d3bd2e4, stor_3_0_19, varg0).gas(msg.gas - 710);
+    v0, v1, v2, v3, v4, v5 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0x9d3bd2e4, _buildingStorage, varg0).gas(msg.gas - 710);
     require(v0);
     return MEM[128 + MEM[64]], MEM[96 + MEM[64]], MEM[64 + MEM[64]], MEM[32 + MEM[64]], MEM[MEM[64]];
 }
@@ -105,7 +105,7 @@ function 0x12cc(uint256 varg0) private {
 function 0x1393(uint256 varg0) private { 
     MEM[96 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v0, v1, v2, v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0xfc85a0d2, stor_4_0_19, varg0).gas(msg.gas - 710);
+    v0, v1, v2, v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0xfc85a0d2, _troupStorage, varg0).gas(msg.gas - 710);
     require(v0);
     return MEM[64 + MEM[64]], MEM[32 + MEM[64]], MEM[MEM[64]];
 }
@@ -113,7 +113,7 @@ function 0x1393(uint256 varg0) private {
 function 0x14f4(uint256 varg0) private { 
     MEM[96 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v0, v1, v2, v3 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xfc85a0d2, stor_3_0_19, varg0).gas(msg.gas - 710);
+    v0, v1, v2, v3 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xfc85a0d2, _buildingStorage, varg0).gas(msg.gas - 710);
     require(v0);
     return MEM[64 + MEM[64]], MEM[32 + MEM[64]], MEM[MEM[64]];
 }
@@ -121,7 +121,7 @@ function 0x14f4(uint256 varg0) private {
 function 0x1749(uint256 varg0) private { 
     MEM[96 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1, v2, v3 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x58e9eb78, stor_2_0_19, varg0).gas(msg.gas - 710);
+    v0, v1, v2, v3 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x58e9eb78, _fortressStorage, varg0).gas(msg.gas - 710);
     require(v0);
     return MEM[64 + MEM[64]], MEM[32 + MEM[64]], MEM[MEM[64]];
 }
@@ -129,7 +129,7 @@ function 0x1749(uint256 varg0) private {
 function 0x1a67(uint256 varg0, uint256 varg1) private { 
     MEM[64 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1, v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x4e49bbe1, stor_2_0_19, varg1, varg0).gas(msg.gas - 710);
+    v0, v1, v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x4e49bbe1, _fortressStorage, varg1, varg0).gas(msg.gas - 710);
     require(v0);
     return v2, v1;
 }
@@ -137,7 +137,7 @@ function 0x1a67(uint256 varg0, uint256 varg1) private {
 function 0x1d04(uint256 varg0, uint256 varg1) private { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xfd1fd5ff, stor_2_0_19, varg1, varg0).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xfd1fd5ff, _fortressStorage, varg1, varg0).gas(msg.gas - 710);
     require(v0);
     return MEM[MEM[64]];
 }
@@ -151,7 +151,7 @@ function endAuction(bytes32 _fortressHash) public {
     require(owner_8[_fortressHash] <= block.timestamp);
     require(address(_highestBidder[_fortressHash]) == msg.sender);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf1ed0c6, stor_2_0_19, _fortressHash, msg.sender).gas(msg.gas - 710);
+    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf1ed0c6, _fortressStorage, _fortressHash, msg.sender).gas(msg.gas - 710);
     require(v0);
     assert(owner_a[_fortressHash] <= _balances[msg.sender]);
     _balances[msg.sender] = _balances[msg.sender] - owner_a[_fortressHash];
@@ -166,14 +166,14 @@ function endAuction(bytes32 _fortressHash) public {
 function 0x26af(uint256 varg0) private { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x69c5b2b8, stor_2_0_19, varg0).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x69c5b2b8, _fortressStorage, varg0).gas(msg.gas - 710);
     require(v0);
     require(address(v1) == msg.sender);
     return ;
 }
 
 function fortressStorage() public view returns (address) { 
-    return stor_2_0_19;
+    return _fortressStorage;
 }
 
 function _SafeMul(uint256 varg0, uint256 varg1) private { 
@@ -194,7 +194,7 @@ function balanceAuction(bytes32 varg0) public view returns(uint256) {
 function getFortressCount() public view returns(uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x3f0a6f3d, stor_2_0_19).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x3f0a6f3d, _fortressStorage).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -202,7 +202,7 @@ function getFortressCount() public view returns(uint256) {
 function getTroupHash(uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(stor_4_0_19, _index).gas(msg.gas - 710);
+    v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(_troupStorage, _index).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -211,7 +211,7 @@ function createBuilding(bytes16 _name, uint256 _action, uint256 _actionRate, byt
     require(_owner == msg.sender);
     v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf481d125, stor_3_0_19, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _action, _actionRate, _actionValue, _actionTimeout, _gold, _wood, _stone).gas(msg.gas - 710);
+    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf481d125, _buildingStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _action, _actionRate, _actionValue, _actionTimeout, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
     emit LogBuildingCreated(v0);
     stor_1 += 1;
@@ -243,7 +243,7 @@ function build(bytes32 _fortressHash, bytes32 _buildingHash) public {
     assert(v9 <= v1);
     assert(v10 <= v0);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x7b2be003, stor_2_0_19, _fortressHash, _buildingHash, v2 - v8, v1 - v9, v0 - v10, 1 + v7).gas(msg.gas - 710);
+    v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x7b2be003, _fortressStorage, _fortressHash, _buildingHash, v2 - v8, v1 - v9, v0 - v10, 1 + v7).gas(msg.gas - 710);
     require(v15);
     emit LogBuild(_fortressHash, _buildingHash);
 }
@@ -256,13 +256,13 @@ function unpause() public {
 }
 
 function troupStorage() public view returns (address) { 
-    return stor_4_0_19;
+    return _troupStorage;
 }
 
 function getFortressesAvailable() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1777d529, stor_2_0_19).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1777d529, _fortressStorage).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -270,7 +270,7 @@ function getFortressesAvailable() public view returns (uint256) {
 function getTroupIndexLength() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0xf5807181, stor_4_0_19).gas(msg.gas - 710);
+    v0, v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0xf5807181, _troupStorage).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -280,28 +280,28 @@ function createFortress(bytes16 _name) public payable {
     require(msg.value >= 0x2386f26fc10000);
     v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xbd1fb981, stor_2_0_19, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
+    v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xbd1fb981, _fortressStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _x, _y, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
     require(v1);
-    v2 = v3 = stor_11 == stor_12;
-    if (stor_11 != stor_12) {
-        v2 = v4 = stor_11 < 0;
+    v2 = v3 = _x == _y;
+    if (_x != _y) {
+        v2 = v4 = _x < 0;
         if (v4) {
-            v2 = v5 = stor_11 == 0 - stor_12;
+            v2 = v5 = _x == 0 - _y;
         }
     }
     if (!v2) {
-        v2 = v6 = stor_11 > 0;
+        v2 = v6 = _x > 0;
         if (v6) {
-            v2 = v7 = stor_11 == 1 - stor_12;
+            v2 = v7 = _x == 1 - _y;
         }
     }
     if (v2) {
         stor_13 = 0 - stor_14;
         stor_14 = stor_13;
     }
-    stor_11 += stor_13;
-    stor_12 += stor_14;
-    emit LogFortressCreated(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, v0, msg.sender, stor_11, stor_12);
+    _x += stor_13;
+    _y += stor_14;
+    emit LogFortressCreated(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, v0, msg.sender, _x, _y);
     stor_1 += 1;
 }
 
@@ -335,7 +335,7 @@ function auctionEnd(bytes32 varg0) public view returns (uint256) {
 function getHashFromIndex(address _user, uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x54c711ba, stor_2_0_19, address(_user), _index).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x54c711ba, _fortressStorage, address(_user), _index).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -348,7 +348,7 @@ function getBuildingCosts(bytes32 _buildingHash) public view {
 function getTroup(bytes32 _troupHash) public view { 
     MEM[160 + MEM[64]] = 0;
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v0, v1, v2, v3, v4, v5 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x2a33569e, stor_4_0_19, _troupHash).gas(msg.gas - 710);
+    v0, v1, v2, v3, v4, v5 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x2a33569e, _troupStorage, _troupHash).gas(msg.gas - 710);
     require(v0);
     return v1 & ~0xffffffffffffffffffffffffffffffff, v2, v3, v4, v5;
 }
@@ -361,7 +361,7 @@ function transferFortress(bytes32 _fortressHash, address _newOwner) public {
     require(!_paused);
     0x26af(_fortressHash);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xb844ad67, stor_2_0_19, _fortressHash, _newOwner).gas(msg.gas - 710);
+    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xb844ad67, _fortressStorage, _fortressHash, _newOwner).gas(msg.gas - 710);
     require(v0);
 }
 
@@ -406,7 +406,7 @@ function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _i
     require(_owner == msg.sender);
     v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x93fdc929, stor_4_0_19, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
+    v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x93fdc929, _troupStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
     emit LogTroupCreated(v0);
     stor_1 += 1;
@@ -420,7 +420,7 @@ function getFortressBuilding(bytes32 _fortressHash, bytes32 _buildingHash) publi
 function startMinting() public { 
     require(_owner == msg.sender);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xd87f3856, stor_2_0_19).gas(msg.gas - 710);
+    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xd87f3856, _fortressStorage).gas(msg.gas - 710);
     require(v0);
 }
 
@@ -451,7 +451,7 @@ function highestBidder(bytes32 varg0) public view returns (address) {
 function getFortress(bytes32 _fortressHash) public view { 
     MEM[160 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1, v2, v3, v4, v5 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xd041e57, stor_2_0_19, _fortressHash).gas(msg.gas - 710);
+    v0, v1, v2, v3, v4, v5 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xd041e57, _fortressStorage, _fortressHash).gas(msg.gas - 710);
     require(v0);
     return v1 & ~0xffffffffffffffffffffffffffffffff, address(v2), v3, v4, v5;
 }
@@ -508,7 +508,7 @@ function bidAuction(bytes32 _fortressHash) public payable {
 function getBuildingHash(uint256 _index) public view returns (bytes32) { 
     MEM[32 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, _index).gas(msg.gas - 710);
+    v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(_buildingStorage, _index).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -516,7 +516,7 @@ function getBuildingHash(uint256 _index) public view returns (bytes32) {
 function getBuildingIndexLength() public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf5807181, stor_3_0_19).gas(msg.gas - 710);
+    v0, v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf5807181, _buildingStorage).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
@@ -538,7 +538,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
             v10 = _SafeMul(1 + v1, v4);
             assert(v10 + v9 >= v9);
             require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-            v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, stor_2_0_19, _fortressHash, v10 + v9).gas(msg.gas - 710);
+            v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, v10 + v9).gas(msg.gas - 710);
             require(v11);
         }
         if (v3 == stor_7) {
@@ -546,7 +546,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
             v12 = _SafeMul(1 + v1, v4);
             assert(v12 + v8 >= v8);
             require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-            v13 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, stor_2_0_19, _fortressHash, v12 + v8).gas(msg.gas - 710);
+            v13 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, _fortressStorage, _fortressHash, v12 + v8).gas(msg.gas - 710);
             require(v13);
         }
         if (v3 == stor_6) {
@@ -554,7 +554,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
             v14 = _SafeMul(1 + v1, v4);
             assert(v14 + v7 >= v7);
             require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-            v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, stor_2_0_19, _fortressHash, v14 + v7).gas(msg.gas - 710);
+            v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, v14 + v7).gas(msg.gas - 710);
             require(v15);
         }
     }
@@ -576,23 +576,23 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
         require(v24);
         assert(v21 <= v9);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v27 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, stor_2_0_19, _fortressHash, v9 - v21).gas(msg.gas - 710);
+        v27 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x1253a59c, _fortressStorage, _fortressHash, v9 - v21).gas(msg.gas - 710);
         require(v27);
         assert(v22 <= v8);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v28 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, stor_2_0_19, _fortressHash, v8 - v22).gas(msg.gas - 710);
+        v28 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x985a78d3, _fortressStorage, _fortressHash, v8 - v22).gas(msg.gas - 710);
         require(v28);
         assert(v23 <= v7);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v29 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, stor_2_0_19, _fortressHash, v7 - v23).gas(msg.gas - 710);
+        v29 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xa04e8cb9, _fortressStorage, _fortressHash, v7 - v23).gas(msg.gas - 710);
         require(v29);
         assert(1 + v20 + v16 >= v16);
         require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-        v30 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x56c1c099, stor_2_0_19, _fortressHash, v3, 1 + v20 + v16).gas(msg.gas - 710);
+        v30 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x56c1c099, _fortressStorage, _fortressHash, v3, 1 + v20 + v16).gas(msg.gas - 710);
         require(v30);
     }
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v31 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf28c3ee3, stor_2_0_19, _fortressHash, _buildingHash, v2 * 3600 + block.timestamp).gas(msg.gas - 710);
+    v31 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf28c3ee3, _fortressStorage, _fortressHash, _buildingHash, v2 * 3600 + block.timestamp).gas(msg.gas - 710);
     require(v31);
     emit LogBuildingAction(_fortressHash, _buildingHash);
 }
@@ -600,29 +600,29 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
 function upgradeGame(uint256 _newContract) public { 
     require(_owner == msg.sender);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(stor_2_0_19, address(_newContract)).gas(msg.gas - 710);
+    v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(_fortressStorage, address(_newContract)).gas(msg.gas - 710);
     require(v0);
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(stor_3_0_19, address(_newContract)).gas(msg.gas - 710);
+    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(_buildingStorage, address(_newContract)).gas(msg.gas - 710);
     require(v1);
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
-    v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(stor_4_0_19, address(_newContract)).gas(msg.gas - 710);
+    v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(_troupStorage, address(_newContract)).gas(msg.gas - 710);
     require(v2);
 }
 
 function buildingStorage() public view returns (address) { 
-    return stor_3_0_19;
+    return _buildingStorage;
 }
 
 function startAuction(bytes32 _fortressHash) public { 
     require(!_paused);
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x69c5b2b8, stor_2_0_19, _fortressHash).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x69c5b2b8, _fortressStorage, _fortressHash).gas(msg.gas - 710);
     require(v0);
     require(address(v1) == msg.sender);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf1ed0c6, stor_2_0_19, varg0, address(this)).gas(msg.gas - 710);
+    v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf1ed0c6, _fortressStorage, varg0, address(this)).gas(msg.gas - 710);
     require(v2);
     _highestBidder[_fortressHash] = msg.sender | ~0xffffffffffffffffffffffffffffffffffffffff & _highestBidder[_fortressHash];
     owner_a[_fortressHash] = 0;
@@ -660,7 +660,7 @@ function transferOwnership(address newOwner) public {
 function getIndexLength(address _user) public view returns (uint256) { 
     MEM[32 + MEM[64]] = 0;
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
-    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x6dff11, stor_2_0_19, _user).gas(msg.gas - 710);
+    v0, v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x6dff11, _fortressStorage, _user).gas(msg.gas - 710);
     require(v0);
     return v1;
 }
