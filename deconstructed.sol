@@ -340,9 +340,9 @@ function getHashFromIndex(address _user, uint256 _index) public view returns (by
     return v1;
 }
 
-function getBuildingCosts(bytes32 _buildingHash) public view { 
-    v0, v1, v2 = 0x14f4(_buildingHash);
-    return v2, v1, v0;
+function getBuildingCosts(bytes32 _buildingHash) public view returns (uint256 _gold, uint256 _stone, uint256 _wood) { 
+    (_gold, _stone, _wood) = 0x14f4(_buildingHash);
+    return (_wood, _stone, _gold);
 }
 
 function getTroup(bytes32 _troupHash) public view { 
