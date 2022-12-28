@@ -209,11 +209,11 @@ function getTroupHash(uint256 _index) public view returns (bytes32) {
 
 function createBuilding(bytes16 _name, uint256 _action, uint256 _actionRate, bytes32 _actionValue, uint256 _actionTimeout, uint256 _gold, uint256 _wood, uint256 _stone) public { 
     require(_owner == msg.sender);
-    v0 = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
+    buildingHash = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
-    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf481d125, _buildingStorage, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _action, _actionRate, _actionValue, _actionTimeout, _gold, _wood, _stone).gas(msg.gas - 710);
+    v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf481d125, _buildingStorage, buildingHash, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _action, _actionRate, _actionValue, _actionTimeout, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
-    emit LogBuildingCreated(v0);
+    emit LogBuildingCreated(buildingHash);
     stor_1 += 1;
 }
 
