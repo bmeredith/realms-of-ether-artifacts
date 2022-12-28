@@ -73,7 +73,7 @@ bytes32 _stoneHash; // STORAGE[0x7]
 mapping (uint256 => [uint256]) owner_8; // STORAGE[0x8]
 mapping (uint256 => [uint256]) owner_9; // STORAGE[0x9]
 mapping (uint256 => [uint256]) owner_a; // STORAGE[0xa]
-mapping (uint256 => [uint256]) _highestBidder; // STORAGE[0xb]
+mapping (bytes32 => address) _highestBidder; // STORAGE[0xb] - holds mappings of FortressHashes -> Address for auctions
 mapping (uint256 => [uint256]) owner_c; // STORAGE[0xc]
 mapping (uint256 => [uint256]) owner_d; // STORAGE[0xd]
 mapping (uint256 => [uint256]) _balances; // STORAGE[0xe]
@@ -149,7 +149,7 @@ function () public payable {
 function endAuction(bytes32 _fortressHash) public { 
     require(!_paused);
     require(owner_8[_fortressHash] <= block.timestamp);
-    require(address(_highestBidder[_fortressHash]) == msg.sender);
+    require(_highestBidder[_fortressHash] == msg.sender);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf1ed0c6, _fortressStorage, _fortressHash, msg.sender).gas(msg.gas - 710);
     require(v0);
@@ -392,7 +392,7 @@ function owner() public view returns (address) {
 function withdraw(bytes32 _fortressHash) public { 
     require(!_paused);
     require(owner_8[_fortressHash] <= block.timestamp);
-    require(address(_highestBidder[_fortressHash]) != msg.sender);
+    require(_highestBidder[_fortressHash] != msg.sender);
     owner_d[keccak256(_fortressHash, msg.sender)] = 0;
     assert(owner_d[keccak256(_fortressHash, msg.sender)] <= _balances[msg.sender]);
     _balances[msg.sender] = _balances[msg.sender] - owner_d[keccak256(_fortressHash, msg.sender)];
@@ -444,8 +444,8 @@ function userAuctions(address varg0, uint256 varg1) public view returns (bytes32
     return STORAGE[keccak256(keccak256(varg0, 12)) + varg1];
 }
 
-function highestBidder(bytes32 varg0) public view returns (address) { 
-    return address(_highestBidder[varg0]);
+function highestBidder(bytes32 _fortressHash) public view returns (address) { 
+    return _highestBidder[_fortressHash];
 }
 
 function getFortress(bytes32 _fortressHash) public view { 
