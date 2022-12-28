@@ -76,7 +76,7 @@ mapping (uint256 => [uint256]) owner_a; // STORAGE[0xa]
 mapping (bytes32 => address) _highestBidder; // STORAGE[0xb] - holds mappings of FortressHashes -> Address for auctions
 mapping (uint256 => [uint256]) owner_c; // STORAGE[0xc]
 mapping (uint256 => [uint256]) owner_d; // STORAGE[0xd]
-mapping (uint256 => [uint256]) _balances; // STORAGE[0xe]
+mapping (address => uint256) _balances; // STORAGE[0xe]
 uint256 _totalBalance; // STORAGE[0xf]
 bytes32[] _getAuctionsLength; // STORAGE[0x10] - holds list of FortressHashes that are being auctioned
 uint256 _x; // STORAGE[0x11]
