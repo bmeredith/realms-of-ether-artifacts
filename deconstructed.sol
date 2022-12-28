@@ -1,64 +1,69 @@
-// Methods and their method signature hashes:
-//
-// endAuction(bytes32) 01db46a0b5954d4fe3758378fa9c3af018864d7c5b34ebabd2e228b748b9d298
-// fortressStorage() 0258a643df5aa03485a889fafee57bb4ddcc65cc2f7cf4a1533bb4b83a33e273
-// balanceAuction(bytes32) 093556c9f8b1de8d520b4cb13ff3f08f887160578d3abde023b0f558bbcee7ea
-// getFortressCount() 10cfcf0c2ce1e24e56a0e67360ea7ba647c6e673bc00d9e48a2c1e81276f6618
-// getTroupHash(uint256) 245454b5af1f53870ecc14d1d731b0209f6c5bf2051431df97a701cdccc3c46e
-// createBuilding(bytes16,uint256,uint256,bytes32,uint256,uint256,uint256,uint256) 2516930fd4849fda292dddb4c6f3bb897141e30a898738b98c04b9665a4a0cfe
-// balances(address) 27e235e3156ba7594b76cc352951bc4f5090802332ed790fadb70e555671e6ab
-// build(bytes32,bytes32) 30b654f82e8dfeed36f38ed4369e217e919381e3ef4c263ed8a0923c08b913a8
-// unpause() 3f4ba83af89dc9793996d9e56b8abe6dc88cd97c9c2bb23027806e9c1ffd54dc
-// troupStorage() 40d7f8c09f5158797609eb983115db25563fb6d44bb0f3052dc4cbaae1a02236
-// getFortressesAvailable() 468c780402383654087f19e5a6652217ffd0283b95583ede1ac06b25d3c61d17
-// getTroupIndexLength() 48d79c6f3e5e2a09f2d5ddb0d227f3f3b2a28a67fdd2e80564b6ad941a4b3def
-// createFortress(bytes16) 5096ec5397b17c62998ad05c7ff660e27013e6da6faa6de8370cad0ff126b292
-// auctions(uint256) 571a26a0cffc1c948fda84210cb62afc7643ba02d2fb487974595cf23e82273f
-// paused() 5c975abbf8c4d6efa68fc896e233763eb503f2318260b7bf59b19412913788b2
-// highestBid(bytes32) 61508bfdd6add8c726f043de9a2145fcdbf7f75d0a2de450f7d77125cb5c15ec
-// getBuilding(bytes32) 66760ce6a008662c55adeb13907c95eee93eb3c49e3a603e61644065a6fd68ec
-// getTroupCosts(bytes32) 66cfc3371dc5446c272da0fa4708f7ded6a1433cc0ddb28223d8b40b995a22b6
-// auctionEnd(bytes32) 7621bd09d80fe668b6f1e65fcde2080eb50cdd68e5db3d79bddd2b4c653ae7be
-// getHashFromIndex(address,uint256) 78a11bf00dc758f3a95ae87862fda745b78d58655cf4d5218fd94ace16409d18
-// getBuildingCosts(bytes32) 7bbe01764019c4b4dcf5b26bce2e531e44b9409b327b2324d0f95d9436db4bbe
-// getTroup(bytes32) 7e403f26d25892cfad809777be063cd02d3516653aa32ebefc2a75cadf2fa3fa
-// stoneHash() 7f1c5886ecbce5b34aff8127cefe8a6810d36a20b68cf7fd83c4690e02036b75
-// transferFortress(bytes32,address) 8063a94beb62e28d04f79c53b577bcc98490aae9b4e2e7de938ccb01f03bf047
-// getUserAuctionsLength(address) 82768573fff3f3eb2621a0489b7b40baef8909a915d0abe9003a66cbbe281828
-// pause() 8456cb591a934d53f6ccc6332123a165a1f3562907bf11330d847a29ca49eb89
-// goldHash() 8764d2e273eb8676b1edd002d7efa3ac22adb44589a4c9ce973e58843f647a34
-// getResources(bytes32) 8ca25ab490b59a4123ae1e045258589ba6fe540608ec7ba132bfe0e904a6d656
-// owner() 8da5cb5b36e7f68c1d2e56001220cdbdd3ba2616072f718acfda4a06441a807d
-// withdraw(bytes32) 8e19899e46957c7ebdf7f6745205163d4595f9439395ecae5a8119cc5cad663e
-// createTroup(bytes16,uint256,uint256,uint256,uint256,uint256,uint256,uint256) 974f1e9e43031dd1070ed2cba5c533a058a1bcda889185b7d86ef20405b8d1b9
-// getFortressBuilding(bytes32,bytes32) 98a842927cb31cb4832cc9f2c4a5be0a83f403567ebaf6804d41ec8c47f728d4
-// startMinting() 9a65ea262a348038d5bf20afd267cfda3881a7cb988958b7271adde74351ae95
-// woodHash() a00fedc77ab13a5630eea6285c1207340f636164bd40c0bda7811404b7cd43fb
-// totalBalance() ad7a672fba2833726315cc78ca49d737d6a104d6eb4a4d86bc6efce8005ccdd7
-// withdrawExcess(address) affbf593affef99041c8224bf702ff33cac18e4b6872f33315ffe35303e9df7d
-// userAuctions(address,uint256) b4fbe80a6ea739908cedc50d9c0bc110a00ca017a282d936e1d773b56b492737
-// highestBidder(bytes32) bf51e728675076136b0ec3ec142e97e2947a7bfd0c2cc3ff48e6dc11473bf839
-// getFortress(bytes32) c1666a307f472a371a689e71b7f5119469d138ae5c9afa6b22a7c836a9672462
-// auctionOwner(bytes32) c73dedfd452f69f3fe949b4d8eaf4b78ada0b281ea2d80c385574a89b2b13677
-// getFortressTroups(bytes32,bytes32) c756b8e9345cf04627529285f6286baa383df5fc479064fb6cf48236a5fe817f
-// getAuctionAmount(bytes32,address) c9c0c2426434f646d6790784e46f13b8986eb4bb51bd71a8f7b328ae501a9d7a
-// bidAuction(bytes32) cacb7ad8d565c763cb3be3334b448011f170368de9509eaaa79385c2eb6c522a
-// getBuildingHash(uint256) cb551a2b74fb546ba379e5f6a6324a8a277dabf99c6fd793765d81e544780e76
-// getBuildingIndexLength() d5ee9ca4ff1a80ad6bf34c1c7f7dd8de3d29f9c97c0121b2a472186abc12a329
-// getAuctionsLength() dbe350077d39d435184bb0bfa5715814a703f234258804bd5b96dfd6a2cb3fb2
-// buildingAction(bytes32,bytes32) dc341d8d8eb91836b31635670223b8bc31580539b53d6250afe6f40d479057d6
-// upgradeGame(address) e82acd26d61b58eaaa9943f99afa5e496d2c56cb5c2ed9d406e05d01811eef53
-// buildingStorage() ed8faf3dccebaea7874ac254b4517324fa02477f4db2980adee53cf9e711d882
-// startAuction(bytes32) ede8acdb10d4c74c26ab4f7606d22fb66fbf5942b94b40a286b1019f650c5cbd
-// transferOwnership(address) f2fde38b092330466c661fc723d5289b90272a3e580e3187d1d7ef788506c557
-// getIndexLength(address) f5807181d671045f62749f521a02261f0bdaef31382e98a76715da56d0760077
+/* 
+    Methods and their method signature hashes:
 
-// Events and their signature hashes:
-// LogFortressCreated(bytes16,bytes32,address,int256,int256) 39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e
-// LogBuild(bytes32,bytes32) 9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9
-// LogBuildingAction(bytes32,bytes32) 9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca
-// LogBuildingCreated(bytes32) c419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f
-// LogTroupCreated(bytes32) a543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c
+    -endAuction(bytes32) 01db46a0b5954d4fe3758378fa9c3af018864d7c5b34ebabd2e228b748b9d298
+    -fortressStorage() 0258a643df5aa03485a889fafee57bb4ddcc65cc2f7cf4a1533bb4b83a33e273
+    -balanceAuction(bytes32) 093556c9f8b1de8d520b4cb13ff3f08f887160578d3abde023b0f558bbcee7ea
+    -getFortressCount() 10cfcf0c2ce1e24e56a0e67360ea7ba647c6e673bc00d9e48a2c1e81276f6618
+    -getTroupHash(uint256) 245454b5af1f53870ecc14d1d731b0209f6c5bf2051431df97a701cdccc3c46e
+    -createBuilding(bytes16,uint256,uint256,bytes32,uint256,uint256,uint256,uint256) 2516930fd4849fda292dddb4c6f3bb897141e30a898738b98c04b9665a4a0cfe
+    -balances(address) 27e235e3156ba7594b76cc352951bc4f5090802332ed790fadb70e555671e6ab
+    -build(bytes32,bytes32) 30b654f82e8dfeed36f38ed4369e217e919381e3ef4c263ed8a0923c08b913a8
+    -unpause() 3f4ba83af89dc9793996d9e56b8abe6dc88cd97c9c2bb23027806e9c1ffd54dc
+    -troupStorage() 40d7f8c09f5158797609eb983115db25563fb6d44bb0f3052dc4cbaae1a02236
+    -getFortressesAvailable() 468c780402383654087f19e5a6652217ffd0283b95583ede1ac06b25d3c61d17
+    -getTroupIndexLength() 48d79c6f3e5e2a09f2d5ddb0d227f3f3b2a28a67fdd2e80564b6ad941a4b3def
+    -createFortress(bytes16) 5096ec5397b17c62998ad05c7ff660e27013e6da6faa6de8370cad0ff126b292
+    -auctions(uint256) 571a26a0cffc1c948fda84210cb62afc7643ba02d2fb487974595cf23e82273f
+    -paused() 5c975abbf8c4d6efa68fc896e233763eb503f2318260b7bf59b19412913788b2
+    -highestBid(bytes32) 61508bfdd6add8c726f043de9a2145fcdbf7f75d0a2de450f7d77125cb5c15ec
+    -getBuilding(bytes32) 66760ce6a008662c55adeb13907c95eee93eb3c49e3a603e61644065a6fd68ec
+    -getTroupCosts(bytes32) 66cfc3371dc5446c272da0fa4708f7ded6a1433cc0ddb28223d8b40b995a22b6
+    -auctionEnd(bytes32) 7621bd09d80fe668b6f1e65fcde2080eb50cdd68e5db3d79bddd2b4c653ae7be
+    -getHashFromIndex(address,uint256) 78a11bf00dc758f3a95ae87862fda745b78d58655cf4d5218fd94ace16409d18
+    -getBuildingCosts(bytes32) 7bbe01764019c4b4dcf5b26bce2e531e44b9409b327b2324d0f95d9436db4bbe
+    -getTroup(bytes32) 7e403f26d25892cfad809777be063cd02d3516653aa32ebefc2a75cadf2fa3fa
+    -stoneHash() 7f1c5886ecbce5b34aff8127cefe8a6810d36a20b68cf7fd83c4690e02036b75
+    -transferFortress(bytes32,address) 8063a94beb62e28d04f79c53b577bcc98490aae9b4e2e7de938ccb01f03bf047
+    -getUserAuctionsLength(address) 82768573fff3f3eb2621a0489b7b40baef8909a915d0abe9003a66cbbe281828
+    -pause() 8456cb591a934d53f6ccc6332123a165a1f3562907bf11330d847a29ca49eb89
+    -goldHash() 8764d2e273eb8676b1edd002d7efa3ac22adb44589a4c9ce973e58843f647a34
+    -getResources(bytes32) 8ca25ab490b59a4123ae1e045258589ba6fe540608ec7ba132bfe0e904a6d656
+    -owner() 8da5cb5b36e7f68c1d2e56001220cdbdd3ba2616072f718acfda4a06441a807d
+    -withdraw(bytes32) 8e19899e46957c7ebdf7f6745205163d4595f9439395ecae5a8119cc5cad663e
+    -createTroup(bytes16,uint256,uint256,uint256,uint256,uint256,uint256,uint256) 974f1e9e43031dd1070ed2cba5c533a058a1bcda889185b7d86ef20405b8d1b9
+    -getFortressBuilding(bytes32,bytes32) 98a842927cb31cb4832cc9f2c4a5be0a83f403567ebaf6804d41ec8c47f728d4
+    -startMinting() 9a65ea262a348038d5bf20afd267cfda3881a7cb988958b7271adde74351ae95
+    -woodHash() a00fedc77ab13a5630eea6285c1207340f636164bd40c0bda7811404b7cd43fb
+    -totalBalance() ad7a672fba2833726315cc78ca49d737d6a104d6eb4a4d86bc6efce8005ccdd7
+    -withdrawExcess(address) affbf593affef99041c8224bf702ff33cac18e4b6872f33315ffe35303e9df7d
+    -userAuctions(address,uint256) b4fbe80a6ea739908cedc50d9c0bc110a00ca017a282d936e1d773b56b492737
+    -highestBidder(bytes32) bf51e728675076136b0ec3ec142e97e2947a7bfd0c2cc3ff48e6dc11473bf839
+    -getFortress(bytes32) c1666a307f472a371a689e71b7f5119469d138ae5c9afa6b22a7c836a9672462
+    -auctionOwner(bytes32) c73dedfd452f69f3fe949b4d8eaf4b78ada0b281ea2d80c385574a89b2b13677
+    -getFortressTroups(bytes32,bytes32) c756b8e9345cf04627529285f6286baa383df5fc479064fb6cf48236a5fe817f
+    -getAuctionAmount(bytes32,address) c9c0c2426434f646d6790784e46f13b8986eb4bb51bd71a8f7b328ae501a9d7a
+    -bidAuction(bytes32) cacb7ad8d565c763cb3be3334b448011f170368de9509eaaa79385c2eb6c522a
+    -getBuildingHash(uint256) cb551a2b74fb546ba379e5f6a6324a8a277dabf99c6fd793765d81e544780e76
+    -getBuildingIndexLength() d5ee9ca4ff1a80ad6bf34c1c7f7dd8de3d29f9c97c0121b2a472186abc12a329
+    -getAuctionsLength() dbe350077d39d435184bb0bfa5715814a703f234258804bd5b96dfd6a2cb3fb2
+    -buildingAction(bytes32,bytes32) dc341d8d8eb91836b31635670223b8bc31580539b53d6250afe6f40d479057d6
+    -upgradeGame(address) e82acd26d61b58eaaa9943f99afa5e496d2c56cb5c2ed9d406e05d01811eef53
+    -buildingStorage() ed8faf3dccebaea7874ac254b4517324fa02477f4db2980adee53cf9e711d882
+    -startAuction(bytes32) ede8acdb10d4c74c26ab4f7606d22fb66fbf5942b94b40a286b1019f650c5cbd
+    -transferOwnership(address) f2fde38b092330466c661fc723d5289b90272a3e580e3187d1d7ef788506c557
+    -getIndexLength(address) f5807181d671045f62749f521a02261f0bdaef31382e98a76715da56d0760077
+*/
+
+/*
+    Events and their signature hashes:
+
+    -LogFortressCreated(bytes16,bytes32,address,int256,int256) 39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e
+    -LogBuild(bytes32,bytes32) 9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9
+    -LogBuildingAction(bytes32,bytes32) 9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca
+    -LogBuildingCreated(bytes32) c419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f
+    -LogTroupCreated(bytes32) a543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c
+*/
 
 // Data structures and variables inferred from the use of storage instructions
 uint256 stor_1; // STORAGE[0x1]
