@@ -53,6 +53,13 @@
 // transferOwnership(address) f2fde38b092330466c661fc723d5289b90272a3e580e3187d1d7ef788506c557
 // getIndexLength(address) f5807181d671045f62749f521a02261f0bdaef31382e98a76715da56d0760077
 
+// Events and their signature hashes:
+// LogFortressCreated(bytes16,bytes32,address,int256,int256) 39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e
+// LogBuild(bytes32,bytes32) 9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9
+// LogBuildingAction(bytes32,bytes32) 9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca
+// LogBuildingCreated(bytes32) c419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f
+// LogTroupCreated(bytes32) a543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c
+
 // Data structures and variables inferred from the use of storage instructions
 uint256 stor_1; // STORAGE[0x1]
 uint256 stor_5; // STORAGE[0x5]
@@ -201,7 +208,7 @@ function createBuilding(bytes16 _name, uint256 _action, uint256 _actionRate, byt
     require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size);
     v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(0xf481d125, stor_3_0_19, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _action, _actionRate, _actionValue, _actionTimeout, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
-    emit 0xc419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f(v0);
+    emit LogBuildingCreated(v0);
     stor_1 += 1;
 }
 
@@ -233,7 +240,7 @@ function build(bytes32 _fortressHash, bytes32 _buildingHash) public {
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0x7b2be003, stor_2_0_19, _fortressHash, _buildingHash, v2 - v8, v1 - v9, v0 - v10, 1 + v7).gas(msg.gas - 710);
     require(v15);
-    emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(_fortressHash, _buildingHash);
+    emit LogBuild(_fortressHash, _buildingHash);
 }
 
 function unpause() public { 
@@ -289,7 +296,7 @@ function createFortress(bytes16 _name) public payable {
     }
     stor_11 += stor_13;
     stor_12 += stor_14;
-    emit 0x39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, v0, msg.sender, stor_11, stor_12);
+    emit LogFortressCreated(_name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, v0, msg.sender, stor_11, stor_12);
     stor_1 += 1;
 }
 
@@ -396,7 +403,7 @@ function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _i
     require(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size);
     v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(0x93fdc929, stor_4_0_19, v0, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
     require(v1);
-    emit 0xa543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c(v0);
+    emit LogTroupCreated(v0);
     stor_1 += 1;
 }
 
@@ -582,7 +589,7 @@ function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) public {
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
     v31 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xf28c3ee3, stor_2_0_19, _fortressHash, _buildingHash, v2 * 3600 + block.timestamp).gas(msg.gas - 710);
     require(v31);
-    emit 0x9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca(_fortressHash, _buildingHash);
+    emit LogBuildingAction(_fortressHash, _buildingHash);
 }
 
 function upgradeGame(uint256 _newContract) public { 
