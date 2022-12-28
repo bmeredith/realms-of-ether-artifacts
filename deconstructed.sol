@@ -78,7 +78,7 @@ mapping (uint256 => [uint256]) owner_c; // STORAGE[0xc]
 mapping (uint256 => [uint256]) owner_d; // STORAGE[0xd]
 mapping (uint256 => [uint256]) _balances; // STORAGE[0xe]
 uint256 _totalBalance; // STORAGE[0xf]
-uint256[] _getAuctionsLength; // STORAGE[0x10]
+bytes32[] _getAuctionsLength; // STORAGE[0x10] - holds list of FortressHashes that are being auctioned
 uint256 _x; // STORAGE[0x11]
 uint256 _y; // STORAGE[0x12]
 uint256 stor_13; // STORAGE[0x13]
@@ -305,9 +305,9 @@ function createFortress(bytes16 _name) public payable {
     stor_1 += 1;
 }
 
-function auctions(uint256 varg0) public view returns (bytes32) { 
-    assert(varg0 < _getAuctionsLength.length);
-    return _getAuctionsLength[varg0];
+function auctions(uint256 _auctionId) public view returns (bytes32) { 
+    assert(_auctionId < _getAuctionsLength.length);
+    return _getAuctionsLength[_auctionId];
 }
 
 function paused() public view returns (bool) { 
