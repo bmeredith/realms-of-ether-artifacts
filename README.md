@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is meant to serve to provide a more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The original smart contract source code remains unavailable and unverified, but using a few different techniques it is still possible to get a better idea of what lies within.
+This repository is meant to provide a more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The original smart contract source code remains unavailable and unverified, but using a few different techniques it is still possible to get a better idea of what lies within.
 
 ## Breakdown
 
