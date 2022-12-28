@@ -79,8 +79,8 @@ mapping (uint256 => [uint256]) owner_d; // STORAGE[0xd]
 mapping (address => uint256) _balances; // STORAGE[0xe]
 uint256 _totalBalance; // STORAGE[0xf]
 bytes32[] _getAuctionsLength; // STORAGE[0x10] - holds list of FortressHashes that are being auctioned
-uint256 _x; // STORAGE[0x11]
-uint256 _y; // STORAGE[0x12]
+int256 _x; // STORAGE[0x11]
+int256 _y; // STORAGE[0x12]
 uint256 stor_13; // STORAGE[0x13]
 uint256 stor_14; // STORAGE[0x14]
 address _owner; // STORAGE[0x0] bytes 0 to 19
@@ -280,6 +280,7 @@ function createFortress(bytes16 _name) public payable {
     require(msg.value >= 0x2386f26fc10000);
     fortressHash = keccak256(msg.sender, ~0xffffffffffffffffffffffffffffffff & (_name & ~0xffffffffffffffffffffffffffffffff), stor_1);
     require(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size);
+    // createFortress(address,bytes32,bytes16,int256,int256,uint256,uint256,uint256,uint256,address) bd1fb9816a6d852b8b5f5de67b9d0e92d0d743415a6d654e272efbc04e73d01c
     v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(0xbd1fb981, _fortressStorage, fortressHash, _name & ~0xffffffffffffffffffffffffffffffff & ~0xffffffffffffffffffffffffffffffff, _x, _y, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
     require(v1);
     v2 = v3 = _x == _y;
