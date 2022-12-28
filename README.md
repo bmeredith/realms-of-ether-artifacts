@@ -31,7 +31,7 @@ This repository is meant to serve to provide a more in-depth look into the [Real
 
 ## Method/Event Identifiers
 
-### Realms of Ether main contract
+### Realms of Ether contract
 
 | **Method**                                                                      | **MethodID** |
 |---------------------------------------------------------------------------------|--------------|
