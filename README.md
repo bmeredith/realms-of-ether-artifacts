@@ -1,4 +1,4 @@
-# Realms of Ether Deconstructed
+# Realms of Ether Reconstructed
 
 ## Purpose
 
