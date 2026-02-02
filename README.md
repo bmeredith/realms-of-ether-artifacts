@@ -32,8 +32,6 @@ This repository is meant to provide a more in-depth look into the [Realms of Eth
 | BuildingStorage (Proxy?) | https://etherscan.io/address/0xb939a1d96dda7271d6d89eaceabd9163d0502165 |
 | TroupStorage             | https://etherscan.io/address/0xAE066769aa0fC472f1ee10360e05f2a6d903c1f3 |
 | TroupStorage (Proxy?)    | https://etherscan.io/address/0x902904b1833def4aef05b99cea93cc3383cd2d4a |
-| ???                      | https://etherscan.io/address/0x3ecFD43652462a9EDc06f5c4e3e65e1E9A1FAF24 |
-| ???                      | https://etherscan.io/address/0x12e9b4b43a8e8788569be5df6fc3ed88780c4dfc |
 
 ## Method/Event Identifiers
 
