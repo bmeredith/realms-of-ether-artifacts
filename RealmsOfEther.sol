@@ -359,16 +359,21 @@ contract RealmsOfEther is Pausable {
         return v2, v1, v0;
     }
 
-    function withdraw(bytes32 args) public whenNotPaused {
-        require(mapping_8[args] <= block.timestamp);
-        require(_highestBidder[args] != msg.sender);
-        mapping_d[keccak256(args, msg.sender)] = 0;
-        v0 = mapping_d[keccak256(args, msg.sender)].sub(_balances[msg.sender]);
-        _balances[msg.sender] = v0;
-        v1 = mapping_d[keccak256(args, msg.sender)].sub(_totalBalance);
-        _totalBalance = v1;
-        v2 = msg.sender.call().value(mapping_d[keccak256(args, msg.sender)]).gas(2300 * !mapping_d[keccak256(args, msg.sender)]);
-        require(bool(v2));
+    function withdraw(bytes32 fortressHash) public whenNotPaused {
+        require(mapping_8[fortressHash] <= block.timestamp);
+        require(_highestBidder[fortressHash] != msg.sender);
+
+        bytes32 key = keccak256(fortressHash, msg.sender);
+        
+        // cache amount first (matches Tenderly showing the SLOAD before SSTORE)
+        uint256 amount = mapping_d[key];
+        
+        // clear pending balance (even if it's already 0)
+        mapping_d[key] = 0;
+        _balances[msg.sender] = mapping_d[key].sub(_balances[msg.sender]);
+        _totalBalance = mapping_d[key].sub(_totalBalance);
+
+        require(msg.sender.call.value(amount).gas(2300)());
     }
 
     function 0x974f1e9e(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public onlyOwner {
