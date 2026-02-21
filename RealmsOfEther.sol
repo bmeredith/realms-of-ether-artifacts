@@ -359,11 +359,11 @@ contract RealmsOfEther is Pausable {
         return v2, v1, v0;
     }
 
-    function withdraw(bytes32 fortressHash) public whenNotPaused {
-        require(mapping_8[fortressHash] <= block.timestamp);
-        require(_highestBidder[fortressHash] != msg.sender);
+    function withdraw(bytes32 HASH) public whenNotPaused {
+        require(mapping_8[HASH] <= block.timestamp);
+        require(_highestBidder[HASH] != msg.sender);
 
-        bytes32 key = keccak256(fortressHash, msg.sender);
+        bytes32 key = keccak256(HASH, msg.sender);
         
         // cache amount first (matches Tenderly showing the SLOAD before SSTORE)
         uint256 amount = mapping_d[key];
