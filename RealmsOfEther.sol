@@ -30,6 +30,8 @@ contract RealmsOfEther is Pausable {
     uint256 stor_13; // STORAGE[0x13] stor_13
     uint256 stor_14; // STORAGE[0x14] stor_14
 
+    uint256 constant AUCTION_DURATION = 3 days;
+
     // Events
 
     function 0x12cc(uint256 varg0) private { 
@@ -90,23 +92,13 @@ contract RealmsOfEther is Pausable {
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, auctionId, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
-        v1 = _SafeSub(mapping_a[auctionId], _balances[msg.sender]);
+        v1 = mapping_a[auctionId].sub(_balances[msg.sender]);
         _balances[msg.sender] = v1;
         mapping_d[keccak256(auctionId, msg.sender)] = 0;
-        v2 = _SafeAdd(mapping_a[auctionId], mapping_d[keccak256(auctionId, mapping_9[auctionId])]);
+        v2 = mapping_a[auctionId].add(mapping_d[keccak256(auctionId, mapping_9[auctionId])]);
         mapping_d[keccak256(auctionId, mapping_9[auctionId])] = v2;
-        v3 = _SafeAdd(mapping_a[auctionId], _balances[mapping_9[auctionId]]);
+        v3 = mapping_a[auctionId].add(_balances[mapping_9[auctionId]]);
         _balances[mapping_9[auctionId]] = v3;
-    }
-
-    function _SafeSub(uint256 varg0, uint256 varg1) private { 
-        assert(varg0 <= varg1);
-        return varg1 - varg0;
-    }
-
-    function _SafeAdd(uint256 varg0, uint256 varg1) private { 
-        assert(varg0 + varg1 >= varg1);
-        return varg0 + varg1;
     }
 
     function 0x26af(uint256 varg0) private { 
@@ -122,29 +114,19 @@ contract RealmsOfEther is Pausable {
         return stor_2_0_19;
     }
 
-    function _SafeMul(uint256 varg0, uint256 varg1) private { 
-        if (bool(varg1)) {
-            assert(bool(varg1));
-            assert(varg0 * varg1 / varg1 == varg0);
-            return varg0 * varg1;
-        } else {
-            return 0;
-        }
-    }
-
     function 0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
         if (varg5 == stor_5) {
-            v0 = _SafeAdd(1, varg3);
-            v1 = _SafeMul(v0, varg4);
-            v2 = _SafeAdd(v1, varg2);
+            v0 = varg3.add(1);
+            v1 = v0.mul(varg4);
+            v2 = v1.add(varg2);
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
             v3 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x1253a59c), stor_2_0_19, varg6, v2).gas(msg.gas - 710);
             require(bool(v3));
         }
         if (varg5 == stor_7) {
-            v4 = _SafeAdd(1, varg3);
-            v5 = _SafeMul(v4, varg4);
-            v6 = _SafeAdd(v5, varg1);
+            v4 = varg3.add(1);
+            v5 = v4.mul(varg4);
+            v6 = v5.add(varg1);
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
             v7 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x985a78d3), stor_2_0_19, varg6, v6).gas(msg.gas - 710);
             require(bool(v7));
@@ -152,9 +134,9 @@ contract RealmsOfEther is Pausable {
         if (varg5 != stor_6) {
             return ;
         } else {
-            v8 = _SafeAdd(1, varg3);
-            v9 = _SafeMul(v8, varg4);
-            v10 = _SafeAdd(v9, varg0);
+            v8 = varg3.add(1);
+            v9 = v8.mul(varg4);
+            v10 = v9.add(varg0);
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
             v11 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xa04e8cb9), stor_2_0_19, varg6, v10).gas(msg.gas - 710);
             require(bool(v11));
@@ -168,11 +150,11 @@ contract RealmsOfEther is Pausable {
 
     function 0x2a52(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) private { 
         v0, v1, v2 = 0x1393(varg6);
-        v3 = _SafeMul(varg4, varg5);
-        v4 = _SafeAdd(1, v3);
-        v5 = _SafeMul(v4, v2);
-        v6 = _SafeMul(v4, v1);
-        v7 = _SafeMul(v4, v0);
+        v3 = varg4.mul(varg5);
+        v4 = v3.add(1);
+        v5 = v4.mul(v2);
+        v6 = v4.mul(v1);
+        v7 = v4.mul(v0);
         v8 = v9 = varg3 >= v5;
         if (varg3 >= v5) {
             v8 = v10 = varg2 >= v6;
@@ -181,19 +163,19 @@ contract RealmsOfEther is Pausable {
             v8 = v11 = varg1 >= v7;
         }
         require(bool(v8));
-        v12 = _SafeSub(v5, varg3);
+        v12 = v5.sub(varg3);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v13 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x1253a59c), stor_2_0_19, varg7, v12).gas(msg.gas - 710);
         require(bool(v13));
-        v14 = _SafeSub(v6, varg2);
+        v14 = v6.sub(varg2);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v15 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x985a78d3), stor_2_0_19, varg7, v14).gas(msg.gas - 710);
         require(bool(v15));
-        v16 = _SafeSub(v7, varg1);
+        v16 = v7.sub(varg1);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v17 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xa04e8cb9), stor_2_0_19, varg7, v16).gas(msg.gas - 710);
         require(bool(v17));
-        v18 = _SafeAdd(v4, varg0);
+        v18 = v4.add(varg0);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x56c1c099), stor_2_0_19, varg7, varg6, v18).gas(msg.gas - 710);
         require(bool(v19));
@@ -240,10 +222,10 @@ contract RealmsOfEther is Pausable {
         v0, v1, v2 = 0x1749(name);
         v3, v4, v5 = 0x14f4(symbol);
         v6, v7 = 0x1a67(symbol, name);
-        v8 = _SafeAdd(1, v7);
-        v9 = _SafeMul(v8, v5);
-        v10 = _SafeMul(v8, v4);
-        v11 = _SafeMul(v8, v3);
+        v8  = v7.add(1);
+        v9  = v8.mul(v5);
+        v10 = v8.mul(v4);
+        v11 = v8.mul(v3);
         v12 = v13 = v2 >= v9;
         if (v2 >= v9) {
             v12 = v14 = v1 >= v10;
@@ -252,9 +234,9 @@ contract RealmsOfEther is Pausable {
             v12 = v15 = v0 >= v11;
         }
         require(bool(v12));
-        v16 = _SafeSub(v9, v2);
-        v17 = _SafeSub(v10, v1);
-        v18 = _SafeSub(v11, v0);
+        v16 = v9.sub(v2);
+        v17 = v10.sub(v1);
+        v18 = v11.sub(v0);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x7b2be003), stor_2_0_19, name, symbol, v16, v17, v18, v8).gas(msg.gas - 710);
         require(bool(v19));
@@ -381,9 +363,9 @@ contract RealmsOfEther is Pausable {
         require(mapping_8[args] <= block.timestamp);
         require(_highestBidder[args] != msg.sender);
         mapping_d[keccak256(args, msg.sender)] = 0;
-        v0 = _SafeSub(mapping_d[keccak256(args, msg.sender)], _balances[msg.sender]);
+        v0 = mapping_d[keccak256(args, msg.sender)].sub(_balances[msg.sender]);
         _balances[msg.sender] = v0;
-        v1 = _SafeSub(mapping_d[keccak256(args, msg.sender)], _totalBalance);
+        v1 = mapping_d[keccak256(args, msg.sender)].sub(_totalBalance);
         _totalBalance = v1;
         v2 = msg.sender.call().value(mapping_d[keccak256(args, msg.sender)]).gas(2300 * !mapping_d[keccak256(args, msg.sender)]);
         require(bool(v2));
@@ -417,7 +399,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function withdrawExcess(address _receiver) public onlyOwner {
-        v0 = _SafeSub(_totalBalance, (address(this)).balance);
+        v0 = _totalBalance.sub((address(this)).balance);
         v1 = _receiver.call().value(v0).gas(!v0 * 2300);
         require(bool(v1));
     }
@@ -454,11 +436,11 @@ contract RealmsOfEther is Pausable {
 
     function 0xcacb7ad8(uint256 varg0) public payable whenNotPaused {
         require(block.timestamp < mapping_8[varg0]);
-        v0 = _SafeSub(0x3f480, mapping_8[varg0]);
+        v0 = AUCTION_DURATION.sub(mapping_8[varg0]);
         require(block.timestamp > v0);
         assert(bool(100));
-        v1 = _SafeMul(1, msg.value / 100);
-        v2 = _SafeSub(v1, msg.value);
+        v1 = uint256(1).mul(msg.value / 100);
+        v2 = v1.sub(msg.value);
         v3 = keccak256(varg0, msg.sender);
         if (!bool(mapping_d[v3])) {
             _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
@@ -471,13 +453,13 @@ contract RealmsOfEther is Pausable {
             }
             _userAuctions[msg.sender][_userAuctions[msg.sender].length] = varg0;
         }
-        v6 = _SafeAdd(v2, mapping_d[v3]);
+        v6 = v2.add(mapping_d[v3]);
         mapping_d[v3] = v6;
-        v7 = _SafeAdd(v2, _balances[msg.sender]);
+        v7 = v2.add(_balances[msg.sender]);
         _balances[msg.sender] = v7;
-        v8 = _SafeAdd(v2, _totalBalance);
+        v8 = v2.add(_totalBalance);
         _totalBalance = v8;
-        v9 = _SafeAdd(10 ** 16, mapping_a[varg0]);
+        v9 = (10 ** 16).add(mapping_a[varg0]);
         if (mapping_d[v3] >= v9) {
             mapping_a[varg0] = mapping_d[v3];
             _highestBidder[varg0] = msg.sender;
@@ -549,7 +531,7 @@ contract RealmsOfEther is Pausable {
         _highestBidder[loanId] = msg.sender;
         mapping_a[loanId] = 0;
         mapping_9[loanId] = msg.sender;
-        mapping_8[loanId] = block.timestamp + 0x3f480;
+        mapping_8[loanId] = block.timestamp + AUCTION_DURATION;
         _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
         if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
             v3 = v4 = _userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
