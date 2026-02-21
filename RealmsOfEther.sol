@@ -524,19 +524,19 @@ contract RealmsOfEther is Pausable {
         return stor_3_0_19;
     }
 
-    function startAuction(bytes32 loanId) public whenNotPaused {
+    function startAuction(bytes32 _hash /* fortress hash */) public whenNotPaused {
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, loanId).gas(msg.gas - 710);
+        v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, _hash).gas(msg.gas - 710);
         require(bool(v0));
         require(address(v1) == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, loanId, address(this)).gas(msg.gas - 710);
+        v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, _hash, address(this)).gas(msg.gas - 710);
         require(bool(v2));
-        _highestBidder[loanId] = msg.sender;
-        mapping_a[loanId] = 0;
-        mapping_9[loanId] = msg.sender;
-        mapping_8[loanId] = block.timestamp + AUCTION_DURATION;
+        _highestBidder[_hash] = msg.sender;
+        mapping_a[_hash] = 0;
+        mapping_9[_hash] = msg.sender;
+        mapping_8[_hash] = block.timestamp + AUCTION_DURATION;
         _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
         if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
             v3 = v4 = _userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
@@ -545,7 +545,7 @@ contract RealmsOfEther is Pausable {
                 v3 += 1;
             }
         }
-        _userAuctions[msg.sender][_userAuctions[msg.sender].length] = loanId;
+        _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _hash;
         _getAuctionsLength.length = _getAuctionsLength.length + 1;
         if (!_getAuctionsLength.length <= _getAuctionsLength.length + 1) {
             v5 = v6 = _getAuctionsLength.length + 1 + keccak256(16);
@@ -554,7 +554,7 @@ contract RealmsOfEther is Pausable {
                 v5 += 1;
             }
         }
-        _getAuctionsLength[_getAuctionsLength.length] = loanId;
+        _getAuctionsLength[_getAuctionsLength.length] = _hash;
     }
 
     function getIndexLength(address varg0) public { 
