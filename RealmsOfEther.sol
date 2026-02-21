@@ -34,12 +34,39 @@ contract RealmsOfEther is Pausable {
 
     // Events
 
-    function 0x12cc(uint256 varg0) private { 
-        MEM[160 + MEM[64]] = 0;
-        require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0x9d3bd2e4), stor_3_0_19, varg0).gas(msg.gas - 710);
-        require(bool(v0));
-        return v5, v4, v3, v2, v1;
+    function 0x12cc(bytes32 _buildingHash) 
+        private 
+        view 
+        returns (
+            uint256 actionTimeout,
+            bytes32 actionValue,
+            uint256 actionRate,
+            uint256 action,
+            bytes16 name
+        ) 
+    { 
+        require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size > 0);
+
+        bool success;
+        uint256 rawName;       // comes back as a 32-byte word, masked to 16 bytes
+        uint256 rawAction;
+        uint256 rawActionRate;
+        uint256 rawActionValue;   // will be interpreted as bytes32
+        uint256 rawTimeout;
+
+         (success, rawName, rawAction, rawActionRate, rawActionValue, rawTimeout) =
+            0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(
+                uint32(0x9d3bd2e4),
+                stor_3_0_19,
+                uint256(_buildingHash)
+            );
+        require(success);
+
+        actionTimeout = rawTimeout;
+        actionValue   = bytes32(rawActionValue);
+        actionRate    = rawActionRate;
+        action        = rawAction;
+        name          = bytes16(rawName);
     }
 
     function 0x1393(uint256 varg0) private { 
@@ -86,19 +113,19 @@ contract RealmsOfEther is Pausable {
         revert();
     }
 
-    function endAuction(bytes32 auctionId) public whenNotPaused {
-        require(mapping_8[auctionId] <= block.timestamp);
-        require(_highestBidder[auctionId] == msg.sender);
+    function endAuction(bytes32 _fortressHash) public whenNotPaused {
+        require(mapping_8[_fortressHash] <= block.timestamp);
+        require(_highestBidder[_fortressHash] == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, auctionId, msg.sender).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, _fortressHash, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
-        v1 = mapping_a[auctionId].sub(_balances[msg.sender]);
+        v1 = mapping_a[_fortressHash].sub(_balances[msg.sender]);
         _balances[msg.sender] = v1;
-        mapping_d[keccak256(auctionId, msg.sender)] = 0;
-        v2 = mapping_a[auctionId].add(mapping_d[keccak256(auctionId, mapping_9[auctionId])]);
-        mapping_d[keccak256(auctionId, mapping_9[auctionId])] = v2;
-        v3 = mapping_a[auctionId].add(_balances[mapping_9[auctionId]]);
-        _balances[mapping_9[auctionId]] = v3;
+        mapping_d[keccak256(_fortressHash, msg.sender)] = 0;
+        v2 = mapping_a[_fortressHash].add(mapping_d[keccak256(_fortressHash, mapping_9[_fortressHash])]);
+        mapping_d[keccak256(_fortressHash, mapping_9[_fortressHash])] = v2;
+        v3 = mapping_a[_fortressHash].add(_balances[mapping_9[_fortressHash]]);
+        _balances[mapping_9[_fortressHash]] = v3;
     }
 
     function 0x26af(uint256 varg0) private { 
@@ -110,7 +137,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function fortressStorage() public { 
+    function fortressStorage() public view returns (address) { 
         return stor_2_0_19;
     }
 
@@ -144,7 +171,7 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function balanceAuction(bytes32 varg0) public { 
+    function balanceAuction(bytes32 varg0) public view returns (uint256) { 
         return mapping_d[varg0];
     }
 
@@ -182,7 +209,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function getFortressCount() public { 
+    function getFortressCount() public view returns (uint256) { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x3f0a6f3d), stor_2_0_19).gas(msg.gas - 710);
@@ -197,7 +224,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function getTroupHash(uint256 varg0) public { 
+    function getTroupHash(bytes32 varg0) public view { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(stor_4_0_19, varg0).gas(msg.gas - 710);
@@ -205,23 +232,35 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function createBuilding(bytes16 varg0, uint256 varg1, uint256 varg2, bytes32 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public onlyOwner {
+    function createBuilding(bytes16 _name, uint256 _action, uint256 _actionRate, bytes32 _actionValue, uint256 _actionTimeout, uint256 _gold, uint256 _wood, uint256 _stone) public onlyOwner {
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf481d125), stor_3_0_19, keccak256(msg.sender, varg0, stor_1), varg0, varg1, varg2, varg3, varg4, varg5, varg6, varg7).gas(msg.gas - 710);
+        v0 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(
+            uint32(0xf481d125), 
+            stor_3_0_19,
+            keccak256(msg.sender, _name, stor_1), 
+            _name, 
+            _action, 
+            _actionRate, 
+            _actionValue, 
+            _actionTimeout, 
+            _gold, 
+            _wood, 
+            _stone
+        ).gas(msg.gas - 710);
         require(bool(v0));
-        emit 0xc419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f(keccak256(msg.sender, varg0, stor_1));
+        emit 0xc419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f(keccak256(msg.sender, _name, stor_1));
         stor_1 += 1;
     }
 
-    function balances(address varg0) public { 
+    function balances(address varg0) public view returns (uint256) { 
         return _balances[varg0];
     }
 
-    function build(bytes32 name, bytes32 symbol) public whenNotPaused {
-        0x26af(name);
-        v0, v1, v2 = 0x1749(name);
-        v3, v4, v5 = 0x14f4(symbol);
-        v6, v7 = 0x1a67(symbol, name);
+    function build(bytes32 _fortressHash, bytes32 _buildingHash) public whenNotPaused {
+        0x26af(_fortressHash);
+        v0, v1, v2 = 0x1749(_fortressHash);
+        v3, v4, v5 = 0x14f4(_buildingHash);
+        v6, v7 = 0x1a67(_buildingHash, _fortressHash);
         v8  = v7.add(1);
         v9  = v8.mul(v5);
         v10 = v8.mul(v4);
@@ -238,16 +277,16 @@ contract RealmsOfEther is Pausable {
         v17 = v10.sub(v1);
         v18 = v11.sub(v0);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x7b2be003), stor_2_0_19, name, symbol, v16, v17, v18, v8).gas(msg.gas - 710);
+        v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x7b2be003), stor_2_0_19, _fortressHash, _buildingHash, v16, v17, v18, v8).gas(msg.gas - 710);
         require(bool(v19));
-        emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(name, symbol);
+        emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(_fortressHash, _buildingHash);
     }
 
-    function troupStorage() public { 
+    function troupStorage() public view returns (address) { 
         return stor_4_0_19;
     }
 
-    function getFortressesAvailable() public { 
+    function getFortressesAvailable() public view returns (uint256) { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x1777d529), stor_2_0_19).gas(msg.gas - 710);
@@ -255,7 +294,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function getTroupIndexLength() public { 
+    function getTroupIndexLength() public view returns (uint256) { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xf5807181), stor_4_0_19).gas(msg.gas - 710);
@@ -263,10 +302,10 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function createFortress(bytes16 varg0) public payable whenNotPaused {
+    function createFortress(bytes16 _name) public payable whenNotPaused {
         require(msg.value >= 10 ** 16);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), stor_2_0_19, keccak256(msg.sender, varg0, stor_1), varg0, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), stor_2_0_19, keccak256(msg.sender, _name, stor_1), _name, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
         v1 = v2 = stor_11 == stor_12;
         if (stor_11 != stor_12) {
@@ -287,22 +326,38 @@ contract RealmsOfEther is Pausable {
         }
         stor_11 += stor_13;
         stor_12 += stor_14;
-        emit 0x39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e(varg0, keccak256(msg.sender, varg0, stor_1), msg.sender, stor_11, stor_12);
+        emit 0x39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e(_name, keccak256(msg.sender, _name, stor_1), msg.sender, stor_11, stor_12);
         stor_1 += 1;
     }
 
-    function auctions(uint256 varg0) public { 
+    function auctions(uint256 varg0) public view returns (bytes32) { 
         assert(varg0 < _getAuctionsLength.length);
         return _getAuctionsLength[varg0];
     }
 
-    function highestBid(bytes32 varg0) public { 
+    function highestBid(bytes32 varg0) public view returns (uint256) { 
         return mapping_a[varg0];
     }
 
-    function getBuilding(bytes32 buildingNameHash) public { 
-        v0, v1, v2, v3, v4 = 0x12cc(buildingNameHash);
-        return bytes16(v4), v3, v2, v1, v0;
+    function getBuilding(bytes32 _buildingHash)
+        public
+        view
+        returns (
+            bytes16 _name,
+            uint256 _action,
+            uint256 _actionRate,
+            bytes32 _actionValue,
+            uint256 _actionTimeout
+        ) 
+    { 
+        bytes16 name;
+        uint256 action;
+        uint256 actionRate;
+        bytes32 actionValue;
+        uint256 actionTimeout;
+
+        (actionTimeout, actionValue, actionRate, action, name) = 0x12cc(_buildingHash);
+        return (name, action, actionRate, actionValue, actionTimeout);
     }
 
     function getTroupCosts(bytes32 varg0) public { 
