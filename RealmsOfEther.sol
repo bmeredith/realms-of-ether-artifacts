@@ -8,7 +8,7 @@ contract RealmsOfEther is Pausable {
 
     // Data structures and variables inferred from the use of storage instructions
     //address _owner; // STORAGE[0x0] bytes 0 to 19
-    bool _paused; // STORAGE[0x0] bytes 20 to 20
+    //bool _paused; // STORAGE[0x0] bytes 20 to 20
     uint256 stor_1; // STORAGE[0x1] stor_1
     address stor_2_0_19; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
     address stor_3_0_19; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
@@ -84,8 +84,7 @@ contract RealmsOfEther is Pausable {
         revert();
     }
 
-    function endAuction(bytes32 auctionId) public { 
-        require(!_paused);
+    function endAuction(bytes32 auctionId) public whenNotPaused {
         require(mapping_8[auctionId] <= block.timestamp);
         require(_highestBidder[auctionId] == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -236,8 +235,7 @@ contract RealmsOfEther is Pausable {
         return _balances[varg0];
     }
 
-    function build(bytes32 name, bytes32 symbol) public { 
-        require(bool(!_paused));
+    function build(bytes32 name, bytes32 symbol) public whenNotPaused {
         0x26af(name);
         v0, v1, v2 = 0x1749(name);
         v3, v4, v5 = 0x14f4(symbol);
@@ -263,12 +261,6 @@ contract RealmsOfEther is Pausable {
         emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(name, symbol);
     }
 
-    function unpause() public onlyOwner {
-        require(_paused);
-        _paused = 0;
-        emit Unpause();
-    }
-
     function 0x40d7f8c0() public { 
         return stor_4_0_19;
     }
@@ -289,8 +281,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0x5096ec53(bytes16 varg0) public payable { 
-        require(!_paused);
+    function 0x5096ec53(bytes16 varg0) public payable whenNotPaused {
         require(msg.value >= 10 ** 16);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), stor_2_0_19, keccak256(msg.sender, varg0, stor_1), varg0, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
@@ -321,10 +312,6 @@ contract RealmsOfEther is Pausable {
     function auctions(uint256 varg0) public { 
         assert(varg0 < _getAuctionsLength.length);
         return _getAuctionsLength[varg0];
-    }
-
-    function paused() public { 
-        return _paused;
     }
 
     function 0x61508bfd(uint256 varg0) public { 
@@ -370,8 +357,7 @@ contract RealmsOfEther is Pausable {
         return stor_7;
     }
 
-    function 0x8063a94b(uint256 varg0, address varg1) public { 
-        require(!_paused);
+    function 0x8063a94b(uint256 varg0, address varg1) public whenNotPaused {
         0x26af(varg0);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xb844ad67), stor_2_0_19, varg0, varg1).gas(msg.gas - 710);
@@ -380,12 +366,6 @@ contract RealmsOfEther is Pausable {
 
     function 0x82768573(address varg0) public { 
         return _userAuctions[varg0].length;
-    }
-
-    function pause() public onlyOwner {
-        require(!_paused);
-        _paused = 1;
-        emit Pause();
     }
 
     function 0x8764d2e2() public { 
@@ -397,8 +377,7 @@ contract RealmsOfEther is Pausable {
         return v2, v1, v0;
     }
 
-    function withdraw(bytes32 args) public { 
-        require(!_paused);
+    function withdraw(bytes32 args) public whenNotPaused {
         require(mapping_8[args] <= block.timestamp);
         require(_highestBidder[args] != msg.sender);
         mapping_d[keccak256(args, msg.sender)] = 0;
@@ -473,8 +452,7 @@ contract RealmsOfEther is Pausable {
         return mapping_d[keccak256(varg0, varg1)];
     }
 
-    function 0xcacb7ad8(uint256 varg0) public payable { 
-        require(!_paused);
+    function 0xcacb7ad8(uint256 varg0) public payable whenNotPaused {
         require(block.timestamp < mapping_8[varg0]);
         v0 = _SafeSub(0x3f480, mapping_8[varg0]);
         require(block.timestamp > v0);
@@ -526,8 +504,7 @@ contract RealmsOfEther is Pausable {
         return _getAuctionsLength.length;
     }
 
-    function 0xdc341d8d(uint256 varg0, uint256 varg1) public { 
-        require(bool(!_paused));
+    function 0xdc341d8d(uint256 varg0, uint256 varg1) public whenNotPaused {
         0x26af(varg0);
         v0, v1 = 0x1a67(varg1, varg0);
         require(block.timestamp > v0);
@@ -560,8 +537,7 @@ contract RealmsOfEther is Pausable {
         return stor_3_0_19;
     }
 
-    function startAuction(bytes32 loanId) public { 
-        require(!_paused);
+    function startAuction(bytes32 loanId) public whenNotPaused {
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, loanId).gas(msg.gas - 710);
