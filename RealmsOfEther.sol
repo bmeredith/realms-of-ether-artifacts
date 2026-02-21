@@ -84,7 +84,7 @@ contract RealmsOfEther is Pausable {
         revert();
     }
 
-    function endAuction(bytes32 auctionId) public nonPayable { 
+    function endAuction(bytes32 auctionId) public { 
         require(!_paused);
         require(mapping_8[auctionId] <= block.timestamp);
         require(_highestBidder[auctionId] == msg.sender);
@@ -119,7 +119,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function 0x0258a643() public nonPayable { 
+    function 0x0258a643() public { 
         return stor_2_0_19;
     }
 
@@ -163,7 +163,7 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function 0x093556c9(uint256 varg0) public nonPayable { 
+    function 0x093556c9(uint256 varg0) public { 
         return mapping_d[varg0];
     }
 
@@ -201,7 +201,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function 0x10cfcf0c() public nonPayable { 
+    function 0x10cfcf0c() public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x3f0a6f3d), stor_2_0_19).gas(msg.gas - 710);
@@ -216,7 +216,7 @@ contract RealmsOfEther is Pausable {
         return ;
     }
 
-    function 0x245454b5(uint256 varg0) public nonPayable { 
+    function 0x245454b5(uint256 varg0) public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(stor_4_0_19, varg0).gas(msg.gas - 710);
@@ -224,7 +224,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0x2516930f(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public nonPayable { 
+    function 0x2516930f(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public { 
         require(_owner == msg.sender);
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf481d125), stor_3_0_19, keccak256(msg.sender, varg0, stor_1), varg0, varg1, varg2, varg3, varg4, varg5, varg6, varg7).gas(msg.gas - 710);
@@ -233,11 +233,11 @@ contract RealmsOfEther is Pausable {
         stor_1 += 1;
     }
 
-    function balances(address varg0) public nonPayable { 
+    function balances(address varg0) public { 
         return _balances[varg0];
     }
 
-    function build(bytes32 name, bytes32 symbol) public nonPayable { 
+    function build(bytes32 name, bytes32 symbol) public { 
         require(bool(!_paused));
         0x26af(name);
         v0, v1, v2 = 0x1749(name);
@@ -264,18 +264,18 @@ contract RealmsOfEther is Pausable {
         emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(name, symbol);
     }
 
-    function unpause() public nonPayable { 
+    function unpause() public { 
         require(_owner == msg.sender);
         require(_paused);
         _paused = 0;
         emit Unpause();
     }
 
-    function 0x40d7f8c0() public nonPayable { 
+    function 0x40d7f8c0() public { 
         return stor_4_0_19;
     }
 
-    function 0x468c7804() public nonPayable { 
+    function 0x468c7804() public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x1777d529), stor_2_0_19).gas(msg.gas - 710);
@@ -283,7 +283,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0x48d79c6f() public nonPayable { 
+    function 0x48d79c6f() public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xf5807181), stor_4_0_19).gas(msg.gas - 710);
@@ -320,34 +320,34 @@ contract RealmsOfEther is Pausable {
         stor_1 += 1;
     }
 
-    function auctions(uint256 varg0) public nonPayable { 
+    function auctions(uint256 varg0) public { 
         assert(varg0 < _getAuctionsLength.length);
         return _getAuctionsLength[varg0];
     }
 
-    function paused() public nonPayable { 
+    function paused() public { 
         return _paused;
     }
 
-    function 0x61508bfd(uint256 varg0) public nonPayable { 
+    function 0x61508bfd(uint256 varg0) public { 
         return mapping_a[varg0];
     }
 
-    function getBuilding(bytes32 buildingNameHash) public nonPayable { 
+    function getBuilding(bytes32 buildingNameHash) public { 
         v0, v1, v2, v3, v4 = 0x12cc(buildingNameHash);
         return bytes16(v4), v3, v2, v1, v0;
     }
 
-    function 0x66cfc337(uint256 varg0) public nonPayable { 
+    function 0x66cfc337(uint256 varg0) public { 
         v0, v1, v2 = 0x1393(varg0);
         return v2, v1, v0;
     }
 
-    function 0x7621bd09(uint256 varg0) public nonPayable { 
+    function 0x7621bd09(uint256 varg0) public { 
         return mapping_8[varg0];
     }
 
-    function 0x78a11bf0(address varg0, uint256 varg1) public nonPayable { 
+    function 0x78a11bf0(address varg0, uint256 varg1) public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x54c711ba), stor_2_0_19, varg0, varg1).gas(msg.gas - 710);
@@ -355,12 +355,12 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0x7bbe0176(uint256 varg0) public nonPayable { 
+    function 0x7bbe0176(uint256 varg0) public { 
         v0, v1, v2 = 0x14f4(varg0);
         return v2, v1, v0;
     }
 
-    function 0x7e403f26(uint256 varg0) public nonPayable { 
+    function 0x7e403f26(uint256 varg0) public { 
         MEM[160 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* bytes16 */ v1, /* uint256 */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x2a33569e), stor_4_0_19, varg0).gas(msg.gas - 710);
@@ -368,11 +368,11 @@ contract RealmsOfEther is Pausable {
         return bytes16(v1), v2, v3, v4, v5;
     }
 
-    function 0x7f1c5886() public nonPayable { 
+    function 0x7f1c5886() public { 
         return stor_7;
     }
 
-    function 0x8063a94b(uint256 varg0, address varg1) public nonPayable { 
+    function 0x8063a94b(uint256 varg0, address varg1) public { 
         require(!_paused);
         0x26af(varg0);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -380,31 +380,31 @@ contract RealmsOfEther is Pausable {
         require(bool(v0));
     }
 
-    function 0x82768573(address varg0) public nonPayable { 
+    function 0x82768573(address varg0) public { 
         return _userAuctions[varg0].length;
     }
 
-    function pause() public nonPayable { 
+    function pause() public { 
         require(_owner == msg.sender);
         require(!_paused);
         _paused = 1;
         emit Pause();
     }
 
-    function 0x8764d2e2() public nonPayable { 
+    function 0x8764d2e2() public { 
         return stor_5;
     }
 
-    function 0x8ca25ab4(uint256 varg0) public nonPayable { 
+    function 0x8ca25ab4(uint256 varg0) public { 
         v0, v1, v2 = 0x1749(varg0);
         return v2, v1, v0;
     }
 
-    function owner() public nonPayable { 
+    function owner() public { 
         return _owner;
     }
 
-    function withdraw(bytes32 args) public nonPayable { 
+    function withdraw(bytes32 args) public { 
         require(!_paused);
         require(mapping_8[args] <= block.timestamp);
         require(_highestBidder[args] != msg.sender);
@@ -417,7 +417,7 @@ contract RealmsOfEther is Pausable {
         require(bool(v2));
     }
 
-    function 0x974f1e9e(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public nonPayable { 
+    function 0x974f1e9e(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public { 
         require(_owner == msg.sender);
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), stor_4_0_19, keccak256(msg.sender, varg0, stor_1), varg0, varg1, varg2, varg3, varg4, varg5, varg6, varg7).gas(msg.gas - 710);
@@ -426,43 +426,43 @@ contract RealmsOfEther is Pausable {
         stor_1 += 1;
     }
 
-    function 0x98a84292(uint256 varg0, uint256 varg1) public nonPayable { 
+    function 0x98a84292(uint256 varg0, uint256 varg1) public { 
         v0, v1 = 0x1a67(varg1, varg0);
         return v1, v0;
     }
 
-    function startMinting() public nonPayable { 
+    function startMinting() public { 
         require(_owner == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xd87f3856), stor_2_0_19).gas(msg.gas - 710);
         require(bool(v0));
     }
 
-    function 0xa00fedc7() public nonPayable { 
+    function 0xa00fedc7() public { 
         return stor_6;
     }
 
-    function totalBalance() public nonPayable { 
+    function totalBalance() public { 
         return _totalBalance;
     }
 
-    function withdrawExcess(address _receiver) public nonPayable { 
+    function withdrawExcess(address _receiver) public { 
         require(_owner == msg.sender);
         v0 = _SafeSub(_totalBalance, (address(this)).balance);
         v1 = _receiver.call().value(v0).gas(!v0 * 2300);
         require(bool(v1));
     }
 
-    function userAuctions(address varg0, uint256 varg1) public nonPayable { 
+    function userAuctions(address varg0, uint256 varg1) public { 
         assert(varg1 < _userAuctions[varg0].length);
         return _userAuctions[varg0][varg1];
     }
 
-    function highestBidder(bytes32 hash) public nonPayable { 
+    function highestBidder(bytes32 hash) public { 
         return _highestBidder[hash];
     }
 
-    function 0xc1666a30(uint256 varg0) public nonPayable { 
+    function 0xc1666a30(uint256 varg0) public { 
         MEM[160 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* bytes16 */ v1, /* address */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xd041e57), stor_2_0_19, varg0).gas(msg.gas - 710);
@@ -470,16 +470,16 @@ contract RealmsOfEther is Pausable {
         return bytes16(v1), address(v2), v3, v4, v5;
     }
 
-    function 0xc73dedfd(uint256 varg0) public nonPayable { 
+    function 0xc73dedfd(uint256 varg0) public { 
         return mapping_9[varg0];
     }
 
-    function 0xc756b8e9(uint256 varg0, uint256 varg1) public nonPayable { 
+    function 0xc756b8e9(uint256 varg0, uint256 varg1) public { 
         v0 = 0x1d04(varg1, varg0);
         return v0;
     }
 
-    function 0xc9c0c242(uint256 varg0, address varg1) public nonPayable { 
+    function 0xc9c0c242(uint256 varg0, address varg1) public { 
         return mapping_d[keccak256(varg0, varg1)];
     }
 
@@ -516,7 +516,7 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function 0xcb551a2b(uint256 varg0) public nonPayable { 
+    function 0xcb551a2b(uint256 varg0) public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, varg0).gas(msg.gas - 710);
@@ -524,7 +524,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0xd5ee9ca4() public nonPayable { 
+    function 0xd5ee9ca4() public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf5807181), stor_3_0_19).gas(msg.gas - 710);
@@ -532,11 +532,11 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function getAuctionsLength() public nonPayable { 
+    function getAuctionsLength() public { 
         return _getAuctionsLength.length;
     }
 
-    function 0xdc341d8d(uint256 varg0, uint256 varg1) public nonPayable { 
+    function 0xdc341d8d(uint256 varg0, uint256 varg1) public { 
         require(bool(!_paused));
         0x26af(varg0);
         v0, v1 = 0x1a67(varg1, varg0);
@@ -554,7 +554,7 @@ contract RealmsOfEther is Pausable {
         emit 0x9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca(varg0, varg1);
     }
 
-    function 0xe82acd26(address varg0) public nonPayable { 
+    function 0xe82acd26(address varg0) public { 
         require(_owner == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(stor_2_0_19, varg0).gas(msg.gas - 710);
@@ -567,11 +567,11 @@ contract RealmsOfEther is Pausable {
         require(bool(v2));
     }
 
-    function 0xed8faf3d() public nonPayable { 
+    function 0xed8faf3d() public { 
         return stor_3_0_19;
     }
 
-    function startAuction(bytes32 loanId) public nonPayable { 
+    function startAuction(bytes32 loanId) public { 
         require(!_paused);
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -605,14 +605,14 @@ contract RealmsOfEther is Pausable {
         _getAuctionsLength[_getAuctionsLength.length] = loanId;
     }
 
-    function transferOwnership(address newOwner) public nonPayable { 
+    function transferOwnership(address newOwner) public { 
         require(_owner == msg.sender);
         require(bool(newOwner));
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
     }
 
-    function 0xf5807181(address varg0) public nonPayable { 
+    function 0xf5807181(address varg0) public { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x6dff11), stor_2_0_19, varg0).gas(msg.gas - 710);
