@@ -1,4 +1,4 @@
-pragma solidity ^0.4.26;
+pragma solidity 0.4.19;
 
 import "./Pausable.sol";
 
@@ -34,39 +34,50 @@ contract RealmsOfEther is Pausable {
 
     // Events
 
-    function 0x12cc(bytes32 _buildingHash) 
+    function _getBuildingFromProxy(bytes32 _buildingHash) 
         private 
-        view 
         returns (
-            uint256 actionTimeout,
-            bytes32 actionValue,
-            uint256 actionRate,
-            uint256 action,
-            bytes16 name
-        ) 
-    { 
-        require(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size > 0);
+            uint256 rawName,
+            uint256 rawAction,
+            uint256 rawActionRate,
+            uint256 rawActionValue,
+            uint256 rawActionTimeout
+        )
+    {
+        address proxy = 0xb939a1d96dda7271d6d89eaceabd9163d0502165;
+        address storageAddr = stor_3_0_19;
+        
+        assembly {
+            // require(extcodesize(proxy) > 0)
+            if iszero(extcodesize(proxy)) { revert(0, 0) }
 
-        bool success;
-        uint256 rawName;       // comes back as a 32-byte word, masked to 16 bytes
-        uint256 rawAction;
-        uint256 rawActionRate;
-        uint256 rawActionValue;   // will be interpreted as bytes32
-        uint256 rawTimeout;
+            let ptr := mload(0x40)
 
-         (success, rawName, rawAction, rawActionRate, rawActionValue, rawTimeout) =
-            0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(
-                uint32(0x9d3bd2e4),
-                stor_3_0_19,
-                uint256(_buildingHash)
-            );
-        require(success);
+            // calldata = selector(0x9d3bd2e4) + storageAddr + buildingHash
+            mstore(ptr, shl(224, 0x9d3bd2e4))
+            mstore(add(ptr, 4), and(storageAddr, 0xffffffffffffffffffffffffffffffffffffffff))
+            mstore(add(ptr, 36), _buildingHash)
 
-        actionTimeout = rawTimeout;
-        actionValue   = bytes32(rawActionValue);
-        actionRate    = rawActionRate;
-        action        = rawAction;
-        name          = bytes16(rawName);
+            // delegatecall(proxy, ptr, 68, 0, 0)
+            let ok := delegatecall(sub(gas, 710), proxy, ptr, 68, 0, 0)
+            if iszero(ok) { revert(0, 0) }
+
+            // Expect 6 words back: (v0,v1,v2,v3,v4,v5) = 192 bytes
+            if lt(returndatasize(), 192) { revert(0, 0) }
+            returndatacopy(ptr, 0, 192)
+
+            // require(v0 != 0)
+            if iszero(mload(ptr)) { revert(0, 0) }
+
+            // return v5, v4, v3, v2, v1 (matches the decompile’s reorder)
+            rawName         := mload(add(ptr, 160)) // v5
+            rawAction       := mload(add(ptr, 128)) // v4
+            rawActionRate   := mload(add(ptr, 96))  // v3
+            rawActionValue  := mload(add(ptr, 64))  // v2
+            rawActionTimeout:= mload(add(ptr, 32))  // v1
+
+            mstore(0x40, add(ptr, 192))
+        }
     }
 
     function 0x1393(uint256 varg0) private { 
@@ -350,14 +361,21 @@ contract RealmsOfEther is Pausable {
             uint256 _actionTimeout
         ) 
     { 
-        bytes16 name;
-        uint256 action;
-        uint256 actionRate;
-        bytes32 actionValue;
-        uint256 actionTimeout;
+        uint256 rawName;
+        uint256 rawAction;
+        uint256 rawActionRate;
+        uint256 rawActionValue;
+        uint256 rawActionTimeout;
 
-        (actionTimeout, actionValue, actionRate, action, name) = 0x12cc(_buildingHash);
-        return (name, action, actionRate, actionValue, actionTimeout);
+        (rawName, rawAction, rawActionRate, rawActionValue, rawActionTimeout) =
+            _getBuildingFromProxy(_buildingHash);
+
+        // Interpret raw words into ABI types.
+        _name = bytes16(rawName);            // takes the low 16 bytes of the word
+        _action = rawAction;
+        _actionRate = rawActionRate;
+        _actionValue = bytes32(rawActionValue);
+        _actionTimeout = rawActionTimeout;
     }
 
     function getTroupCosts(bytes32 varg0) public { 
@@ -550,7 +568,7 @@ contract RealmsOfEther is Pausable {
         0x26af(varg0);
         v0, v1 = 0x1a67(varg1, varg0);
         require(block.timestamp > v0);
-        v2, v3, v4, v5, v6 = 0x12cc(varg1);
+        v2, v3, v4, v5, v6 = _getBuildingFromProxy(varg1);
         v7, v8, v9 = 0x1749(varg0);
         if (v5 == 1) {
             0x2811(v7, v8, v9, v1, v4, v3, varg0);
