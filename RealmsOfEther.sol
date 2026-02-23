@@ -59,6 +59,18 @@ contract RealmsOfEther is Pausable {
         bytes32 troupHash
     );
 
+    function RealmsOfEther(
+        address _fortressStorage,
+        address _troupStorage,
+        address _buildingStorage
+    )
+        public 
+    {
+        stor_2_0_19 = _fortressStorage;
+        stor_3_0_19 = _troupStorage;
+        stor_4_0_19 = _buildingStorage;
+    }
+
     function _getBuildingFromProxy(uint256 _buildingHash) 
         private 
         returns (
