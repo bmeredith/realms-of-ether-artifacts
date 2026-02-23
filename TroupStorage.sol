@@ -4,7 +4,7 @@ import "./Ownable.sol";
 
 contract TroupStorage is Ownable {
     // address _owner; // STORAGE[0x0] bytes 0 to 19
-    uint256[] _getIndexLength; // STORAGE[0x1]
+    bytes32[] _getIndexLength; // STORAGE[0x1]
     mapping (bytes32 => bool) _getName; // STORAGE[0x2]
     mapping (bytes32 => bytes16) names; // STORAGE[0x3] mapping_3
     mapping (bytes32 => uint256) life; // STORAGE[0x4] mapping_4
@@ -38,21 +38,30 @@ contract TroupStorage is Ownable {
     }
 
     // 0x54b8d5e3
-    function getName(bytes32 _troupHash) public { 
+    function getName(bytes32 _troupHash) 
+        public
+        returns (bytes16)
+    { 
         require(_getName[uint256(_troupHash)]);
         return bytes16(names[uint256(_troupHash)] << 128);
     }
 
     // 0x6453da9a
-    function getStrength(bytes32 _troupHash) public { 
+    function getStrength(bytes32 _troupHash) 
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return strength[_troupHash];
     }
 
     // 0x6b2fafa9
-    function getHash(uint256 _nonce) public { 
+    function getHash(uint256 _nonce) 
+        public 
+        returns (bytes32)
+    { 
         assert(_nonce < _getIndexLength.length);
-        return uint256(_getIndexLength[_nonce]);
+        return _getIndexLength[_nonce];
     }
 
     // 0x6d0af38e
@@ -83,7 +92,10 @@ contract TroupStorage is Ownable {
     }
 
     // 0x79525281
-    function getIntelligence(bytes32 _troupHash) public { 
+    function getIntelligence(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return intelligence[_troupHash];
     }
@@ -107,13 +119,19 @@ contract TroupStorage is Ownable {
     }
 
     // 0x82f0b31c
-    function getLife(bytes32 _troupHash) public { 
+    function getLife(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return life[_troupHash];
     }
 
     // 0x9342ccc2
-    function getDexterity(bytes32 _troupHash) public { 
+    function getDexterity(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return dexterity[_troupHash];
     }
@@ -137,24 +155,36 @@ contract TroupStorage is Ownable {
     }
 
     // 0xe0d87dc2
-    function getWood(bytes32 _troupHash) public { 
+    function getWood(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return wood[_troupHash];
     }
 
     // 0xe1ba7d01
-    function getIndexLength() public { 
+    function getIndexLength()
+        public
+        returns (uint256)
+    { 
         return _getIndexLength.length;
     }
 
     // 0xe382af35
-    function getStone(bytes32 _troupHash) public { 
+    function getStone(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return stone[_troupHash];
     }
 
     // 0xe75f7871
-    function getGold(bytes32 _troupHash) public { 
+    function getGold(bytes32 _troupHash)
+        public
+        returns (uint256)
+    { 
         require(_getName[_troupHash]);
         return gold[_troupHash];
     }
