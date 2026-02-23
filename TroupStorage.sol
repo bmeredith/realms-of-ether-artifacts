@@ -5,7 +5,7 @@ import "./Ownable.sol";
 contract TroupStorage is Ownable {
     // address _owner; // STORAGE[0x0] bytes 0 to 19
     bytes32[] troupHashes; // STORAGE[0x1] _getIndexLength
-    mapping (bytes32 => bool) _getName; // STORAGE[0x2]
+    mapping (bytes32 => bool) exists; // STORAGE[0x2] _getName
     mapping (bytes32 => bytes16) names; // STORAGE[0x3] mapping_3
     mapping (bytes32 => uint256) life; // STORAGE[0x4] mapping_4
     mapping (bytes32 => uint256) strength; // STORAGE[0x5] mapping_5
@@ -24,7 +24,7 @@ contract TroupStorage is Ownable {
         public
         onlyOwner
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         strength[_troupHash] = _amount;
     }
 
@@ -33,7 +33,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         intelligence[_troupHash] = _amount;
     }
 
@@ -42,7 +42,7 @@ contract TroupStorage is Ownable {
         public
         returns (bytes16)
     { 
-        require(_getName[uint256(_troupHash)]);
+        require(exists[uint256(_troupHash)]);
         return bytes16(names[uint256(_troupHash)] << 128);
     }
 
@@ -51,7 +51,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return strength[_troupHash];
     }
 
@@ -69,7 +69,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         stone[_troupHash] = _amount;
     }
 
@@ -78,7 +78,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         gold[_troupHash] = _amount;
     }
 
@@ -87,7 +87,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         dexterity[_troupHash] = _amount;
     }
 
@@ -96,7 +96,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return intelligence[_troupHash];
     }
 
@@ -105,7 +105,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(bool(!_getName[_troupHash]));
+        require(!exists[_troupHash]);
         troupHashes.length += 1;
         if (!troupHashes.length <= 1 + troupHashes.length) {
             v0 = v1 = keccak256(1) + (1 + troupHashes.length);
@@ -115,7 +115,7 @@ contract TroupStorage is Ownable {
             }
         }
         troupHashes[troupHashes.length] = _troupHash;
-        _getName[_troupHash] = 1;
+        exists[_troupHash] = true;
     }
 
     // 0x82f0b31c
@@ -123,7 +123,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return life[_troupHash];
     }
 
@@ -132,7 +132,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return dexterity[_troupHash];
     }
 
@@ -141,7 +141,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         wood[_troupHash] = _amount;
     }
 
@@ -150,7 +150,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     {
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         life[_troupHash] = _amount;
     }
 
@@ -159,7 +159,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return wood[_troupHash];
     }
 
@@ -176,7 +176,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return stone[_troupHash];
     }
 
@@ -185,7 +185,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         return gold[_troupHash];
     }
 
@@ -194,7 +194,7 @@ contract TroupStorage is Ownable {
         public 
         onlyOwner
     { 
-        require(_getName[_troupHash]);
+        require(exists[_troupHash]);
         names[_troupHash] = _name >> 128 | bytes16(names[_troupHash]);
     }
 }
