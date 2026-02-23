@@ -26,9 +26,9 @@ contract RealmsOfEther is Pausable {
     uint256 public totalBalance; // STORAGE[0xf]
     bytes32[] public auctions; // STORAGE[0x10]
     int256 stor_11; // STORAGE[0x11] stor_11
-    uint256 stor_12; // STORAGE[0x12] stor_12
-    uint256 stor_13; // STORAGE[0x13] stor_13
-    uint256 stor_14; // STORAGE[0x14] stor_14
+    int256 stor_12; // STORAGE[0x12] stor_12
+    int256 stor_13; // STORAGE[0x13] stor_13
+    int256 stor_14; // STORAGE[0x14] stor_14
 
     uint256 constant AUCTION_DURATION = 3 days;
 
@@ -66,13 +66,20 @@ contract RealmsOfEther is Pausable {
     )
         public 
     {
+        require(msg.value == 0);
+        
         fortressStorage = _fortressStorage;
+        troupStorage    = _troupStorage;
         buildingStorage = _buildingStorage;
-        troupStorage = _troupStorage;
 
-        stoneHash = 0x7cdf2c59fd49fab5ebabf1630c3a1f4d5c22c0aaa3651ca37dd688a69b33f3aa;
-        goldHash = 0x6f0d47b12e2c2f7083eb5622541f9c3930e56fc3e46e89e132673f05a079baff;
-        woodHash = 0x5ba3d4ce716a8ffcb210154ac5bac60752c9c70c3f74eadda59afd15baab58c0;
+        goldHash = keccak256("Gold");
+        woodHash = keccak256("Wood");
+        stoneHash = keccak256("Stone");
+
+        stor_11 = 0;
+        stor_12 = 0;
+        stor_13 = 0;
+        stor_14 = -1;
     }
 
     function _getBuildingFromProxy(uint256 _buildingHash) 
