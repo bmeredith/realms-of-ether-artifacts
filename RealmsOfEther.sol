@@ -34,7 +34,7 @@ contract RealmsOfEther is Pausable {
 
     // Events
 
-    function _getBuildingFromProxy(bytes32 _buildingHash) 
+    function _getBuildingFromProxy(uint256 _buildingHash) 
         private 
         returns (
             uint256 rawName,
@@ -80,10 +80,10 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function 0x1393(uint256 varg0) private { 
+    function 0x1393(uint256 _troupHash) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xfc85a0d2), stor_4_0_19, varg0).gas(msg.gas - 710);
+        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xfc85a0d2), stor_4_0_19, _troupHash).gas(msg.gas - 710);
         require(bool(v0));
         return v3, v2, v1;
     }
@@ -368,7 +368,7 @@ contract RealmsOfEther is Pausable {
         uint256 rawActionTimeout;
 
         (rawName, rawAction, rawActionRate, rawActionValue, rawActionTimeout) =
-            _getBuildingFromProxy(_buildingHash);
+            _getBuildingFromProxy(uint256(_buildingHash));
 
         // Interpret raw words into ABI types.
         _name = bytes16(rawName);            // takes the low 16 bytes of the word
@@ -378,65 +378,141 @@ contract RealmsOfEther is Pausable {
         _actionTimeout = rawActionTimeout;
     }
 
-    function getTroupCosts(bytes32 varg0) public { 
-        v0, v1, v2 = 0x1393(varg0);
-        return v2, v1, v0;
+    function getTroupCosts(bytes32 _troupHash)
+        public
+        view
+        returns (
+            uint256 _gold,
+            uint256 _stone,
+            uint256 _wood
+        ) 
+    {
+        uint256 wood;
+        uint256 stone;
+        uint256 gold;
+
+        (wood, stone, gold) = 0x1393(uint256(_troupHash));
+
+        return (gold, stone, wood);
     }
 
-    function auctionEnd(bytes32 varg0) public { 
+    function auctionEnd(bytes32 varg0) public view returns (uint256) { 
         return mapping_8[varg0];
     }
 
-    function getHashFromIndex(address varg0, uint256 varg1) public { 
+    function getHashFromIndex(address _user, uint256 _index) public view returns (bytes32) { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x54c711ba), stor_2_0_19, varg0, varg1).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x54c711ba), stor_2_0_19, _user, _index).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
 
-    function getBuildingCosts(uint256 varg0) public { 
-        v0, v1, v2 = 0x14f4(varg0);
-        return v2, v1, v0;
+    function getBuildingCosts(bytes32 _buildingHash)
+        public 
+        view 
+        returns (
+            uint256 _gold,
+            uint256 _stone,
+            uint256 _wood
+        ) 
+    {
+        uint256 wood;
+        uint256 stone;
+        uint256 gold;
+
+        (wood, stone, gold) = 0x14f4(uint256(_buildingHash));
+        
+        return (gold, stone, wood);
     }
 
-    function getTroup(bytes32 varg0) public { 
-        MEM[160 + MEM[64]] = 0;
-        require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0, /* bytes16 */ v1, /* uint256 */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x2a33569e), stor_4_0_19, varg0).gas(msg.gas - 710);
-        require(bool(v0));
-        return bytes16(v1), v2, v3, v4, v5;
+    function getTroup(bytes32 _troupHash)
+        public
+        view
+        returns (
+            bytes16 _name,
+            uint256 _life,
+            uint256 _strength,
+            uint256 _intelligence,
+            uint256 _dexterity
+        )
+    { 
+        address proxy = 0x902904b1833def4aef05b99cea93cc3383cd2d4a;
+        address storageAddr = stor_4_0_19;
+
+        bool success;
+        bytes16 name;
+        uint256 life;
+        uint256 strength;
+        uint256 intelligence;
+        uint256 dexterity;
+
+        assembly {
+            if iszero(extcodesize(proxy)) { revert(0, 0) }
+
+            let ptr := mload(0x40)
+
+            mstore(ptr, shl(224, 0x2a33569e))
+            mstore(add(ptr, 4), storageAddr)
+            mstore(add(ptr, 36), _troupHash)
+
+            success := delegatecall(sub(gas, 710), proxy, ptr, 68, 0, 0)
+            if iszero(success) { revert(0, 0) }
+
+            returndatacopy(ptr, 0, returndatasize())
+
+            name         := mload(add(ptr, 32))
+            life         := mload(add(ptr, 64))
+            strength     := mload(add(ptr, 96))
+            intelligence := mload(add(ptr, 128))
+            dexterity    := mload(add(ptr, 160))
+        }
+
+        return (name, life, strength, intelligence, dexterity);
     }
 
-    function stoneHash() public { 
+    function stoneHash() public view returns (bytes32) { 
         return stor_7;
     }
 
-    function transferFortress(bytes32 varg0, address varg1) public whenNotPaused {
-        0x26af(varg0);
+    function transferFortress(bytes32 _fortressHash, address _newOwner) public whenNotPaused {
+        0x26af(_fortressHash);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xb844ad67), stor_2_0_19, varg0, varg1).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xb844ad67), stor_2_0_19, _fortressHash, _newOwner).gas(msg.gas - 710);
         require(bool(v0));
     }
 
-    function getUserAuctionsLength(address varg0) public { 
-        return _userAuctions[varg0].length;
+    function getUserAuctionsLength(address _user) public returns (uint256) { 
+        return _userAuctions[_user].length;
     }
 
-    function goldHash() public { 
+    function goldHash() public view returns (bytes32) { 
         return stor_5;
     }
 
-    function getResources(bytes32 varg0) public { 
-        v0, v1, v2 = 0x1749(varg0);
-        return v2, v1, v0;
+    function getResources(bytes32 _fortressHash) 
+        public 
+        view 
+        returns (
+            uint256 _gold,
+            uint256 _stone,
+            uint256 _wood
+        )  
+    { 
+        uint256 wood;
+        uint256 stone;
+        uint256 gold;
+
+        (wood, stone, gold) = 0x1749(uint256(_fortressHash));
+        
+        return (gold, stone, wood);
     }
 
-    function withdraw(bytes32 HASH) public whenNotPaused {
-        require(mapping_8[HASH] <= block.timestamp);
-        require(_highestBidder[HASH] != msg.sender);
+    function withdraw(bytes32 _fortressHash) public whenNotPaused {
+        require(block.timestamp <= mapping_8[_fortressHash]);
+        require(_highestBidder[_fortressHash] != msg.sender);
 
-        bytes32 key = keccak256(HASH, msg.sender);
+        bytes32 key = keccak256(_fortressHash, msg.sender);
         
         // cache amount first (matches Tenderly showing the SLOAD before SSTORE)
         uint256 amount = mapping_d[key];
@@ -568,7 +644,7 @@ contract RealmsOfEther is Pausable {
         0x26af(varg0);
         v0, v1 = 0x1a67(varg1, varg0);
         require(block.timestamp > v0);
-        v2, v3, v4, v5, v6 = _getBuildingFromProxy(varg1);
+        v2, v3, v4, v5, v6 = _getBuildingFromProxy(uint256(varg1));
         v7, v8, v9 = 0x1749(varg0);
         if (v5 == 1) {
             0x2811(v7, v8, v9, v1, v4, v3, varg0);
