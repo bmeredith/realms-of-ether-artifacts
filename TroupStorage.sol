@@ -2,16 +2,16 @@ pragma solidity 0.4.19;
 
 contract TroupStorage {
     address _owner; // STORAGE[0x0] bytes 0 to 19
-    bytes32[] troupHashes; // STORAGE[0x1] _getIndexLength
-    mapping (bytes32 => bool) exists; // STORAGE[0x2] _getName
-    mapping (bytes32 => uint256) packedNames; // STORAGE[0x3] mapping_3
-    mapping (bytes32 => uint256) life; // STORAGE[0x4] mapping_4
-    mapping (bytes32 => uint256) strength; // STORAGE[0x5] mapping_5
-    mapping (bytes32 => uint256) intelligence; // STORAGE[0x6] mapping_6
-    mapping (bytes32 => uint256) dexterity; // STORAGE[0x7] mapping_7
-    mapping (bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
-    mapping (bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
-    mapping (bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
+    uint256 [] troupHashes; // STORAGE[0x1] _getIndexLength
+    mapping (uint256  => bool) exists; // STORAGE[0x2] _getName
+    mapping (uint256  => uint256) packedNames; // STORAGE[0x3] mapping_3
+    mapping (uint256  => uint256) life; // STORAGE[0x4] mapping_4
+    mapping (uint256  => uint256) strength; // STORAGE[0x5] mapping_5
+    mapping (uint256  => uint256) intelligence; // STORAGE[0x6] mapping_6
+    mapping (uint256  => uint256) dexterity; // STORAGE[0x7] mapping_7
+    mapping (uint256  => uint256) gold; // STORAGE[0x8] mapping_8
+    mapping (uint256  => uint256) wood; // STORAGE[0x9] mapping_9
+    mapping (uint256  => uint256) stone; // STORAGE[0xa] mapping_a
     
     // Events
     event OwnershipTransferred(address, address);
@@ -29,8 +29,9 @@ contract TroupStorage {
         public
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        strength[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        strength[k] = _amount;
     }
 
     // 0x41731f8b
@@ -38,8 +39,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        intelligence[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        intelligence[k] = _amount;
     }
 
     // 0x54b8d5e3
@@ -47,8 +49,9 @@ contract TroupStorage {
         public
         returns (bytes16)
     { 
-        require(exists[_troupHash]);
-        return bytes16(packedNames[_troupHash] << 128);
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return bytes16(packedNames[k] << 128);
     }
 
     // 0x6453da9a
@@ -56,14 +59,15 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return strength[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return strength[k];
     }
 
     // 0x6b2fafa9
     function getHash(uint256 _nonce) 
         public 
-        returns (bytes32)
+        returns (uint256)
     { 
         assert(_nonce < troupHashes.length);
         return troupHashes[_nonce];
@@ -74,8 +78,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        stone[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        stone[k] = _amount;
     }
 
     // 0x70c92125
@@ -83,8 +88,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        gold[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        gold[k] = _amount;
     }
 
     // 0x718de536
@@ -92,8 +98,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        dexterity[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        dexterity[k] = _amount;
     }
 
     // 0x79525281
@@ -101,8 +108,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return intelligence[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return intelligence[k];
     }
 
     // 0x7a65efc9
@@ -110,13 +118,14 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(!exists[_troupHash]);
+        uint256 k = uint256(_troupHash);
+        require(!exists[k]);
 
         uint256 i = troupHashes.length;
         troupHashes.length = i + 1;
-        troupHashes[i] = _troupHash;
+        troupHashes[i] = k;
 
-        exists[_troupHash] = true;
+        exists[k] = true;
     }
 
     // 0x82f0b31c
@@ -124,8 +133,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return life[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return life[k];
     }
 
     function owner() public returns (address) {
@@ -137,8 +147,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return dexterity[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return dexterity[k];
     }
 
     // 0x9c8b8588
@@ -146,8 +157,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        wood[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        wood[k] = _amount;
     }
 
     // 0xc74d8903
@@ -155,8 +167,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        life[_troupHash] = _amount;
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        life[k] = _amount;
     }
 
     // 0xe0d87dc2
@@ -164,8 +177,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return wood[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return wood[k];
     }
 
     // 0xe1ba7d01
@@ -181,8 +195,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return stone[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return stone[k];
     }
 
     // 0xe75f7871
@@ -190,8 +205,9 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        require(exists[_troupHash]);
-        return gold[_troupHash];
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+        return gold[k];
     }
 
     function transferOwnership(address newOwner) public { 
@@ -206,7 +222,9 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        require(exists[_troupHash]);
-        packedNames[_troupHash] = uint256(_name) >> 128 | uint256(bytes16(packedNames[_troupHash]));
+        uint256 k = uint256(_troupHash);
+        require(exists[k]);
+
+        packedNames[k] = (uint256(_name) >> 128) | uint256(bytes16(packedNames[k]));
     }
 }
