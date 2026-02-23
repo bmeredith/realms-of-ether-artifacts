@@ -33,8 +33,31 @@ contract RealmsOfEther is Pausable {
     uint256 constant AUCTION_DURATION = 3 days;
 
     // Events
+    event LogFortressCreated(
+        bytes16 name,
+        bytes32 hash,
+        address owner,
+        int256 x,
+        int256 y
+    );
 
-    
+    event LogBuild(
+        bytes32 fortressHash,
+        bytes32 buildingHash
+    );
+
+    event LogBuildingAction(
+        bytes32 fortressHash,
+        bytes32 buildingHash
+    );
+
+    event LogBuildingCreated(
+        bytes32 buildingHash
+    );
+
+    event LogTroupCreated(
+        bytes32 troupHash
+    );
 
     function _getBuildingFromProxy(uint256 _buildingHash) 
         private 
