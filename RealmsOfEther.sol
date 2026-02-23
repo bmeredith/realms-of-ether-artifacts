@@ -284,7 +284,7 @@ contract RealmsOfEther is Pausable {
             _stone
         ).gas(msg.gas - 710);
         require(bool(v0));
-        emit 0xc419dae1c5cabdd3bc2861f0a8137963291d13cf042875f96fd1a297396c4a6f(keccak256(msg.sender, _name, stor_1));
+        LogBuildingCreated(keccak256(msg.sender, _name, stor_1));
         stor_1 += 1;
     }
 
@@ -315,7 +315,7 @@ contract RealmsOfEther is Pausable {
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x7b2be003), stor_2_0_19, _fortressHash, _buildingHash, v16, v17, v18, v8).gas(msg.gas - 710);
         require(bool(v19));
-        emit 0x9303befd891bc5843e6997e792f1908586d704459200b41377769d33f733fef9(_fortressHash, _buildingHash);
+        LogBuild(_fortressHash, _buildingHash);
     }
 
     function troupStorage() public view returns (address) { 
@@ -362,7 +362,7 @@ contract RealmsOfEther is Pausable {
         }
         stor_11 += stor_13;
         stor_12 += stor_14;
-        emit 0x39152486560cc8ff27042032d9bb477500eca5162f3415779350075bcfc05c8e(_name, keccak256(msg.sender, _name, stor_1), msg.sender, stor_11, stor_12);
+        LogFortressCreated(_name, keccak256(msg.sender, _name, stor_1), msg.sender, stor_11, stor_12);
         stor_1 += 1;
     }
 
@@ -554,7 +554,7 @@ contract RealmsOfEther is Pausable {
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), stor_4_0_19, keccak256(msg.sender, _name, stor_1), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
         require(bool(v0));
-        emit 0xa543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c(keccak256(msg.sender, _name, stor_1));
+        LogTroupCreated(keccak256(msg.sender, _name, stor_1));
         stor_1 += 1;
     }
 
@@ -780,7 +780,7 @@ contract RealmsOfEther is Pausable {
             0x2a52(v10, v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
         }
         0x2d54(v2, uint256(_buildingHash), uint256(_fortressHash));
-        emit 0x9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca(_fortressHash, _buildingHash);
+        LogBuildingAction(_fortressHash, _buildingHash);
     }
 
     function upgradeGame(address _newContract) 
