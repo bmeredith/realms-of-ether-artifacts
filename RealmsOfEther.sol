@@ -34,6 +34,8 @@ contract RealmsOfEther is Pausable {
 
     // Events
 
+    
+
     function _getBuildingFromProxy(uint256 _buildingHash) 
         private 
         returns (
@@ -525,17 +527,24 @@ contract RealmsOfEther is Pausable {
         require(msg.sender.call.value(amount).gas(2300)());
     }
 
-    function createTroup(bytes16 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) public onlyOwner {
+    function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _intelligence, uint256 _dexterity, uint256 _gold, uint256 _wood, uint256 _stone) public onlyOwner {
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), stor_4_0_19, keccak256(msg.sender, varg0, stor_1), varg0, varg1, varg2, varg3, varg4, varg5, varg6, varg7).gas(msg.gas - 710);
+        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), stor_4_0_19, keccak256(msg.sender, _name, stor_1), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
         require(bool(v0));
-        emit 0xa543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c(keccak256(msg.sender, varg0, stor_1));
+        emit 0xa543a0fdbe4c677f8ac450772f98d34ced6e7ed99d9876cd73c0e132d35f791c(keccak256(msg.sender, _name, stor_1));
         stor_1 += 1;
     }
 
-    function getFortressBuilding(bytes32 varg0, bytes32 varg1) public { 
-        v0, v1 = 0x1a67(varg1, varg0);
-        return v1, v0;
+    function getFortressBuilding(bytes32 _fortressHash, bytes32 _buildingHash) 
+        public 
+        view 
+        returns (
+            uint256 _level, 
+            uint256 _timeout
+        )
+    { 
+        (uint256 timeout, uint256 level) = 0x1a67(uint256(_buildingHash), uint256(_fortressHash));
+        return (level, timeout);
     }
 
     function startMinting() public onlyOwner {
@@ -544,58 +553,137 @@ contract RealmsOfEther is Pausable {
         require(bool(v0));
     }
 
-    function woodHash() public { 
+    function woodHash() 
+        public
+        view 
+        returns (bytes32) 
+    { 
         return stor_6;
     }
 
-    function totalBalance() public { 
+    function totalBalance() 
+        public 
+        view 
+        returns (uint256) 
+    { 
         return _totalBalance;
     }
 
-    function withdrawExcess(address _receiver) public onlyOwner {
+    function withdrawExcess(address _withdraw) public onlyOwner {
         v0 = _totalBalance.sub((address(this)).balance);
-        v1 = _receiver.call().value(v0).gas(!v0 * 2300);
+        v1 = _withdraw.call().value(v0).gas(!v0 * 2300);
         require(bool(v1));
     }
 
-    function userAuctions(address varg0, uint256 varg1) public { 
+    function userAuctions(address varg0, uint256 varg1) 
+        public 
+        view
+        returns (bytes32)
+    { 
         assert(varg1 < _userAuctions[varg0].length);
         return _userAuctions[varg0][varg1];
     }
 
-    function highestBidder(bytes32 hash) public { 
+    function highestBidder(bytes32 hash) 
+        public 
+        view 
+        returns (address)
+    { 
         return _highestBidder[hash];
     }
 
-    function getFortress(bytes32 varg0) public { 
-        MEM[160 + MEM[64]] = 0;
-        require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0, /* bytes16 */ v1, /* address */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xd041e57), stor_2_0_19, varg0).gas(msg.gas - 710);
-        require(bool(v0));
-        return bytes16(v1), address(v2), v3, v4, v5;
+    function getFortress(bytes32 _fortressHash) 
+        public
+        returns (
+            bytes16 _name,
+            address _owner,
+            int256 _x,
+            int256 _y,
+            uint256 _wins
+        )
+    { 
+        address proxy = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a;
+        address storageAddr = stor_2_0_19;
+
+        assembly {
+            // Ensure proxy has code (matches decompile require(proxy.code.size))
+            if iszero(extcodesize(proxy)) { revert(0, 0) }
+
+            let ptr := mload(0x40)
+
+            // ---------------------------------------------------------------------
+            // Build calldata:
+            // selector: 0x0d041e57
+            // args: (address storageAddr, bytes32 _fortressHash)
+            // total size: 4 + 32 + 32 = 68 bytes
+            // ---------------------------------------------------------------------
+            mstore(ptr, shl(224, 0x0d041e57))
+            mstore(add(ptr, 4), storageAddr)
+            mstore(add(ptr, 36), _fortressHash)
+
+            // delegatecall(gas - 710, proxy, ptr, 68, 0, 0)
+            if iszero(delegatecall(sub(gas, 710), proxy, ptr, 68, 0, 0)) {
+                revert(0, 0)
+            }
+
+            // ---------------------------------------------------------------------
+            // Expected return:
+            // bytes16 name
+            // address owner
+            // uint256 x
+            // uint256 y
+            // uint256 wins
+            //
+            // 5 * 32 = 160 bytes
+            // ---------------------------------------------------------------------
+            returndatacopy(ptr, 0, 160)
+
+            // Decode from memory
+            _name  := mload(add(ptr, 32))
+            _owner := mload(add(ptr, 64))
+            _x     := mload(add(ptr, 96))
+            _y     := mload(add(ptr, 128))
+            _wins  := mload(add(ptr, 160))
+        }
     }
 
-    function auctionOwner(bytes32 varg0) public { 
+    function auctionOwner(bytes32 varg0) 
+        public
+        view
+        returns (address)
+    { 
         return mapping_9[varg0];
     }
 
-    function getFortressTroups(bytes32 varg0, bytes32 varg1) public { 
-        v0 = 0x1d04(varg1, varg0);
+    function getFortressTroups(bytes32 _fortressHash, bytes32 _troupHash) 
+        public
+        view
+        returns (_amount uint256)
+    { 
+        v0 = 0x1d04(uint256(_troupHash), uint256(_fortressHash));
         return v0;
     }
 
-    function getAuctionAmount(bytes32 varg0, address varg1) public { 
-        return mapping_d[keccak256(varg0, varg1)];
+    function getAuctionAmount(bytes32 _fortressHash, address _user) 
+        public
+        view
+        returns (uint256)
+    { 
+        return mapping_d[keccak256(_fortressHash, _user)];
     }
 
-    function bidAuction(bytes32 varg0) public payable whenNotPaused {
-        require(block.timestamp < mapping_8[varg0]);
-        v0 = AUCTION_DURATION.sub(mapping_8[varg0]);
+    function bidAuction(bytes32 _fortressHash) 
+        public 
+        payable 
+        whenNotPaused 
+    {
+        require(block.timestamp < mapping_8[_fortressHash]);
+        v0 = AUCTION_DURATION.sub(mapping_8[_fortressHash]);
         require(block.timestamp > v0);
         assert(bool(100));
         v1 = uint256(1).mul(msg.value / 100);
         v2 = v1.sub(msg.value);
-        v3 = keccak256(varg0, msg.sender);
+        v3 = keccak256(_fortressHash, msg.sender);
         if (!bool(mapping_d[v3])) {
             _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
             if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
@@ -605,7 +693,7 @@ contract RealmsOfEther is Pausable {
                     v4 += 1;
                 }
             }
-            _userAuctions[msg.sender][_userAuctions[msg.sender].length] = varg0;
+            _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _fortressHash;
         }
         v6 = v2.add(mapping_d[v3]);
         mapping_d[v3] = v6;
@@ -613,22 +701,30 @@ contract RealmsOfEther is Pausable {
         _balances[msg.sender] = v7;
         v8 = v2.add(_totalBalance);
         _totalBalance = v8;
-        v9 = (10 ** 16).add(mapping_a[varg0]);
+        v9 = (10 ** 16).add(mapping_a[_fortressHash]);
         if (mapping_d[v3] >= v9) {
-            mapping_a[varg0] = mapping_d[v3];
-            _highestBidder[varg0] = msg.sender;
+            mapping_a[_fortressHash] = mapping_d[v3];
+            _highestBidder[_fortressHash] = msg.sender;
         }
     }
 
-    function getBuildingHash(uint256 varg0) public { 
+    function getBuildingHash(uint256 _index) 
+        public
+        view
+        returns (bytes32)
+    { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, varg0).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, _index).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
 
-    function getBuildingIndexLength() public { 
+    function getBuildingIndexLength() 
+        public 
+        view
+        returns (uint256)
+    { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf5807181), stor_3_0_19).gas(msg.gas - 710);
@@ -636,56 +732,73 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function getAuctionsLength() public { 
+    function getAuctionsLength() 
+        public 
+        view
+        returns (uint256)
+    { 
         return _getAuctionsLength.length;
     }
 
-    function buildingAction(bytes32 varg0, bytes32 varg1) public whenNotPaused {
-        0x26af(varg0);
-        v0, v1 = 0x1a67(varg1, varg0);
+    function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) 
+        public 
+        whenNotPaused
+    {
+        0x26af(uint256(_fortressHash));
+        v0, v1 = 0x1a67(uint256(_buildingHash), uint256(_fortressHash));
         require(block.timestamp > v0);
-        v2, v3, v4, v5, v6 = _getBuildingFromProxy(uint256(varg1));
-        v7, v8, v9 = 0x1749(varg0);
+        v2, v3, v4, v5, v6 = _getBuildingFromProxy(uint256(_buildingHash));
+        v7, v8, v9 = 0x1749(uint256(_fortressHash));
         if (v5 == 1) {
-            0x2811(v7, v8, v9, v1, v4, v3, varg0);
+            0x2811(v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
         }
         if (2 == v5) {
-            v10 = 0x1d04(v3, varg0);
-            0x2a52(v10, v7, v8, v9, v1, v4, v3, varg0);
+            v10 = 0x1d04(v3, uint256(_fortressHash));
+            0x2a52(v10, v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
         }
-        0x2d54(v2, varg1, varg0);
-        emit 0x9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca(varg0, varg1);
+        0x2d54(v2, uint256(_buildingHash), uint256(_fortressHash));
+        emit 0x9afc6e84262b245e3a80ef387f2b777dfe649ffc2eed92f9375b893a5539b0ca(_fortressHash, _buildingHash);
     }
 
-    function upgradeGame(address varg0) public onlyOwner {
+    function upgradeGame(address _newContract) 
+        public
+        onlyOwner
+    {
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(stor_2_0_19, varg0).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(stor_2_0_19, _newContract).gas(msg.gas - 710);
         require(bool(v0));
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(stor_3_0_19, varg0).gas(msg.gas - 710);
+        v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(stor_3_0_19, _newContract).gas(msg.gas - 710);
         require(bool(v1));
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(stor_4_0_19, varg0).gas(msg.gas - 710);
+        v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(stor_4_0_19, _newContract).gas(msg.gas - 710);
         require(bool(v2));
     }
 
-    function buildingStorage() public { 
+    function buildingStorage() 
+        public 
+        view
+        returns (address)
+    { 
         return stor_3_0_19;
     }
 
-    function startAuction(bytes32 _hash /* fortress hash */) public whenNotPaused {
+    function startAuction(bytes32 _fortressHash /* fortress hash */) 
+        public 
+        whenNotPaused 
+    {
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, _hash).gas(msg.gas - 710);
+        v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, _fortressHash).gas(msg.gas - 710);
         require(bool(v0));
         require(address(v1) == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, _hash, address(this)).gas(msg.gas - 710);
+        v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), stor_2_0_19, _fortressHash, address(this)).gas(msg.gas - 710);
         require(bool(v2));
-        _highestBidder[_hash] = msg.sender;
-        mapping_a[_hash] = 0;
-        mapping_9[_hash] = msg.sender;
-        mapping_8[_hash] = block.timestamp + AUCTION_DURATION;
+        _highestBidder[_fortressHash] = msg.sender;
+        mapping_a[_fortressHash] = 0;
+        mapping_9[_fortressHash] = msg.sender;
+        mapping_8[_fortressHash] = block.timestamp + AUCTION_DURATION;
         _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
         if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
             v3 = v4 = _userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
@@ -694,7 +807,7 @@ contract RealmsOfEther is Pausable {
                 v3 += 1;
             }
         }
-        _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _hash;
+        _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _fortressHash;
         _getAuctionsLength.length = _getAuctionsLength.length + 1;
         if (!_getAuctionsLength.length <= _getAuctionsLength.length + 1) {
             v5 = v6 = _getAuctionsLength.length + 1 + keccak256(16);
@@ -703,13 +816,17 @@ contract RealmsOfEther is Pausable {
                 v5 += 1;
             }
         }
-        _getAuctionsLength[_getAuctionsLength.length] = _hash;
+        _getAuctionsLength[_getAuctionsLength.length] = _fortressHash;
     }
 
-    function getIndexLength(address varg0) public { 
+    function getIndexLength(address _user) 
+        public
+        view
+        returns (uint256)
+    { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x6dff11), stor_2_0_19, varg0).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x6dff11), stor_2_0_19, address(_user)).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
