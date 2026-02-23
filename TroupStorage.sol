@@ -6,7 +6,7 @@ contract TroupStorage is Ownable {
     // address _owner; // STORAGE[0x0] bytes 0 to 19
     bytes32[] troupHashes; // STORAGE[0x1] _getIndexLength
     mapping (bytes32 => bool) exists; // STORAGE[0x2] _getName
-    mapping (bytes32 => bytes16) names; // STORAGE[0x3] mapping_3
+    mapping (bytes32 => uint256) packedNames; // STORAGE[0x3] mapping_3
     mapping (bytes32 => uint256) life; // STORAGE[0x4] mapping_4
     mapping (bytes32 => uint256) strength; // STORAGE[0x5] mapping_5
     mapping (bytes32 => uint256) intelligence; // STORAGE[0x6] mapping_6
@@ -42,8 +42,8 @@ contract TroupStorage is Ownable {
         public
         returns (bytes16)
     { 
-        require(exists[uint256(_troupHash)]);
-        return bytes16(names[uint256(_troupHash)] << 128);
+        require(exists[_troupHash]);
+        return bytes16(uint128(packedNames[_troupHash]));
     }
 
     // 0x6453da9a
@@ -195,6 +195,6 @@ contract TroupStorage is Ownable {
         onlyOwner
     { 
         require(exists[_troupHash]);
-        names[_troupHash] = _name >> 128 | bytes16(names[_troupHash]);
+        packedNames[_troupHash] = uint256(_name) >> 128 | uint256(bytes16(packedNames[_troupHash]));
     }
 }
