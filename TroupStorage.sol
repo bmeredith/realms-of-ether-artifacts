@@ -106,15 +106,11 @@ contract TroupStorage is Ownable {
         onlyOwner
     {
         require(!exists[_troupHash]);
-        troupHashes.length += 1;
-        if (!troupHashes.length <= 1 + troupHashes.length) {
-            v0 = v1 = keccak256(1) + (1 + troupHashes.length);
-            while (keccak256(1) + troupHashes.length > v0) {
-                STORAGE[v0] = 0;
-                v0 += 1;
-            }
-        }
-        troupHashes[troupHashes.length] = _troupHash;
+        
+        uint256 i = troupHashes.length;
+        troupHashes.length = i + 1;
+        troupHashes[i] = _troupHash;
+
         exists[_troupHash] = true;
     }
 
