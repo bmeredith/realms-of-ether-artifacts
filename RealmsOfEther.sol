@@ -9,7 +9,7 @@ contract RealmsOfEther is Pausable {
     // Data structures and variables inferred from the use of storage instructions
     //address _owner; // STORAGE[0x0] bytes 0 to 19
     //bool _paused; // STORAGE[0x0] bytes 20 to 20
-    uint256 stor_1; // STORAGE[0x1] stor_1
+    uint256 private nonce; // STORAGE[0x1] stor_1
     address public fortressStorage; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
     address public buildingStorage; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
     address public troupStorage; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
@@ -67,7 +67,7 @@ contract RealmsOfEther is Pausable {
         public 
     {
         require(msg.value == 0);
-        
+
         fortressStorage = _fortressStorage;
         troupStorage    = _troupStorage;
         buildingStorage = _buildingStorage;
@@ -288,7 +288,7 @@ contract RealmsOfEther is Pausable {
         v0 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(
             uint32(0xf481d125), 
             buildingStorage,
-            keccak256(msg.sender, _name, stor_1), 
+            keccak256(msg.sender, _name, nonce), 
             _name, 
             _action, 
             _actionRate, 
@@ -299,8 +299,8 @@ contract RealmsOfEther is Pausable {
             _stone
         ).gas(msg.gas - 710);
         require(bool(v0));
-        LogBuildingCreated(keccak256(msg.sender, _name, stor_1));
-        stor_1 += 1;
+        LogBuildingCreated(keccak256(msg.sender, _name, nonce));
+        nonce += 1;
     }
 
     function build(bytes32 _fortressHash, bytes32 _buildingHash) public whenNotPaused {
@@ -348,7 +348,7 @@ contract RealmsOfEther is Pausable {
     function createFortress(bytes16 _name) public payable whenNotPaused {
         require(msg.value >= 10 ** 16);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), fortressStorage, keccak256(msg.sender, _name, stor_1), _name, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), fortressStorage, keccak256(msg.sender, _name, nonce), _name, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
         v1 = v2 = stor_11 == stor_12;
         if (stor_11 != stor_12) {
@@ -369,8 +369,8 @@ contract RealmsOfEther is Pausable {
         }
         stor_11 += stor_13;
         stor_12 += stor_14;
-        LogFortressCreated(_name, keccak256(msg.sender, _name, stor_1), msg.sender, stor_11, stor_12);
-        stor_1 += 1;
+        LogFortressCreated(_name, keccak256(msg.sender, _name, nonce), msg.sender, stor_11, stor_12);
+        nonce += 1;
     }
 
     function getBuilding(bytes32 _buildingHash)
@@ -538,10 +538,10 @@ contract RealmsOfEther is Pausable {
 
     function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _intelligence, uint256 _dexterity, uint256 _gold, uint256 _wood, uint256 _stone) public onlyOwner {
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), troupStorage, keccak256(msg.sender, _name, stor_1), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
+        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), troupStorage, keccak256(msg.sender, _name, nonce), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
         require(bool(v0));
-        LogTroupCreated(keccak256(msg.sender, _name, stor_1));
-        stor_1 += 1;
+        LogTroupCreated(keccak256(msg.sender, _name, nonce));
+        nonce += 1;
     }
 
     function getFortressBuilding(bytes32 _fortressHash, bytes32 _buildingHash) 
