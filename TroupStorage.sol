@@ -20,33 +20,33 @@ contract TroupStorage is Ownable {
     }
 
     // 0x080461f9
-    function setStrength(bytes32 varg0, uint256 varg1) 
+    function setStrength(bytes32 _troupHash, uint256 _amount) 
         public
         onlyOwner
     { 
-        require(_getName[varg0]);
-        mapping_5[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_5[_troupHash] = _amount;
     }
 
     // 0x41731f8b
-    function setIntelligence(bytes32 varg0, uint256 varg1) 
+    function setIntelligence(bytes32 _troupHash, uint256 _amount) 
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_6[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_6[_troupHash] = _amount;
     }
 
     // 0x54b8d5e3
-    function getName(bytes32 saleId) public { 
-        require(_getName[uint256(saleId)]);
-        return bytes16(mapping_3[uint256(saleId)] << 128);
+    function getName(bytes32 _troupHash) public { 
+        require(_getName[uint256(_troupHash)]);
+        return bytes16(mapping_3[uint256(_troupHash)] << 128);
     }
 
     // 0x6453da9a
-    function getStrength(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_5[varg0];
+    function getStrength(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_5[_troupHash];
     }
 
     // 0x6b2fafa9
@@ -56,44 +56,44 @@ contract TroupStorage is Ownable {
     }
 
     // 0x6d0af38e
-    function setStone(bytes32 varg0, uint256 varg1)
+    function setStone(bytes32 _troupHash, uint256 _amount)
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_a[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_a[_troupHash] = _amount;
     }
 
     // 0x70c92125
-    function setGold(bytes32 varg0, uint256 varg1)
+    function setGold(bytes32 _troupHash, uint256 _amount)
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_8[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_8[_troupHash] = _amount;
     }
 
     // 0x718de536
-    function setDexterity(bytes32 varg0, uint256 varg1)
+    function setDexterity(bytes32 _troupHash, uint256 _amount)
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_7[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_7[_troupHash] = _amount;
     }
 
     // 0x79525281
-    function getIntelligence(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_6[varg0];
+    function getIntelligence(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_6[_troupHash];
     }
 
     // 0x7a65efc9
-    function createTroup(bytes32 varg0)
+    function createTroup(bytes32 _troupHash)
         public 
         onlyOwner
     {
-        require(bool(!_getName[varg0]));
+        require(bool(!_getName[_troupHash]));
         _getIndexLength.length += 1;
         if (!_getIndexLength.length <= 1 + _getIndexLength.length) {
             v0 = v1 = keccak256(1) + (1 + _getIndexLength.length);
@@ -102,44 +102,44 @@ contract TroupStorage is Ownable {
                 v0 += 1;
             }
         }
-        _getIndexLength[_getIndexLength.length] = varg0;
-        _getName[varg0] = 1;
+        _getIndexLength[_getIndexLength.length] = _troupHash;
+        _getName[_troupHash] = 1;
     }
 
     // 0x82f0b31c
-    function getLife(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_4[varg0];
+    function getLife(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_4[_troupHash];
     }
 
     // 0x9342ccc2
-    function getDexterity(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_7[varg0];
+    function getDexterity(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_7[_troupHash];
     }
 
     // 0x9c8b8588
-    function setWood(bytes32 varg0, uint256 varg1)
+    function setWood(bytes32 _troupHash, uint256 _amount)
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_9[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_9[_troupHash] = _amount;
     }
 
     // 0xc74d8903
-    function setLife(bytes32 varg0, uint256 varg1)
+    function setLife(bytes32 _troupHash, uint256 _amount)
         public 
         onlyOwner
     {
-        require(_getName[varg0]);
-        mapping_4[varg0] = varg1;
+        require(_getName[_troupHash]);
+        mapping_4[_troupHash] = _amount;
     }
 
     // 0xe0d87dc2
-    function getWood(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_9[varg0];
+    function getWood(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_9[_troupHash];
     }
 
     // 0xe1ba7d01
@@ -148,23 +148,23 @@ contract TroupStorage is Ownable {
     }
 
     // 0xe382af35
-    function getStone(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_a[varg0];
+    function getStone(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_a[_troupHash];
     }
 
     // 0xe75f7871
-    function getGold(bytes32 varg0) public { 
-        require(_getName[varg0]);
-        return mapping_8[varg0];
+    function getGold(bytes32 _troupHash) public { 
+        require(_getName[_troupHash]);
+        return mapping_8[_troupHash];
     }
 
     // 0xf776c071
-    function setName(bytes32 varg0, bytes16 varg1)
+    function setName(bytes32 _troupHash, bytes16 _name)
         public 
         onlyOwner
     { 
-        require(_getName[varg0]);
-        mapping_3[varg0] = varg1 >> 128 | bytes16(mapping_3[varg0]);
+        require(_getName[_troupHash]);
+        mapping_3[_troupHash] = _name >> 128 | bytes16(mapping_3[_troupHash]);
     }
 }
