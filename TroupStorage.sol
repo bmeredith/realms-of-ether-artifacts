@@ -1,9 +1,7 @@
 pragma solidity 0.4.19;
 
-import "./Ownable.sol";
-
-contract TroupStorage is Ownable {
-    // address _owner; // STORAGE[0x0] bytes 0 to 19
+contract TroupStorage {
+    address _owner; // STORAGE[0x0] bytes 0 to 19
     bytes32[] troupHashes; // STORAGE[0x1] _getIndexLength
     mapping (bytes32 => bool) exists; // STORAGE[0x2] _getName
     mapping (bytes32 => uint256) packedNames; // STORAGE[0x3] mapping_3
@@ -14,16 +12,23 @@ contract TroupStorage is Ownable {
     mapping (bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
     mapping (bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
     mapping (bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
+    
+    // Events
+    event OwnershipTransferred(address, address);
 
-    function fallback() public payable { 
+    function TroupStorage() public {
+        _owner = msg.sender;
+    }
+
+    function() public payable {
         revert();
     }
 
     // 0x080461f9
     function setStrength(bytes32 _troupHash, uint256 _amount) 
         public
-        onlyOwner
     { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         strength[_troupHash] = _amount;
     }
@@ -31,8 +36,8 @@ contract TroupStorage is Ownable {
     // 0x41731f8b
     function setIntelligence(bytes32 _troupHash, uint256 _amount) 
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         intelligence[_troupHash] = _amount;
     }
@@ -43,7 +48,7 @@ contract TroupStorage is Ownable {
         returns (bytes16)
     { 
         require(exists[_troupHash]);
-        return bytes16(uint128(packedNames[_troupHash]));
+        return bytes16(packedNames[_troupHash] << 128);
     }
 
     // 0x6453da9a
@@ -67,8 +72,8 @@ contract TroupStorage is Ownable {
     // 0x6d0af38e
     function setStone(bytes32 _troupHash, uint256 _amount)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         stone[_troupHash] = _amount;
     }
@@ -76,8 +81,8 @@ contract TroupStorage is Ownable {
     // 0x70c92125
     function setGold(bytes32 _troupHash, uint256 _amount)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         gold[_troupHash] = _amount;
     }
@@ -85,8 +90,8 @@ contract TroupStorage is Ownable {
     // 0x718de536
     function setDexterity(bytes32 _troupHash, uint256 _amount)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         dexterity[_troupHash] = _amount;
     }
@@ -103,10 +108,10 @@ contract TroupStorage is Ownable {
     // 0x7a65efc9
     function createTroup(bytes32 _troupHash)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(!exists[_troupHash]);
-        
+
         uint256 i = troupHashes.length;
         troupHashes.length = i + 1;
         troupHashes[i] = _troupHash;
@@ -123,6 +128,10 @@ contract TroupStorage is Ownable {
         return life[_troupHash];
     }
 
+    function owner() public returns (address) {
+        return _owner;
+    }
+
     // 0x9342ccc2
     function getDexterity(bytes32 _troupHash)
         public
@@ -135,8 +144,8 @@ contract TroupStorage is Ownable {
     // 0x9c8b8588
     function setWood(bytes32 _troupHash, uint256 _amount)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         wood[_troupHash] = _amount;
     }
@@ -144,8 +153,8 @@ contract TroupStorage is Ownable {
     // 0xc74d8903
     function setLife(bytes32 _troupHash, uint256 _amount)
         public 
-        onlyOwner
-    {
+    { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         life[_troupHash] = _amount;
     }
@@ -185,11 +194,18 @@ contract TroupStorage is Ownable {
         return gold[_troupHash];
     }
 
+    function transferOwnership(address newOwner) public { 
+        require(msg.sender == _owner);
+        require(bool(newOwner != address(0x0)));
+        OwnershipTransferred(_owner, newOwner);
+        _owner = newOwner;
+    }
+
     // 0xf776c071
     function setName(bytes32 _troupHash, bytes16 _name)
         public 
-        onlyOwner
     { 
+        require(msg.sender == _owner);
         require(exists[_troupHash]);
         packedNames[_troupHash] = uint256(_name) >> 128 | uint256(bytes16(packedNames[_troupHash]));
     }
