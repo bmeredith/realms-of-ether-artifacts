@@ -224,7 +224,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function unknown_0x2a52(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) private { 
-        v0, v1, v2 = 0x1393(varg6);
+        v0, v1, v2 = unknown_0x1393(varg6);
         v3 = varg4.mul(varg5);
         v4 = v3.add(1);
         v5 = v4.mul(v2);
@@ -305,10 +305,10 @@ contract RealmsOfEther is Pausable {
     }
 
     function build(bytes32 _fortressHash, bytes32 _buildingHash) public whenNotPaused {
-        0x26af(_fortressHash);
-        v0, v1, v2 = 0x1749(_fortressHash);
-        v3, v4, v5 = 0x14f4(_buildingHash);
-        v6, v7 = 0x1a67(_buildingHash, _fortressHash);
+        unknown_0x26af(_fortressHash);
+        v0, v1, v2 = unknown_0x1749(_fortressHash);
+        v3, v4, v5 = unknown_0x14f4(_buildingHash);
+        v6, v7 = unknown_0x1a67(_buildingHash, _fortressHash);
         v8  = v7.add(1);
         v9  = v8.mul(v5);
         v10 = v8.mul(v4);
@@ -424,7 +424,7 @@ contract RealmsOfEther is Pausable {
         uint256 stone;
         uint256 gold;
 
-        (wood, stone, gold) = 0x1393(uint256(_troupHash));
+        (wood, stone, gold) = unknown_0x1393(uint256(_troupHash));
 
         return (gold, stone, wood);
     }
@@ -454,7 +454,7 @@ contract RealmsOfEther is Pausable {
         uint256 stone;
         uint256 gold;
 
-        (wood, stone, gold) = 0x14f4(uint256(_buildingHash));
+        (wood, stone, gold) = unknown_0x14f4(uint256(_buildingHash));
         
         return (gold, stone, wood);
     }
@@ -505,7 +505,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function transferFortress(bytes32 _fortressHash, address _newOwner) public whenNotPaused {
-        0x26af(_fortressHash);
+        unknown_0x26af(_fortressHash);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xb844ad67), fortressStorage, _fortressHash, _newOwner).gas(msg.gas - 710);
         require(bool(v0));
@@ -528,7 +528,7 @@ contract RealmsOfEther is Pausable {
         uint256 stone;
         uint256 gold;
 
-        (wood, stone, gold) = 0x1749(uint256(_fortressHash));
+        (wood, stone, gold) = unknown_0x1749(uint256(_fortressHash));
         
         return (gold, stone, wood);
     }
@@ -566,7 +566,7 @@ contract RealmsOfEther is Pausable {
             uint256 _timeout
         )
     { 
-        (uint256 timeout, uint256 level) = 0x1a67(uint256(_buildingHash), uint256(_fortressHash));
+        (uint256 timeout, uint256 level) = unknown_0x1a67(uint256(_buildingHash), uint256(_fortressHash));
         return (level, timeout);
     }
 
@@ -675,7 +675,7 @@ contract RealmsOfEther is Pausable {
         view
         returns (_amount uint256)
     { 
-        v0 = 0x1d04(uint256(_troupHash), uint256(_fortressHash));
+        v0 = unknown_0x1d04(uint256(_troupHash), uint256(_fortressHash));
         return v0;
     }
 
@@ -759,19 +759,19 @@ contract RealmsOfEther is Pausable {
         public 
         whenNotPaused
     {
-        0x26af(uint256(_fortressHash));
-        v0, v1 = 0x1a67(uint256(_buildingHash), uint256(_fortressHash));
+        unknown_0x26af(uint256(_fortressHash));
+        v0, v1 = unknown_0x1a67(uint256(_buildingHash), uint256(_fortressHash));
         require(block.timestamp > v0);
         v2, v3, v4, v5, v6 = _getBuildingFromProxy(uint256(_buildingHash));
-        v7, v8, v9 = 0x1749(uint256(_fortressHash));
+        v7, v8, v9 = unknown_0x1749(uint256(_fortressHash));
         if (v5 == 1) {
-            0x2811(v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
+            unknown_0x2811(v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
         }
         if (2 == v5) {
-            v10 = 0x1d04(v3, uint256(_fortressHash));
-            0x2a52(v10, v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
+            v10 = unknown_0x1d04(v3, uint256(_fortressHash));
+            unknown_0x2a52(v10, v7, v8, v9, v1, v4, v3, uint256(_fortressHash));
         }
-        0x2d54(v2, uint256(_buildingHash), uint256(_fortressHash));
+        unknown_0x2d54(v2, uint256(_buildingHash), uint256(_fortressHash));
         LogBuildingAction(_fortressHash, _buildingHash);
     }
 
