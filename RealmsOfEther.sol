@@ -10,12 +10,12 @@ contract RealmsOfEther is Pausable {
     //address _owner; // STORAGE[0x0] bytes 0 to 19
     //bool _paused; // STORAGE[0x0] bytes 20 to 20
     uint256 stor_1; // STORAGE[0x1] stor_1
-    address fortressStorage; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
-    address buildingStorage; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
-    address troupStorage; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
-    bytes32 goldHash; // STORAGE[0x5] stor_5
-    bytes32 woodHash; // STORAGE[0x6] stor_6
-    bytes32 stoneHash; // STORAGE[0x7] stor_7
+    address public fortressStorage; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
+    address public buildingStorage; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
+    address public troupStorage; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
+    bytes32 public goldHash; // STORAGE[0x5] stor_5
+    bytes32 public woodHash; // STORAGE[0x6] stor_6
+    bytes32 public stoneHash; // STORAGE[0x7] stor_7
     mapping (uint256 => uint256) mapping_8; // STORAGE[0x8] mapping_8
     mapping (uint256 => address) mapping_9; // STORAGE[0x9] mapping_9
     mapping (uint256 => uint256) mapping_a; // STORAGE[0xa] mapping_a
@@ -69,6 +69,10 @@ contract RealmsOfEther is Pausable {
         fortressStorage = _fortressStorage;
         buildingStorage = _buildingStorage;
         troupStorage = _troupStorage;
+
+        stoneHash = 0x7cdf2c59fd49fab5ebabf1630c3a1f4d5c22c0aaa3651ca37dd688a69b33f3aa;
+        goldHash = 0x6f0d47b12e2c2f7083eb5622541f9c3930e56fc3e46e89e132673f05a079baff;
+        woodHash = 0x5ba3d4ce716a8ffcb210154ac5bac60752c9c70c3f74eadda59afd15baab58c0;
     }
 
     function _getBuildingFromProxy(uint256 _buildingHash) 
@@ -183,10 +187,6 @@ contract RealmsOfEther is Pausable {
         require(bool(v0));
         require(address(v1) == msg.sender);
         return ;
-    }
-
-    function fortressStorage() public view returns (address) { 
-        return fortressStorage;
     }
 
     function unknown_0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
@@ -328,10 +328,6 @@ contract RealmsOfEther is Pausable {
         v19 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x7b2be003), fortressStorage, _fortressHash, _buildingHash, v16, v17, v18, v8).gas(msg.gas - 710);
         require(bool(v19));
         LogBuild(_fortressHash, _buildingHash);
-    }
-
-    function troupStorage() public view returns (address) { 
-        return troupStorage;
     }
 
     function getFortressesAvailable() public view returns (uint256) { 
@@ -508,10 +504,6 @@ contract RealmsOfEther is Pausable {
         return (name, life, strength, intelligence, dexterity);
     }
 
-    function stoneHash() public view returns (bytes32) { 
-        return stoneHash;
-    }
-
     function transferFortress(bytes32 _fortressHash, address _newOwner) public whenNotPaused {
         0x26af(_fortressHash);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -521,10 +513,6 @@ contract RealmsOfEther is Pausable {
 
     function getUserAuctionsLength(address _user) public returns (uint256) { 
         return _userAuctions[_user].length;
-    }
-
-    function goldHash() public view returns (bytes32) { 
-        return goldHash;
     }
 
     function getResources(bytes32 _fortressHash) 
@@ -586,14 +574,6 @@ contract RealmsOfEther is Pausable {
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xd87f3856), fortressStorage).gas(msg.gas - 710);
         require(bool(v0));
-    }
-
-    function woodHash() 
-        public
-        view 
-        returns (bytes32) 
-    { 
-        return woodHash;
     }
 
     function totalBalance() 
@@ -808,14 +788,6 @@ contract RealmsOfEther is Pausable {
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(troupStorage, _newContract).gas(msg.gas - 710);
         require(bool(v2));
-    }
-
-    function buildingStorage() 
-        public 
-        view
-        returns (address)
-    { 
-        return buildingStorage;
     }
 
     function startAuction(bytes32 _fortressHash /* fortress hash */) 
