@@ -5,15 +5,15 @@ import "./Ownable.sol";
 contract TroupStorage is Ownable {
     // address _owner; // STORAGE[0x0] bytes 0 to 19
     uint256[] _getIndexLength; // STORAGE[0x1]
-    mapping (uint256 => bool) _getName; // STORAGE[0x2]
-    mapping (uint256 => uint256) mapping_3; // STORAGE[0x3]
-    mapping (uint256 => uint256) mapping_4; // STORAGE[0x4]
-    mapping (uint256 => uint256) mapping_5; // STORAGE[0x5]
-    mapping (uint256 => uint256) mapping_6; // STORAGE[0x6]
-    mapping (uint256 => uint256) mapping_7; // STORAGE[0x7]
-    mapping (uint256 => uint256) mapping_8; // STORAGE[0x8]
-    mapping (uint256 => uint256) mapping_9; // STORAGE[0x9]
-    mapping (uint256 => uint256) mapping_a; // STORAGE[0xa]
+    mapping (bytes32 => bool) _getName; // STORAGE[0x2]
+    mapping (bytes32 => bytes16) mapping_3; // STORAGE[0x3] mapping_3
+    mapping (bytes32 => uint256) mapping_4; // STORAGE[0x4] mapping_4
+    mapping (bytes32 => uint256) mapping_5; // STORAGE[0x5] mapping_5
+    mapping (bytes32 => uint256) mapping_6; // STORAGE[0x6] mapping_6
+    mapping (bytes32 => uint256) mapping_7; // STORAGE[0x7] mapping_7
+    mapping (bytes32 => uint256) mapping_8; // STORAGE[0x8] mapping_8
+    mapping (bytes32 => uint256) mapping_9; // STORAGE[0x9] mapping_9
+    mapping (bytes32 => uint256) mapping_a; // STORAGE[0xa] mapping_a
 
     function fallback() public payable { 
         revert();
