@@ -16,15 +16,15 @@ contract RealmsOfEther is Pausable {
     bytes32 public goldHash; // STORAGE[0x5] stor_5
     bytes32 public woodHash; // STORAGE[0x6] stor_6
     bytes32 public stoneHash; // STORAGE[0x7] stor_7
-    mapping (bytes32 => uint256) mapping_8; // STORAGE[0x8] mapping_8
-    mapping (bytes32 => address) mapping_9; // STORAGE[0x9] mapping_9
-    mapping (bytes32 => uint256) mapping_a; // STORAGE[0xa] mapping_a
-    mapping (bytes32 => address) _highestBidder; // STORAGE[0xb]
-    mapping (address => bytes32[]) _userAuctions; // STORAGE[0xc]
-    mapping (bytes32 => uint256) mapping_d; // STORAGE[0xd] mapping_d
-    mapping (address => uint256) _balances; // STORAGE[0xe]
-    uint256 _totalBalance; // STORAGE[0xf]
-    uint256[] _getAuctionsLength; // STORAGE[0x10]
+    mapping (bytes32 => uint256) public auctionEnd; // STORAGE[0x8] mapping_8
+    mapping (bytes32 => address) public auctionOwner; // STORAGE[0x9] mapping_9
+    mapping (bytes32 => uint256) public highestBid; // STORAGE[0xa] mapping_a
+    mapping (bytes32 => address) public highestBidder; // STORAGE[0xb]
+    mapping (address => bytes32[]) public userAuctions; // STORAGE[0xc]
+    mapping (bytes32 => uint256) public balanceAuction; // STORAGE[0xd] mapping_d
+    mapping (address => uint256) public balances; // STORAGE[0xe]
+    uint256 public totalBalance; // STORAGE[0xf]
+    bytes32[] public auctions; // STORAGE[0x10]
     int256 stor_11; // STORAGE[0x11] stor_11
     uint256 stor_12; // STORAGE[0x12] stor_12
     uint256 stor_13; // STORAGE[0x13] stor_13
@@ -166,18 +166,18 @@ contract RealmsOfEther is Pausable {
     }
 
     function endAuction(bytes32 _fortressHash) public whenNotPaused {
-        require(mapping_8[_fortressHash] <= block.timestamp);
-        require(_highestBidder[_fortressHash] == msg.sender);
+        require(auctionEnd[_fortressHash] <= block.timestamp);
+        require(highestBidder[_fortressHash] == msg.sender);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), fortressStorage, _fortressHash, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
-        v1 = mapping_a[_fortressHash].sub(_balances[msg.sender]);
-        _balances[msg.sender] = v1;
-        mapping_d[keccak256(_fortressHash, msg.sender)] = 0;
-        v2 = mapping_a[_fortressHash].add(mapping_d[keccak256(_fortressHash, mapping_9[_fortressHash])]);
-        mapping_d[keccak256(_fortressHash, mapping_9[_fortressHash])] = v2;
-        v3 = mapping_a[_fortressHash].add(_balances[mapping_9[_fortressHash]]);
-        _balances[mapping_9[_fortressHash]] = v3;
+        v1 = highestBid[_fortressHash].sub(balances[msg.sender]);
+        balances[msg.sender] = v1;
+        balanceAuction[keccak256(_fortressHash, msg.sender)] = 0;
+        v2 = highestBid[_fortressHash].add(balanceAuction[keccak256(_fortressHash, auctionOwner[_fortressHash])]);
+        balanceAuction[keccak256(_fortressHash, auctionOwner[_fortressHash])] = v2;
+        v3 = highestBid[_fortressHash].add(balances[auctionOwner[_fortressHash]]);
+        balances[auctionOwner[_fortressHash]] = v3;
     }
 
     function unknown_0x26af(uint256 varg0) private { 
@@ -217,10 +217,6 @@ contract RealmsOfEther is Pausable {
             require(bool(v11));
             return ;
         }
-    }
-
-    function balanceAuction(bytes32 varg0) public view returns (uint256) { 
-        return mapping_d[varg0];
     }
 
     function unknown_0x2a52(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) private { 
@@ -300,10 +296,6 @@ contract RealmsOfEther is Pausable {
         stor_1 += 1;
     }
 
-    function balances(address varg0) public view returns (uint256) { 
-        return _balances[varg0];
-    }
-
     function build(bytes32 _fortressHash, bytes32 _buildingHash) public whenNotPaused {
         unknown_0x26af(_fortressHash);
         v0, v1, v2 = unknown_0x1749(_fortressHash);
@@ -374,15 +366,6 @@ contract RealmsOfEther is Pausable {
         stor_1 += 1;
     }
 
-    function auctions(uint256 varg0) public view returns (bytes32) { 
-        assert(varg0 < _getAuctionsLength.length);
-        return _getAuctionsLength[varg0];
-    }
-
-    function highestBid(bytes32 varg0) public view returns (uint256) { 
-        return mapping_a[varg0];
-    }
-
     function getBuilding(bytes32 _buildingHash)
         public
         view
@@ -427,10 +410,6 @@ contract RealmsOfEther is Pausable {
         (wood, stone, gold) = unknown_0x1393(uint256(_troupHash));
 
         return (gold, stone, wood);
-    }
-
-    function auctionEnd(bytes32 varg0) public view returns (uint256) { 
-        return mapping_8[varg0];
     }
 
     function getHashFromIndex(address _user, uint256 _index) public view returns (bytes32) { 
@@ -512,7 +491,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function getUserAuctionsLength(address _user) public returns (uint256) { 
-        return _userAuctions[_user].length;
+        return userAuctions[_user].length;
     }
 
     function getResources(bytes32 _fortressHash) 
@@ -534,18 +513,18 @@ contract RealmsOfEther is Pausable {
     }
 
     function withdraw(bytes32 _fortressHash) public whenNotPaused {
-        require(block.timestamp <= mapping_8[_fortressHash]);
-        require(_highestBidder[_fortressHash] != msg.sender);
+        require(block.timestamp <= auctionEnd[_fortressHash]);
+        require(highestBidder[_fortressHash] != msg.sender);
 
         bytes32 key = keccak256(_fortressHash, msg.sender);
         
         // cache amount first (matches Tenderly showing the SLOAD before SSTORE)
-        uint256 amount = mapping_d[key];
+        uint256 amount = balanceAuction[key];
 
         // clear pending balance (even if it's already 0)
-        mapping_d[key] = 0;
-        _balances[msg.sender] = mapping_d[key].sub(_balances[msg.sender]);
-        _totalBalance = mapping_d[key].sub(_totalBalance);
+        balanceAuction[key] = 0;
+        balances[msg.sender] = balanceAuction[key].sub(balances[msg.sender]);
+        totalBalance = balanceAuction[key].sub(totalBalance);
 
         require(msg.sender.call.value(amount).gas(2300)());
     }
@@ -576,35 +555,10 @@ contract RealmsOfEther is Pausable {
         require(bool(v0));
     }
 
-    function totalBalance() 
-        public 
-        view 
-        returns (uint256) 
-    { 
-        return _totalBalance;
-    }
-
     function withdrawExcess(address _withdraw) public onlyOwner {
-        v0 = _totalBalance.sub((address(this)).balance);
+        v0 = totalBalance.sub((address(this)).balance);
         v1 = _withdraw.call().value(v0).gas(!v0 * 2300);
         require(bool(v1));
-    }
-
-    function userAuctions(address varg0, uint256 varg1) 
-        public 
-        view
-        returns (bytes32)
-    { 
-        assert(varg1 < _userAuctions[varg0].length);
-        return _userAuctions[varg0][varg1];
-    }
-
-    function highestBidder(bytes32 hash) 
-        public 
-        view 
-        returns (address)
-    { 
-        return _highestBidder[hash];
     }
 
     function getFortress(bytes32 _fortressHash) 
@@ -662,14 +616,6 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function auctionOwner(bytes32 varg0) 
-        public
-        view
-        returns (address)
-    { 
-        return mapping_9[varg0];
-    }
-
     function getFortressTroups(bytes32 _fortressHash, bytes32 _troupHash) 
         public
         view
@@ -684,7 +630,7 @@ contract RealmsOfEther is Pausable {
         view
         returns (uint256)
     { 
-        return mapping_d[keccak256(_fortressHash, _user)];
+        return balanceAuction[keccak256(_fortressHash, _user)];
     }
 
     function bidAuction(bytes32 _fortressHash) 
@@ -692,34 +638,34 @@ contract RealmsOfEther is Pausable {
         payable 
         whenNotPaused 
     {
-        require(block.timestamp < mapping_8[_fortressHash]);
-        v0 = AUCTION_DURATION.sub(mapping_8[_fortressHash]);
+        require(block.timestamp < auctionEnd[_fortressHash]);
+        v0 = AUCTION_DURATION.sub(auctionEnd[_fortressHash]);
         require(block.timestamp > v0);
         assert(bool(100));
         v1 = uint256(1).mul(msg.value / 100);
         v2 = v1.sub(msg.value);
         v3 = keccak256(_fortressHash, msg.sender);
-        if (!bool(mapping_d[v3])) {
-            _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
-            if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
-                v4 = v5 = _userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
-                while (keccak256(keccak256(msg.sender, 12)) + _userAuctions[msg.sender].length > v4) {
+        if (!bool(balanceAuction[v3])) {
+            userAuctions[msg.sender].length = userAuctions[msg.sender].length + 1;
+            if (!userAuctions[msg.sender].length <= userAuctions[msg.sender].length + 1) {
+                v4 = v5 = userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
+                while (keccak256(keccak256(msg.sender, 12)) + userAuctions[msg.sender].length > v4) {
                     STORAGE[v4] = 0;
                     v4 += 1;
                 }
             }
-            _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _fortressHash;
+            userAuctions[msg.sender][userAuctions[msg.sender].length] = _fortressHash;
         }
-        v6 = v2.add(mapping_d[v3]);
-        mapping_d[v3] = v6;
-        v7 = v2.add(_balances[msg.sender]);
-        _balances[msg.sender] = v7;
-        v8 = v2.add(_totalBalance);
-        _totalBalance = v8;
-        v9 = (10 ** 16).add(mapping_a[_fortressHash]);
-        if (mapping_d[v3] >= v9) {
-            mapping_a[_fortressHash] = mapping_d[v3];
-            _highestBidder[_fortressHash] = msg.sender;
+        v6 = v2.add(balanceAuction[v3]);
+        balanceAuction[v3] = v6;
+        v7 = v2.add(balances[msg.sender]);
+        balances[msg.sender] = v7;
+        v8 = v2.add(totalBalance);
+        totalBalance = v8;
+        v9 = (10 ** 16).add(highestBid[_fortressHash]);
+        if (balanceAuction[v3] >= v9) {
+            highestBid[_fortressHash] = balanceAuction[v3];
+            highestBidder[_fortressHash] = msg.sender;
         }
     }
 
@@ -752,7 +698,7 @@ contract RealmsOfEther is Pausable {
         view
         returns (uint256)
     { 
-        return _getAuctionsLength.length;
+        return auctions.length;
     }
 
     function buildingAction(bytes32 _fortressHash, bytes32 _buildingHash) 
@@ -802,28 +748,28 @@ contract RealmsOfEther is Pausable {
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf1ed0c6), fortressStorage, _fortressHash, address(this)).gas(msg.gas - 710);
         require(bool(v2));
-        _highestBidder[_fortressHash] = msg.sender;
-        mapping_a[_fortressHash] = 0;
-        mapping_9[_fortressHash] = msg.sender;
-        mapping_8[_fortressHash] = block.timestamp + AUCTION_DURATION;
-        _userAuctions[msg.sender].length = _userAuctions[msg.sender].length + 1;
-        if (!_userAuctions[msg.sender].length <= _userAuctions[msg.sender].length + 1) {
-            v3 = v4 = _userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
-            while (keccak256(keccak256(msg.sender, 12)) + _userAuctions[msg.sender].length > v3) {
+        highestBidder[_fortressHash] = msg.sender;
+        highestBid[_fortressHash] = 0;
+        auctionOwner[_fortressHash] = msg.sender;
+        auctionEnd[_fortressHash] = block.timestamp + AUCTION_DURATION;
+        userAuctions[msg.sender].length = userAuctions[msg.sender].length + 1;
+        if (!userAuctions[msg.sender].length <= userAuctions[msg.sender].length + 1) {
+            v3 = v4 = userAuctions[msg.sender].length + 1 + keccak256(keccak256(msg.sender, 12));
+            while (keccak256(keccak256(msg.sender, 12)) + userAuctions[msg.sender].length > v3) {
                 STORAGE[v3] = 0;
                 v3 += 1;
             }
         }
-        _userAuctions[msg.sender][_userAuctions[msg.sender].length] = _fortressHash;
-        _getAuctionsLength.length = _getAuctionsLength.length + 1;
-        if (!_getAuctionsLength.length <= _getAuctionsLength.length + 1) {
-            v5 = v6 = _getAuctionsLength.length + 1 + keccak256(16);
-            while (keccak256(16) + _getAuctionsLength.length > v5) {
+        userAuctions[msg.sender][userAuctions[msg.sender].length] = _fortressHash;
+        auctions.length = auctions.length + 1;
+        if (!auctions.length <= auctions.length + 1) {
+            v5 = v6 = auctions.length + 1 + keccak256(16);
+            while (keccak256(16) + auctions.length > v5) {
                 STORAGE[v5] = 0;
                 v5 += 1;
             }
         }
-        _getAuctionsLength[_getAuctionsLength.length] = _fortressHash;
+        auctions[auctions.length] = _fortressHash;
     }
 
     function getIndexLength(address _user) 
