@@ -11,8 +11,8 @@ contract RealmsOfEther is Pausable {
     //bool _paused; // STORAGE[0x0] bytes 20 to 20
     uint256 stor_1; // STORAGE[0x1] stor_1
     address fortressStorage; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
-    address stor_3_0_19; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
-    address stor_4_0_19; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
+    address buildingStorage; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
+    address troupStorage; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
     uint256 stor_5; // STORAGE[0x5] stor_5
     uint256 stor_6; // STORAGE[0x6] stor_6
     uint256 stor_7; // STORAGE[0x7] stor_7
@@ -67,8 +67,8 @@ contract RealmsOfEther is Pausable {
         public 
     {
         fortressStorage = _fortressStorage;
-        stor_3_0_19 = _troupStorage;
-        stor_4_0_19 = _buildingStorage;
+        buildingStorage = _buildingStorage;
+        troupStorage = _troupStorage;
     }
 
     function _getBuildingFromProxy(uint256 _buildingHash) 
@@ -82,7 +82,7 @@ contract RealmsOfEther is Pausable {
         )
     {
         address proxy = 0xb939a1d96dda7271d6d89eaceabd9163d0502165;
-        address storageAddr = stor_3_0_19;
+        address storageAddr = buildingStorage;
         
         assembly {
             // require(extcodesize(proxy) > 0)
@@ -120,7 +120,7 @@ contract RealmsOfEther is Pausable {
     function unknown_0x1393(uint256 _troupHash) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xfc85a0d2), stor_4_0_19, _troupHash).gas(msg.gas - 710);
+        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xfc85a0d2), troupStorage, _troupHash).gas(msg.gas - 710);
         require(bool(v0));
         return v3, v2, v1;
     }
@@ -128,7 +128,7 @@ contract RealmsOfEther is Pausable {
     function unknown_0x14f4(uint256 varg0) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xfc85a0d2), stor_3_0_19, varg0).gas(msg.gas - 710);
+        v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xfc85a0d2), buildingStorage, varg0).gas(msg.gas - 710);
         require(bool(v0));
         return v3, v2, v1;
     }
@@ -275,7 +275,7 @@ contract RealmsOfEther is Pausable {
     function getTroupHash(bytes32 varg0) public view { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(stor_4_0_19, varg0).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.getHash(troupStorage, varg0).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
@@ -284,7 +284,7 @@ contract RealmsOfEther is Pausable {
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(
             uint32(0xf481d125), 
-            stor_3_0_19,
+            buildingStorage,
             keccak256(msg.sender, _name, stor_1), 
             _name, 
             _action, 
@@ -331,7 +331,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function troupStorage() public view returns (address) { 
-        return stor_4_0_19;
+        return troupStorage;
     }
 
     function getFortressesAvailable() public view returns (uint256) { 
@@ -345,7 +345,7 @@ contract RealmsOfEther is Pausable {
     function getTroupIndexLength() public view returns (uint256) { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xf5807181), stor_4_0_19).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xf5807181), troupStorage).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
@@ -475,7 +475,7 @@ contract RealmsOfEther is Pausable {
         )
     { 
         address proxy = 0x902904b1833def4aef05b99cea93cc3383cd2d4a;
-        address storageAddr = stor_4_0_19;
+        address storageAddr = troupStorage;
 
         bool success;
         bytes16 name;
@@ -564,7 +564,7 @@ contract RealmsOfEther is Pausable {
 
     function createTroup(bytes16 _name, uint256 _life, uint256 _strength, uint256 _intelligence, uint256 _dexterity, uint256 _gold, uint256 _wood, uint256 _stone) public onlyOwner {
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), stor_4_0_19, keccak256(msg.sender, _name, stor_1), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
+        v0 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0x93fdc929), troupStorage, keccak256(msg.sender, _name, stor_1), _name, _life, _strength, _intelligence, _dexterity, _gold, _wood, _stone).gas(msg.gas - 710);
         require(bool(v0));
         LogTroupCreated(keccak256(msg.sender, _name, stor_1));
         stor_1 += 1;
@@ -750,7 +750,7 @@ contract RealmsOfEther is Pausable {
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(stor_3_0_19, _index).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.getHash(buildingStorage, _index).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
@@ -762,7 +762,7 @@ contract RealmsOfEther is Pausable {
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf5807181), stor_3_0_19).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xf5807181), buildingStorage).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
@@ -803,10 +803,10 @@ contract RealmsOfEther is Pausable {
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.upgrade(fortressStorage, _newContract).gas(msg.gas - 710);
         require(bool(v0));
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
-        v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(stor_3_0_19, _newContract).gas(msg.gas - 710);
+        v1 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.upgrade(buildingStorage, _newContract).gas(msg.gas - 710);
         require(bool(v1));
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
-        v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(stor_4_0_19, _newContract).gas(msg.gas - 710);
+        v2 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.upgrade(troupStorage, _newContract).gas(msg.gas - 710);
         require(bool(v2));
     }
 
@@ -815,7 +815,7 @@ contract RealmsOfEther is Pausable {
         view
         returns (address)
     { 
-        return stor_3_0_19;
+        return buildingStorage;
     }
 
     function startAuction(bytes32 _fortressHash /* fortress hash */) 
