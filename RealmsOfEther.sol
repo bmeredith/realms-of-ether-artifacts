@@ -16,12 +16,12 @@ contract RealmsOfEther is Pausable {
     bytes32 public goldHash; // STORAGE[0x5] stor_5
     bytes32 public woodHash; // STORAGE[0x6] stor_6
     bytes32 public stoneHash; // STORAGE[0x7] stor_7
-    mapping (uint256 => uint256) mapping_8; // STORAGE[0x8] mapping_8
-    mapping (uint256 => address) mapping_9; // STORAGE[0x9] mapping_9
-    mapping (uint256 => uint256) mapping_a; // STORAGE[0xa] mapping_a
-    mapping (uint256 => address) _highestBidder; // STORAGE[0xb]
-    mapping (address => uint256[]) _userAuctions; // STORAGE[0xc]
-    mapping (uint256 => uint256) mapping_d; // STORAGE[0xd] mapping_d
+    mapping (bytes32 => uint256) mapping_8; // STORAGE[0x8] mapping_8
+    mapping (bytes32 => address) mapping_9; // STORAGE[0x9] mapping_9
+    mapping (bytes32 => uint256) mapping_a; // STORAGE[0xa] mapping_a
+    mapping (bytes32 => address) _highestBidder; // STORAGE[0xb]
+    mapping (address => bytes32[]) _userAuctions; // STORAGE[0xc]
+    mapping (bytes32 => uint256) mapping_d; // STORAGE[0xd] mapping_d
     mapping (address => uint256) _balances; // STORAGE[0xe]
     uint256 _totalBalance; // STORAGE[0xf]
     uint256[] _getAuctionsLength; // STORAGE[0x10]
