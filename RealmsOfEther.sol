@@ -25,10 +25,12 @@ contract RealmsOfEther is Pausable {
     mapping (address => uint256) public balances; // STORAGE[0xe]
     uint256 public totalBalance; // STORAGE[0xf]
     bytes32[] public auctions; // STORAGE[0x10]
-    int256 stor_11; // STORAGE[0x11] stor_11
-    int256 stor_12; // STORAGE[0x12] stor_12
-    int256 stor_13; // STORAGE[0x13] stor_13
-    int256 stor_14; // STORAGE[0x14] stor_14
+
+    // used for the square spiral traversal logic as fortresses are created
+    int256 private x; // STORAGE[0x11] stor_11 -> current X coordinate
+    int256 private y; // STORAGE[0x12] stor_12 -> current Y coordinate
+    int256 private dx; // STORAGE[0x13] stor_13 -> direction step for X
+    int256 private dy; // STORAGE[0x14] stor_14 -> direction step for Y
 
     uint256 constant AUCTION_DURATION = 3 days;
 
@@ -76,10 +78,10 @@ contract RealmsOfEther is Pausable {
         woodHash = keccak256("Wood");
         stoneHash = keccak256("Stone");
 
-        stor_11 = 0;
-        stor_12 = 0;
-        stor_13 = 0;
-        stor_14 = -1;
+        x = 0;
+        y = 0;
+        dx = 0;
+        dy = -1;
     }
 
     function _getBuildingFromProxy(uint256 _buildingHash) 
@@ -348,28 +350,28 @@ contract RealmsOfEther is Pausable {
     function createFortress(bytes16 _name) public payable whenNotPaused {
         require(msg.value >= 10 ** 16);
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
-        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), fortressStorage, keccak256(msg.sender, _name, nonce), _name, stor_11, stor_12, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
+        v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xbd1fb981), fortressStorage, keccak256(msg.sender, _name, nonce), _name, x, y, 200, 400, 500, 0, msg.sender).gas(msg.gas - 710);
         require(bool(v0));
-        v1 = v2 = stor_11 == stor_12;
-        if (stor_11 != stor_12) {
-            v1 = v3 = stor_11 < 0;
+        v1 = v2 = x == y;
+        if (x != y) {
+            v1 = v3 = x < 0;
             if (v3) {
-                v1 = v4 = stor_11 == 0 - stor_12;
+                v1 = v4 = x == 0 - y;
             }
         }
         if (!v1) {
-            v1 = v5 = stor_11 > 0;
+            v1 = v5 = x > 0;
             if (v5) {
-                v1 = v6 = stor_11 == 1 - stor_12;
+                v1 = v6 = x == 1 - y;
             }
         }
         if (v1) {
-            stor_13 = 0 - stor_14;
-            stor_14 = stor_13;
+            dx = 0 - dy;
+            dy = dx;
         }
-        stor_11 += stor_13;
-        stor_12 += stor_14;
-        LogFortressCreated(_name, keccak256(msg.sender, _name, nonce), msg.sender, stor_11, stor_12);
+        x += dx;
+        y += dy;
+        LogFortressCreated(_name, keccak256(msg.sender, _name, nonce), msg.sender, x, y);
         nonce += 1;
     }
 
