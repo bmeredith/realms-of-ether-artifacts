@@ -13,9 +13,9 @@ contract RealmsOfEther is Pausable {
     address fortressStorage; // STORAGE[0x2] bytes 0 to 19 stor_2_0_19
     address buildingStorage; // STORAGE[0x3] bytes 0 to 19 stor_3_0_19
     address troupStorage; // STORAGE[0x4] bytes 0 to 19 stor_4_0_19
-    uint256 stor_5; // STORAGE[0x5] stor_5
-    uint256 stor_6; // STORAGE[0x6] stor_6
-    uint256 stor_7; // STORAGE[0x7] stor_7
+    bytes32 goldHash; // STORAGE[0x5] stor_5
+    bytes32 woodHash; // STORAGE[0x6] stor_6
+    bytes32 stoneHash; // STORAGE[0x7] stor_7
     mapping (uint256 => uint256) mapping_8; // STORAGE[0x8] mapping_8
     mapping (uint256 => address) mapping_9; // STORAGE[0x9] mapping_9
     mapping (uint256 => uint256) mapping_a; // STORAGE[0xa] mapping_a
@@ -190,7 +190,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function unknown_0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
-        if (varg5 == stor_5) {
+        if (varg5 == goldHash) {
             v0 = varg3.add(1);
             v1 = v0.mul(varg4);
             v2 = v1.add(varg2);
@@ -198,7 +198,7 @@ contract RealmsOfEther is Pausable {
             v3 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x1253a59c), fortressStorage, varg6, v2).gas(msg.gas - 710);
             require(bool(v3));
         }
-        if (varg5 == stor_7) {
+        if (varg5 == stoneHash) {
             v4 = varg3.add(1);
             v5 = v4.mul(varg4);
             v6 = v5.add(varg1);
@@ -206,7 +206,7 @@ contract RealmsOfEther is Pausable {
             v7 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x985a78d3), fortressStorage, varg6, v6).gas(msg.gas - 710);
             require(bool(v7));
         }
-        if (varg5 != stor_6) {
+        if (varg5 != woodHash) {
             return ;
         } else {
             v8 = varg3.add(1);
@@ -509,7 +509,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function stoneHash() public view returns (bytes32) { 
-        return stor_7;
+        return stoneHash;
     }
 
     function transferFortress(bytes32 _fortressHash, address _newOwner) public whenNotPaused {
@@ -524,7 +524,7 @@ contract RealmsOfEther is Pausable {
     }
 
     function goldHash() public view returns (bytes32) { 
-        return stor_5;
+        return goldHash;
     }
 
     function getResources(bytes32 _fortressHash) 
@@ -593,7 +593,7 @@ contract RealmsOfEther is Pausable {
         view 
         returns (bytes32) 
     { 
-        return stor_6;
+        return woodHash;
     }
 
     function totalBalance() 
