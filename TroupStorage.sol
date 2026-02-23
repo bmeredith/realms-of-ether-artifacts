@@ -4,7 +4,7 @@ import "./Ownable.sol";
 
 contract TroupStorage is Ownable {
     // address _owner; // STORAGE[0x0] bytes 0 to 19
-    bytes32[] _getIndexLength; // STORAGE[0x1]
+    bytes32[] troupHashes; // STORAGE[0x1] _getIndexLength
     mapping (bytes32 => bool) _getName; // STORAGE[0x2]
     mapping (bytes32 => bytes16) names; // STORAGE[0x3] mapping_3
     mapping (bytes32 => uint256) life; // STORAGE[0x4] mapping_4
@@ -60,8 +60,8 @@ contract TroupStorage is Ownable {
         public 
         returns (bytes32)
     { 
-        assert(_nonce < _getIndexLength.length);
-        return _getIndexLength[_nonce];
+        assert(_nonce < troupHashes.length);
+        return troupHashes[_nonce];
     }
 
     // 0x6d0af38e
@@ -106,15 +106,15 @@ contract TroupStorage is Ownable {
         onlyOwner
     {
         require(bool(!_getName[_troupHash]));
-        _getIndexLength.length += 1;
-        if (!_getIndexLength.length <= 1 + _getIndexLength.length) {
-            v0 = v1 = keccak256(1) + (1 + _getIndexLength.length);
-            while (keccak256(1) + _getIndexLength.length > v0) {
+        troupHashes.length += 1;
+        if (!troupHashes.length <= 1 + troupHashes.length) {
+            v0 = v1 = keccak256(1) + (1 + troupHashes.length);
+            while (keccak256(1) + troupHashes.length > v0) {
                 STORAGE[v0] = 0;
                 v0 += 1;
             }
         }
-        _getIndexLength[_getIndexLength.length] = _troupHash;
+        troupHashes[troupHashes.length] = _troupHash;
         _getName[_troupHash] = 1;
     }
 
@@ -168,7 +168,7 @@ contract TroupStorage is Ownable {
         public
         returns (uint256)
     { 
-        return _getIndexLength.length;
+        return troupHashes.length;
     }
 
     // 0xe382af35
