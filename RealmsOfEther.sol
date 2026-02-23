@@ -105,7 +105,7 @@ contract RealmsOfEther is Pausable {
         }
     }
 
-    function 0x1393(uint256 _troupHash) private { 
+    function unknown_0x1393(uint256 _troupHash) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0x902904b1833def4aef05b99cea93cc3383cd2d4a.code.size));
         v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0x902904b1833def4aef05b99cea93cc3383cd2d4a.delegatecall(uint32(0xfc85a0d2), stor_4_0_19, _troupHash).gas(msg.gas - 710);
@@ -113,7 +113,7 @@ contract RealmsOfEther is Pausable {
         return v3, v2, v1;
     }
 
-    function 0x14f4(uint256 varg0) private { 
+    function unknown_0x14f4(uint256 varg0) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
         v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0xfc85a0d2), stor_3_0_19, varg0).gas(msg.gas - 710);
@@ -121,7 +121,7 @@ contract RealmsOfEther is Pausable {
         return v3, v2, v1;
     }
 
-    function 0x1749(uint256 varg0) private { 
+    function unknown_0x1749(uint256 varg0) private { 
         MEM[96 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x58e9eb78), stor_2_0_19, varg0).gas(msg.gas - 710);
@@ -129,7 +129,7 @@ contract RealmsOfEther is Pausable {
         return v3, v2, v1;
     }
 
-    function 0x1a67(uint256 varg0, uint256 varg1) private { 
+    function unknown_0x1a67(uint256 varg0, uint256 varg1) private { 
         MEM[64 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1, /* uint256 */ v2 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0x4e49bbe1), stor_2_0_19, varg1, varg0).gas(msg.gas - 710);
@@ -137,7 +137,7 @@ contract RealmsOfEther is Pausable {
         return v2, v1;
     }
 
-    function 0x1d04(uint256 varg0, uint256 varg1) private { 
+    function unknown_0x1d04(uint256 varg0, uint256 varg1) private { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* uint256 */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xfd1fd5ff), stor_2_0_19, varg1, varg0).gas(msg.gas - 710);
@@ -164,7 +164,7 @@ contract RealmsOfEther is Pausable {
         _balances[mapping_9[_fortressHash]] = v3;
     }
 
-    function 0x26af(uint256 varg0) private { 
+    function unknown_0x26af(uint256 varg0) private { 
         MEM[32 + MEM[64]] = 0;
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0, /* address */ v1 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.getOwner(stor_2_0_19, varg0).gas(msg.gas - 710);
@@ -177,7 +177,7 @@ contract RealmsOfEther is Pausable {
         return stor_2_0_19;
     }
 
-    function 0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
+    function unknown_0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
         if (varg5 == stor_5) {
             v0 = varg3.add(1);
             v1 = v0.mul(varg4);
@@ -211,7 +211,7 @@ contract RealmsOfEther is Pausable {
         return mapping_d[varg0];
     }
 
-    function 0x2a52(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) private { 
+    function unknown_0x2a52(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6, uint256 varg7) private { 
         v0, v1, v2 = 0x1393(varg6);
         v3 = varg4.mul(varg5);
         v4 = v3.add(1);
@@ -253,7 +253,7 @@ contract RealmsOfEther is Pausable {
         return v1;
     }
 
-    function 0x2d54(uint256 varg0, uint256 varg1, uint256 varg2) private { 
+    function unknown_0x2d54(uint256 varg0, uint256 varg1, uint256 varg2) private { 
         require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
         v0 = 0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.delegatecall(uint32(0xf28c3ee3), stor_2_0_19, varg2, varg1, varg0 * 3600 + block.timestamp).gas(msg.gas - 710);
         require(bool(v0));
