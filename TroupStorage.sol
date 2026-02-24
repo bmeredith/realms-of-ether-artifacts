@@ -8,16 +8,16 @@ pragma solidity 0.4.18;
 /// @author wilt.eth / @wilty_stilty
 contract TroupStorage {
     address internal _owner;
-    bytes32 [] internal troupHashes;
-    mapping (uint256  => bool) internal exists;
-    mapping (uint256  => uint256) internal packedNames;
-    mapping (uint256  => uint256) internal life;
-    mapping (uint256  => uint256) internal strength;
-    mapping (uint256  => uint256) internal intelligence;
-    mapping (uint256  => uint256) internal dexterity;
-    mapping (uint256  => uint256) internal gold;
-    mapping (uint256  => uint256) internal wood;
-    mapping (uint256  => uint256) internal stone;
+    bytes32[] internal troupHashes;
+    mapping (uint256 => bool) internal exists;
+    mapping (uint256 => uint256) internal packedNames;
+    mapping (uint256 => uint256) internal life;
+    mapping (uint256 => uint256) internal strength;
+    mapping (uint256 => uint256) internal intelligence;
+    mapping (uint256 => uint256) internal dexterity;
+    mapping (uint256 => uint256) internal gold;
+    mapping (uint256 => uint256) internal wood;
+    mapping (uint256 => uint256) internal stone;
     
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
