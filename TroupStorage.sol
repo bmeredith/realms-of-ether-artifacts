@@ -1,20 +1,34 @@
 pragma solidity 0.4.18;
 
 /// @title TroupStorage for Realms of Ether (https://www.realmsofether.com)
-/// @notice This contract is an on-chain storage contract that manages 
-/// all persistent data for "troups" in Realms of Ether. The original source code 
-/// has been lost, but is now completely reconstructed from its raw bytecode.
+/// @notice Reconstructed by wilt.eth/@wilty_stilty
 ///
-/// @author wilt.eth / @wilty_stilty
+/// @notice Persistent on-chain storage contract for "troup" game units in Realms of Ether.
+/// Stores stats (life, strength, intelligence, dexterity) and resources (gold, wood, stone)
+/// for each troup, keyed by a bytes32 hash identifier.
+///
+/// @dev This contract is an on-chain storage contract that manages 
+/// all persistent data for "troups" in Realms of Ether.
+/// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
+/// This file has been reconstructed in its entirety from the deployed bytecode.
 contract TroupStorage {
     address internal _owner;
     bytes32[] internal troupHashes;
+
+    // tracks whether a given hash has been registered via createTroup()
     mapping (bytes32 => bool) internal exists;
+
+    // Stores the troup's name as an uint256. The bytes16 name occupies the
+    // upper 128 bits — stored via division by 2^128, retrieved via right-shift by 128.
     mapping (bytes32 => uint256) internal packedNames;
+
+    // core combat stats
     mapping (bytes32 => uint256) internal life;
     mapping (bytes32 => uint256) internal strength;
     mapping (bytes32 => uint256) internal intelligence;
     mapping (bytes32 => uint256) internal dexterity;
+
+    // held resources
     mapping (bytes32 => uint256) internal gold;
     mapping (bytes32 => uint256) internal wood;
     mapping (bytes32 => uint256) internal stone;
@@ -46,12 +60,16 @@ contract TroupStorage {
         intelligence[_troupHash] = _amount;
     }
 
+    /// @dev RECONSTRUCTION NOTE: getName retrieves the name via packedNames[_troupHash] >> 128.
+    /// The corresponding setName stores it via uint256(_name) / 0x100000000000000000000000000000000.
+    /// These are semantically equivalent but the asymmetry in source expression was necessary
+    /// to achieve bytecode-identical output with solc 0.4.18.
     function getName(bytes32 _troupHash) 
         public
         returns (bytes16)
-    { 
+    {
         require(exists[_troupHash]);
-        return bytes16(packedNames[_troupHash] << 128);
+        return bytes16(packedNames[_troupHash] >> 128);
     }
 
     function getStrength(bytes32 _troupHash) 
@@ -101,6 +119,8 @@ contract TroupStorage {
         return intelligence[_troupHash];
     }
 
+    /// @notice Registers a new troup hash. Must be called before any stats can be read or written.
+    /// @dev Reverts if the hash is already registered.
     function createTroup(bytes32 _troupHash)
         public 
     { 
@@ -119,7 +139,10 @@ contract TroupStorage {
         return life[_troupHash];
     }
 
-    function owner() public returns (address) {
+    function owner() 
+        public
+        returns (address) 
+    {
         return _owner;
     }
 
@@ -178,18 +201,24 @@ contract TroupStorage {
         return gold[_troupHash];
     }
 
-    function transferOwnership(address newOwner) public { 
+    function transferOwnership(address newOwner) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(bool(newOwner != address(0x0)));
         OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
     }
 
+    /// @dev Name is stored as a uint256 with the bytes16 value in the upper 128 bits,
+    /// encoded by dividing by 2^128. This packing was the original developer's choice
+    /// and is a notable quirk of this contract's reconstruction.
     function setName(bytes32 _troupHash, bytes16 _name)
         public 
     { 
         require(msg.sender == _owner);
         require(exists[_troupHash]);
-        packedNames[_troupHash] = (uint256(_name) >> 128) | uint256(bytes16(packedNames[_troupHash]));
+
+        packedNames[_troupHash] = uint256(_name) / 0x100000000000000000000000000000000;
     }
 }
