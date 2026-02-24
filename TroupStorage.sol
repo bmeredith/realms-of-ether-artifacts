@@ -8,7 +8,7 @@ pragma solidity 0.4.18;
 /// @author wilt.eth / @wilty_stilty
 contract TroupStorage {
     address internal _owner;
-    uint256 [] internal troupHashes;
+    bytes32 [] internal troupHashes;
     mapping (uint256  => bool) internal exists;
     mapping (uint256  => uint256) internal packedNames;
     mapping (uint256  => uint256) internal life;
@@ -71,7 +71,7 @@ contract TroupStorage {
         returns (bytes32)
     {
         require(_nonce < troupHashes.length);
-        return bytes32(troupHashes[_nonce]);
+        return troupHashes[_nonce];
     }
 
     function setStone(bytes32 _troupHash, uint256 _amount)
@@ -119,7 +119,7 @@ contract TroupStorage {
 
         uint256 i = troupHashes.length;
         troupHashes.length = i + 1;
-        troupHashes[i] = troupId;
+        troupHashes[i] = _troupHash;
 
         exists[troupId] = true;
     }
