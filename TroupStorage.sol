@@ -12,32 +12,29 @@ pragma solidity 0.4.18;
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract TroupStorage {
-    address internal _owner;
+    address public owner;
     bytes32[] internal troupHashes;
 
     // tracks whether a given hash has been registered via createTroup()
-    mapping (bytes32 => bool) internal exists;
-
-    // Stores the troup's name as an uint256. The bytes16 name occupies the
-    // upper 128 bits — stored via division by 2^128, retrieved via right-shift by 128.
-    mapping (bytes32 => uint256) internal packedNames;
+    mapping(bytes32 => bool) internal exists;
+    mapping(bytes32 => bytes16) internal names;
 
     // core combat stats
-    mapping (bytes32 => uint256) internal life;
-    mapping (bytes32 => uint256) internal strength;
-    mapping (bytes32 => uint256) internal intelligence;
-    mapping (bytes32 => uint256) internal dexterity;
+    mapping(bytes32 => uint256) internal life;
+    mapping(bytes32 => uint256) internal strength;
+    mapping(bytes32 => uint256) internal intelligence;
+    mapping(bytes32 => uint256) internal dexterity;
 
     // held resources
-    mapping (bytes32 => uint256) internal gold;
-    mapping (bytes32 => uint256) internal wood;
-    mapping (bytes32 => uint256) internal stone;
+    mapping(bytes32 => uint256) internal gold;
+    mapping(bytes32 => uint256) internal wood;
+    mapping(bytes32 => uint256) internal stone;
     
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     function TroupStorage() public {
-        _owner = msg.sender;
+        owner = msg.sender;
     }
 
     function() public payable {
@@ -47,7 +44,7 @@ contract TroupStorage {
     function setStrength(bytes32 _troupHash, uint256 _amount) 
         public 
     {
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         strength[_troupHash] = _amount;
     }
@@ -55,21 +52,17 @@ contract TroupStorage {
     function setIntelligence(bytes32 _troupHash, uint256 _amount) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         intelligence[_troupHash] = _amount;
     }
 
-    /// @dev RECONSTRUCTION NOTE: getName retrieves the name via packedNames[_troupHash] >> 128.
-    /// The corresponding setName stores it via uint256(_name) / 0x100000000000000000000000000000000.
-    /// These are semantically equivalent but the asymmetry in source expression was necessary
-    /// to achieve bytecode-identical output with solc 0.4.18.
     function getName(bytes32 _troupHash) 
         public
         returns (bytes16)
     {
         require(exists[_troupHash]);
-        return bytes16(packedNames[_troupHash] >> 128);
+        return names[_troupHash];
     }
 
     function getStrength(bytes32 _troupHash) 
@@ -90,7 +83,7 @@ contract TroupStorage {
     function setStone(bytes32 _troupHash, uint256 _amount)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         stone[_troupHash] = _amount;
     }
@@ -98,7 +91,7 @@ contract TroupStorage {
     function setGold(bytes32 _troupHash, uint256 _amount)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         gold[_troupHash] = _amount;
     }
@@ -106,7 +99,7 @@ contract TroupStorage {
     function setDexterity(bytes32 _troupHash, uint256 _amount)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         dexterity[_troupHash] = _amount;
     }
@@ -124,7 +117,7 @@ contract TroupStorage {
     function createTroup(bytes32 _troupHash)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(!exists[_troupHash]);
 
         troupHashes.push(_troupHash);
@@ -139,13 +132,6 @@ contract TroupStorage {
         return life[_troupHash];
     }
 
-    function owner() 
-        public
-        returns (address) 
-    {
-        return _owner;
-    }
-
     function getDexterity(bytes32 _troupHash)
         public
         returns (uint256)
@@ -157,7 +143,7 @@ contract TroupStorage {
     function setWood(bytes32 _troupHash, uint256 _amount)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         wood[_troupHash] = _amount;
     }
@@ -165,7 +151,7 @@ contract TroupStorage {
     function setLife(bytes32 _troupHash, uint256 _amount)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
         life[_troupHash] = _amount;
     }
@@ -204,21 +190,18 @@ contract TroupStorage {
     function transferOwnership(address newOwner) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(bool(newOwner != address(0x0)));
-        OwnershipTransferred(_owner, newOwner);
-        _owner = newOwner;
+        OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
     }
 
-    /// @dev Name is stored as a uint256 with the bytes16 value in the upper 128 bits,
-    /// encoded by dividing by 2^128. This packing was the original developer's choice
-    /// and is a notable quirk of this contract's reconstruction.
     function setName(bytes32 _troupHash, bytes16 _name)
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(exists[_troupHash]);
 
-        packedNames[_troupHash] = uint256(_name) / 0x100000000000000000000000000000000;
+        names[_troupHash] = _name;
     }
 }
