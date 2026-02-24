@@ -9,15 +9,15 @@ pragma solidity 0.4.18;
 contract TroupStorage {
     address internal _owner;
     bytes32[] internal troupHashes;
-    mapping (uint256 => bool) internal exists;
-    mapping (uint256 => uint256) internal packedNames;
-    mapping (uint256 => uint256) internal life;
-    mapping (uint256 => uint256) internal strength;
-    mapping (uint256 => uint256) internal intelligence;
-    mapping (uint256 => uint256) internal dexterity;
-    mapping (uint256 => uint256) internal gold;
-    mapping (uint256 => uint256) internal wood;
-    mapping (uint256 => uint256) internal stone;
+    mapping (bytes32 => bool) internal exists;
+    mapping (bytes32 => bytes16) internal packedNames;
+    mapping (bytes32 => uint256) internal life;
+    mapping (bytes32 => uint256) internal strength;
+    mapping (bytes32 => uint256) internal intelligence;
+    mapping (bytes32 => uint256) internal dexterity;
+    mapping (bytes32 => uint256) internal gold;
+    mapping (bytes32 => uint256) internal wood;
+    mapping (bytes32 => uint256) internal stone;
     
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -31,39 +31,35 @@ contract TroupStorage {
     }
 
     function setStrength(bytes32 _troupHash, uint256 _amount) 
-        public
-    { 
+        public 
+    {
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        strength[troupId] = _amount;
+        require(exists[_troupHash]);
+        strength[_troupHash] = _amount;
     }
 
     function setIntelligence(bytes32 _troupHash, uint256 _amount) 
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        intelligence[troupId] = _amount;
+        require(exists[_troupHash]);
+        intelligence[_troupHash] = _amount;
     }
 
     function getName(bytes32 _troupHash) 
         public
         returns (bytes16)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return bytes16(packedNames[troupId] << 128);
+        require(exists[_troupHash]);
+        return packedNames[_troupHash];
     }
 
     function getStrength(bytes32 _troupHash) 
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return strength[troupId];
+        require(exists[_troupHash]);
+        return strength[_troupHash];
     }
 
     function getHash(uint256 _nonce) 
@@ -78,59 +74,53 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        stone[troupId] = _amount;
+        require(exists[_troupHash]);
+        stone[_troupHash] = _amount;
     }
 
     function setGold(bytes32 _troupHash, uint256 _amount)
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        gold[troupId] = _amount;
+        require(exists[_troupHash]);
+        gold[_troupHash] = _amount;
     }
 
     function setDexterity(bytes32 _troupHash, uint256 _amount)
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        dexterity[troupId] = _amount;
+        require(exists[_troupHash]);
+        dexterity[_troupHash] = _amount;
     }
 
     function getIntelligence(bytes32 _troupHash)
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return intelligence[troupId];
+        require(exists[_troupHash]);
+        return intelligence[_troupHash];
     }
 
     function createTroup(bytes32 _troupHash)
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(!exists[troupId]);
+        require(!exists[_troupHash]);
 
         uint256 i = troupHashes.length;
         troupHashes.length = i + 1;
         troupHashes[i] = _troupHash;
 
-        exists[troupId] = true;
+        exists[_troupHash] = true;
     }
 
     function getLife(bytes32 _troupHash)
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return life[troupId];
+        require(exists[_troupHash]);
+        return life[_troupHash];
     }
 
     function owner() public returns (address) {
@@ -141,36 +131,32 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return dexterity[troupId];
+        require(exists[_troupHash]);
+        return dexterity[_troupHash];
     }
 
     function setWood(bytes32 _troupHash, uint256 _amount)
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        wood[troupId] = _amount;
+        require(exists[_troupHash]);
+        wood[_troupHash] = _amount;
     }
 
     function setLife(bytes32 _troupHash, uint256 _amount)
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        life[troupId] = _amount;
+        require(exists[_troupHash]);
+        life[_troupHash] = _amount;
     }
 
     function getWood(bytes32 _troupHash)
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return wood[troupId];
+        require(exists[_troupHash]);
+        return wood[_troupHash];
     }
 
     function getIndexLength()
@@ -184,18 +170,16 @@ contract TroupStorage {
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return stone[troupId];
+        require(exists[_troupHash]);
+        return stone[_troupHash];
     }
 
     function getGold(bytes32 _troupHash)
         public
         returns (uint256)
     { 
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-        return gold[troupId];
+        require(exists[_troupHash]);
+        return gold[_troupHash];
     }
 
     function transferOwnership(address newOwner) public { 
@@ -209,9 +193,7 @@ contract TroupStorage {
         public 
     { 
         require(msg.sender == _owner);
-        uint256 troupId = uint256(_troupHash);
-        require(exists[troupId]);
-
-        packedNames[troupId] = (uint256(_name) >> 128) | uint256(bytes16(packedNames[troupId]));
+        require(exists[_troupHash]);
+        packedNames[_troupHash] = _name;
     }
 }
