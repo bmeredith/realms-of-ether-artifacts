@@ -10,7 +10,7 @@ contract TroupStorage {
     address internal _owner;
     bytes32[] internal troupHashes;
     mapping (bytes32 => bool) internal exists;
-    mapping (bytes32 => bytes16) internal packedNames;
+    mapping (bytes32 => bytes16) internal names;
     mapping (bytes32 => uint256) internal life;
     mapping (bytes32 => uint256) internal strength;
     mapping (bytes32 => uint256) internal intelligence;
@@ -51,7 +51,7 @@ contract TroupStorage {
         returns (bytes16)
     { 
         require(exists[_troupHash]);
-        return packedNames[_troupHash];
+        return names[_troupHash];
     }
 
     function getStrength(bytes32 _troupHash) 
@@ -194,6 +194,6 @@ contract TroupStorage {
     { 
         require(msg.sender == _owner);
         require(exists[_troupHash]);
-        packedNames[_troupHash] = _name;
+        names[_troupHash] = _name;
     }
 }
