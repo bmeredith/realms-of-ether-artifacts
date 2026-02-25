@@ -18,14 +18,18 @@ contract BuildingStorage {
     mapping (uint256 => uint256) mapping_5; // STORAGE[0x5]
     mapping (uint256 => uint256) mapping_6; // STORAGE[0x6]
     mapping (uint256 => uint256) mapping_7; // STORAGE[0x7]
-    mapping (uint256 => uint256) mapping_8; // STORAGE[0x8]
-    mapping (uint256 => uint256) mapping_9; // STORAGE[0x9]
-    mapping (uint256 => uint256) mapping_a; // STORAGE[0xa]
+    mapping (bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
+    mapping (bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
+    mapping (bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
 
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    function fallback() public payable { 
+    function BuildingStorage() public {
+        owner = msg.sender;
+    }
+
+    function() public payable { 
         revert();
     }
 
@@ -82,16 +86,16 @@ contract BuildingStorage {
         return uint256(_getIndexLength[_nonce]);
     }
 
-    function 0x6d0af38e(uint256 varg0, uint256 varg1) public nonPayable { 
+    function setStone(bytes32 _buildingHash, uint256 _amount) public nonPayable { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_a[varg0] = varg1;
+        require(_getName[_buildingHash]);
+        stone[_buildingHash] = _amount;
     }
 
-    function 0x70c92125(uint256 varg0, uint256 varg1) public nonPayable { 
+    function setGold(bytes32 _buildingHash, uint256 _amount) public nonPayable { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_8[varg0] = varg1;
+        require(_getName[_buildingHash]);
+        gold[_buildingHash] = _amount;
     }
 
     function 0x8d4fd8c1(uint256 varg0, uint256 varg1) public nonPayable { 
@@ -100,10 +104,10 @@ contract BuildingStorage {
         mapping_7[varg0] = varg1;
     }
 
-    function 0x9c8b8588(uint256 varg0, uint256 varg1) public nonPayable { 
+    function setWood(bytes32 _buildingHash, uint256 _amount) public nonPayable { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_9[varg0] = varg1;
+        require(_getName[_buildingHash]);
+        wood[_buildingHash] = _amount;
     }
 
     function 0xdce9f070(uint256 varg0) public nonPayable { 
@@ -111,23 +115,23 @@ contract BuildingStorage {
         return mapping_4[varg0];
     }
 
-    function 0xe0d87dc2(uint256 varg0) public nonPayable { 
-        require(_getName[varg0]);
-        return mapping_9[varg0];
+    function getWood(bytes32 _buildingHash) public nonPayable { 
+        require(_getName[_buildingHash]);
+        return wood[_buildingHash];
     }
 
     function getIndexLength() public nonPayable { 
         return _getIndexLength.length;
     }
 
-    function 0xe382af35(uint256 varg0) public nonPayable { 
-        require(_getName[varg0]);
-        return mapping_a[varg0];
+    function getStone(bytes32 _buildingHash) public nonPayable { 
+        require(_getName[_buildingHash]);
+        return stone[_buildingHash];
     }
 
-    function 0xe75f7871(uint256 varg0) public nonPayable { 
-        require(_getName[varg0]);
-        return mapping_8[varg0];
+    function getGold(bytes32 _buildingHash) public nonPayable { 
+        require(_getName[_buildingHash]);
+        return gold[_buildingHash];
     }
 
     function transferOwnership(address newOwner) public nonPayable { 
