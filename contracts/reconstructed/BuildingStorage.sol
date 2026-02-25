@@ -12,15 +12,15 @@ pragma solidity 0.4.18;
 contract BuildingStorage {
     address public owner;
     uint256[] _getIndexLength; // STORAGE[0x1]
-    mapping (uint256 => bool) _getName; // STORAGE[0x2]
-    mapping (uint256 => uint256) mapping_3; // STORAGE[0x3]
-    mapping (uint256 => uint256) mapping_4; // STORAGE[0x4]
-    mapping (uint256 => uint256) mapping_5; // STORAGE[0x5]
-    mapping (uint256 => uint256) mapping_6; // STORAGE[0x6]
-    mapping (uint256 => uint256) mapping_7; // STORAGE[0x7]
-    mapping (bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
-    mapping (bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
-    mapping (bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
+    mapping(bytes32 => bool) exists; // STORAGE[0x2]
+    mapping(bytes32 => uint256) mapping_3; // STORAGE[0x3]
+    mapping(bytes32 => uint256) mapping_4; // STORAGE[0x4]
+    mapping(bytes32 => uint256) mapping_5; // STORAGE[0x5]
+    mapping(bytes32 => uint256) mapping_6; // STORAGE[0x6]
+    mapping(bytes32 => uint256) mapping_7; // STORAGE[0x7]
+    mapping(bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
+    mapping(bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
+    mapping(bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
 
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -33,18 +33,18 @@ contract BuildingStorage {
         revert();
     }
 
-    function 0x08f822a5(uint256 varg0)
-     public 
+    function 0x08f822a5(bytes32 _buildingHash)
+        public 
     { 
-        require(_getName[varg0]);
-        return mapping_7[varg0];
+        require(exists[_buildingHash]);
+        return mapping_7[_buildingHash];
     }
 
-    function 0x21d26a38(uint256 varg0) 
+    function 0x21d26a38(bytes32 _buildingHash) 
         public 
     { 
         require(msg.sender == owner);
-        require(bool(!_getName[varg0]));
+        require(bool(!exists[_buildingHash]));
         _getIndexLength.length += 1;
         if (!_getIndexLength.length <= 1 + _getIndexLength.length) {
             v0 = v1 = keccak256(1) + (1 + _getIndexLength.length);
@@ -53,46 +53,46 @@ contract BuildingStorage {
                 v0 += 1;
             }
         }
-        _getIndexLength[_getIndexLength.length] = varg0;
-        _getName[varg0] = 1;
+        _getIndexLength[_getIndexLength.length] = _buildingHash;
+        exists[_buildingHash] = 1;
     }
 
-    function 0x2c5e9b09(uint256 varg0, uint256 varg1) 
+    function 0x2c5e9b09(bytes32 _buildingHash, uint256 varg1) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_6[varg0] = varg1;
+        require(exists[_buildingHash]);
+        mapping_6[_buildingHash] = varg1;
     }
 
-    function 0x394c1f42(uint256 varg0, uint256 varg1) 
+    function 0x394c1f42(bytes32 _buildingHash, uint256 varg1) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_5[varg0] = varg1;
+        require(exists[_buildingHash]);
+        mapping_5[_buildingHash] = varg1;
     }
 
-    function 0x4610af12(uint256 varg0, uint256 varg1) 
+    function 0x4610af12(bytes32 _buildingHash, uint256 varg1) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_4[varg0] = varg1;
+        require(exists[_buildingHash]);
+        mapping_4[_buildingHash] = varg1;
     }
 
-    function 0x50fdbd81(uint256 varg0) 
+    function 0x50fdbd81(bytes32 _buildingHash) 
         public 
     { 
-        require(_getName[varg0]);
+        require(exists[_buildingHash]);
         return mapping_5[varg0];
     }
 
-    function getName(bytes32 saleId) 
+    function getName(bytes32 _buildingHash) 
         public 
     { 
-        require(_getName[uint256(saleId)]);
-        return bytes16(mapping_3[uint256(saleId)] << 128);
+        require(exists[uint256(_buildingHash)]);
+        return bytes16(mapping_3[uint256(_buildingHash)] << 128);
     }
 
     function getHash(uint256 _nonce) 
@@ -106,7 +106,7 @@ contract BuildingStorage {
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         stone[_buildingHash] = _amount;
     }
 
@@ -114,38 +114,38 @@ contract BuildingStorage {
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         gold[_buildingHash] = _amount;
     }
 
-    function 0x8d4fd8c1(uint256 varg0, uint256 varg1) 
+    function 0x8d4fd8c1(bytes32 _buildingHash, uint256 varg1) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_7[varg0] = varg1;
+        require(exists[_buildingHash]);
+        mapping_7[_buildingHash] = varg1;
     }
 
     function setWood(bytes32 _buildingHash, uint256 _amount) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         wood[_buildingHash] = _amount;
     }
 
-    function 0xdce9f070(uint256 varg0) 
+    function 0xdce9f070(bytes32 _buildingHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_4[varg0];
+        require(exists[_buildingHash]);
+        return mapping_4[_buildingHash];
     }
 
     function getWood(bytes32 _buildingHash) 
         public 
         returns (uint256)
     { 
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         return wood[_buildingHash];
     }
 
@@ -160,7 +160,7 @@ contract BuildingStorage {
         public 
         returns (uint256)
     { 
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         return stone[_buildingHash];
     }
 
@@ -168,7 +168,7 @@ contract BuildingStorage {
         public
         returns (uint256)
     { 
-        require(_getName[_buildingHash]);
+        require(exists[_buildingHash]);
         return gold[_buildingHash];
     }
 
@@ -181,18 +181,18 @@ contract BuildingStorage {
         owner = newOwner;
     }
 
-    function 0xf776c071(uint256 varg0, bytes16 varg1) 
+    function 0xf776c071(bytes32 _buildingHash, bytes16 varg1) 
         public 
     { 
         require(msg.sender == owner);
-        require(_getName[varg0]);
-        mapping_3[varg0] = varg1 >> 128 | bytes16(mapping_3[varg0]);
+        require(exists[_buildingHash]);
+        mapping_3[_buildingHash] = varg1 >> 128 | bytes16(mapping_3[_buildingHash]);
     }
 
-    function 0xfe6f1143(uint256 varg0) 
+    function 0xfe6f1143(bytes32 _buildingHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return uint256(mapping_6[varg0]);
+        require(exists[_buildingHash]);
+        return uint256(mapping_6[_buildingHash]);
     }
 }
