@@ -15,7 +15,8 @@ contract BuildingStorage {
     
     // tracks whether a given hash has been registered via createBuilding()
     mapping(bytes32 => bool) internal exists; // STORAGE[0x2]
-    mapping(bytes32 => uint256) internal mapping_3; // STORAGE[0x3]
+    mapping(bytes32 => uint256) internal names; // STORAGE[0x3]
+
     mapping(bytes32 => uint256) internal mapping_4; // STORAGE[0x4]
     mapping(bytes32 => uint256) internal mapping_5; // STORAGE[0x5]
     mapping(bytes32 => uint256) internal mapping_6; // STORAGE[0x6]
@@ -87,9 +88,10 @@ contract BuildingStorage {
 
     function getName(bytes32 _buildingHash) 
         public 
+        returns (bytes16)
     { 
-        require(exists[uint256(_buildingHash)]);
-        return bytes16(mapping_3[uint256(_buildingHash)] << 128);
+        require(exists[_buildingHash]);
+        return names[_buildingHash];
     }
 
     function getHash(uint256 _nonce) 
@@ -178,12 +180,13 @@ contract BuildingStorage {
         owner = newOwner;
     }
 
-    function 0xf776c071(bytes32 _buildingHash, bytes16 varg1) 
+    function setname(bytes32 _buildingHash, bytes16 _name) 
         public 
     { 
         require(msg.sender == owner);
         require(exists[_buildingHash]);
-        mapping_3[_buildingHash] = varg1 >> 128 | bytes16(mapping_3[_buildingHash]);
+
+        names[_buildingHash] = _name;
     }
 
     function 0xfe6f1143(bytes32 _buildingHash) 
