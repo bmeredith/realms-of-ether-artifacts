@@ -1,0 +1,337 @@
+[{
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStrength",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setIntelligence",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getName",
+    "outputs": [{
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getStrength",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHash",
+    "outputs": [{
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStone",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setGold",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setDexterity",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getIntelligence",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "createTroup",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getLife",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getDexterity",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setWood",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setLife",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getWood",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [],
+    "name": "getIndexLength",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getStone",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getGold",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_name",
+        "type": "bytes16"
+      }
+    ],
+    "name": "setName",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  }, {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+        "indexed": true,
+        "name": "previousOwner",
+        "type": "address"
+      }, {
+        "indexed": true,
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  }
+]

@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.4.18;
 
 import "./Pausable.sol";
 
@@ -93,42 +93,12 @@ contract RealmsOfEther is Pausable {
             uint256 rawActionValue,
             uint256 rawActionTimeout
         )
-    {
-        address proxy = 0xb939a1d96dda7271d6d89eaceabd9163d0502165;
-        address storageAddr = buildingStorage;
-        
-        assembly {
-            // require(extcodesize(proxy) > 0)
-            if iszero(extcodesize(proxy)) { revert(0, 0) }
-
-            let ptr := mload(0x40)
-
-            // calldata = selector(0x9d3bd2e4) + storageAddr + buildingHash
-            // 0x9d3bd2e4 = getBuilding(address,bytes32)
-            mstore(ptr, shl(224, 0x9d3bd2e4))
-            mstore(add(ptr, 4), and(storageAddr, 0xffffffffffffffffffffffffffffffffffffffff))
-            mstore(add(ptr, 36), _buildingHash)
-
-            // delegatecall(proxy, ptr, 68, 0, 0)
-            let ok := delegatecall(sub(gas, 710), proxy, ptr, 68, 0, 0)
-            if iszero(ok) { revert(0, 0) }
-
-            // Expect 6 words back: (v0,v1,v2,v3,v4,v5) = 192 bytes
-            if lt(returndatasize(), 192) { revert(0, 0) }
-            returndatacopy(ptr, 0, 192)
-
-            // require(v0 != 0)
-            if iszero(mload(ptr)) { revert(0, 0) }
-
-            // return v5, v4, v3, v2, v1 (matches the decompile’s reorder)
-            rawName         := mload(add(ptr, 160)) // v5
-            rawAction       := mload(add(ptr, 128)) // v4
-            rawActionRate   := mload(add(ptr, 96))  // v3
-            rawActionValue  := mload(add(ptr, 64))  // v2
-            rawActionTimeout:= mload(add(ptr, 32))  // v1
-
-            mstore(0x40, add(ptr, 192))
-        }
+    { 
+        MEM[160 + MEM[64]] = 0;
+        require(bool(0xb939a1d96dda7271d6d89eaceabd9163d0502165.code.size));
+        (v0, /* uint256 */ v1, /* uint256 */ v2, /* uint256 */ v3, /* uint256 */ v4, /* uint256 */ v5) = 0xb939a1d96dda7271d6d89eaceabd9163d0502165.delegatecall(uint32(0x9d3bd2e4), stor_3_0_19, varg0).gas(msg.gas - 710);
+        require(bool(v0));
+        return (v5, v4, v3, v2, v1);
     }
 
     function unknown_0x1393(uint256 _troupHash) private { 

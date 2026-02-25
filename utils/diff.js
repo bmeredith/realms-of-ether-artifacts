@@ -3,8 +3,13 @@ const fs = require("fs");
 
 function clean(hex) {
   hex = hex.trim().toLowerCase();
-  if (hex.startsWith("0x")) hex = hex.slice(2);
   if (hex.length % 2) throw new Error("odd-length hex");
+
+  // remove 0x prefix
+  if (hex.startsWith("0x")) hex = hex.slice(2);
+
+  // strip trailing 43 bytes (CBOR metadata suffix) from both
+  hex = hex.slice(0, -86);
   return hex;
 }
 

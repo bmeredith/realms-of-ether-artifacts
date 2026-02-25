@@ -4,6 +4,35 @@
 
 This repository is meant to provide a more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The original smart contract source code remains unavailable and unverified, but using a few different techniques it is still possible to get a better idea of what lies within.
 
+## Installation
+
+### 1. Install dependencies
+```bash
+forge install
+```
+
+### 2. Install solc 0.4.18
+
+**Linux:**
+```bash
+curl -L https://binaries.soliditylang.org/linux-amd64/solc-linux-amd64-v0.4.18+commit.9cf6e910 \
+  -o bin/solc/solc-0.4.18
+chmod +x bin/solc/solc-0.4.18
+```
+
+**macOS:**
+```bash
+curl -L https://binaries.soliditylang.org/macosx-amd64/solc-macosx-amd64-v0.4.18+commit.9cf6e910 \
+  -o bin/solc/solc-0.4.18
+chmod +x bin/solc/solc-0.4.18
+```
+
+**Windows:**
+```bash
+https://binaries.soliditylang.org/windows-amd64/solc-windows-amd64-v0.4.18+commit.9cf6e910.zip
+```
+Unzip and place it in `bin/solc/` and rename to `solc-0.4.18`
+
 ## Breakdown
 
 - `decompiled.sol`: This is the untouched, decompiled smart contract, which was decompiled at [library.dedaub.com](https://library.dedaub.com/decompile).
