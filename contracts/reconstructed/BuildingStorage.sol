@@ -11,21 +11,21 @@ pragma solidity 0.4.18;
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract BuildingStorage {
     address public owner;
-    bytes32[] internal buildingHashes; // STORAGE[0x1]
+    bytes32[] internal buildingHashes;
     
     // tracks whether a given hash has been registered via createBuilding()
-    mapping(bytes32 => bool) internal exists; // STORAGE[0x2]
-    mapping(bytes32 => uint256) internal names; // STORAGE[0x3]
+    mapping(bytes32 => bool) internal exists;
+    mapping(bytes32 => uint256) internal names;
 
-    mapping(bytes32 => uint256) internal mapping_4; // STORAGE[0x4]
-    mapping(bytes32 => uint256) internal mapping_5; // STORAGE[0x5]
-    mapping(bytes32 => uint256) internal mapping_6; // STORAGE[0x6]
-    mapping(bytes32 => uint256) internal mapping_7; // STORAGE[0x7]
+    mapping(bytes32 => uint256) internal action;
+    mapping(bytes32 => uint256) internal actionRate;
+    mapping(bytes32 => bytes32) internal actionValue;
+    mapping(bytes32 => uint256) internal actionTimeout;
     
     // resources
-    mapping(bytes32 => uint256) internal gold; // STORAGE[0x8] mapping_8
-    mapping(bytes32 => uint256) internal wood; // STORAGE[0x9] mapping_9
-    mapping(bytes32 => uint256) internal stone; // STORAGE[0xa] mapping_a
+    mapping(bytes32 => uint256) internal gold;
+    mapping(bytes32 => uint256) internal wood;
+    mapping(bytes32 => uint256) internal stone;
 
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -38,11 +38,12 @@ contract BuildingStorage {
         revert();
     }
 
-    function 0x08f822a5(bytes32 _buildingHash)
+    function getActionTimeout(bytes32 _buildingHash)
         public 
+        returns (uint256)
     { 
         require(exists[_buildingHash]);
-        return mapping_7[_buildingHash];
+        return actionTimeout[_buildingHash];
     }
 
     function createBuilding(bytes32 _buildingHash) 
@@ -55,35 +56,36 @@ contract BuildingStorage {
         exists[_buildingHash] = true;
     }
 
-    function 0x2c5e9b09(bytes32 _buildingHash, uint256 varg1) 
+    function setActionValue(bytes32 _buildingHash, bytes32 _actionValue) 
         public 
     { 
         require(msg.sender == owner);
         require(exists[_buildingHash]);
-        mapping_6[_buildingHash] = varg1;
+        actionValue[_buildingHash] = _actionValue;
     }
 
-    function 0x394c1f42(bytes32 _buildingHash, uint256 varg1) 
+    function setActionRate(bytes32 _buildingHash, uint256 _actionRate) 
         public 
     { 
         require(msg.sender == owner);
         require(exists[_buildingHash]);
-        mapping_5[_buildingHash] = varg1;
+        actionRate[_buildingHash] = _actionRate;
     }
 
-    function 0x4610af12(bytes32 _buildingHash, uint256 varg1) 
+    function setAction(bytes32 _buildingHash, uint256 _action) 
         public 
     { 
         require(msg.sender == owner);
         require(exists[_buildingHash]);
-        mapping_4[_buildingHash] = varg1;
+        action[_buildingHash] = _action;
     }
 
-    function 0x50fdbd81(bytes32 _buildingHash) 
+    function getActionRate(bytes32 _buildingHash) 
         public 
+        returns (uint256)
     { 
         require(exists[_buildingHash]);
-        return mapping_5[varg0];
+        return actionRate[varg0];
     }
 
     function getName(bytes32 _buildingHash) 
@@ -117,12 +119,12 @@ contract BuildingStorage {
         gold[_buildingHash] = _amount;
     }
 
-    function 0x8d4fd8c1(bytes32 _buildingHash, uint256 varg1) 
+    function setActionTimeout(bytes32 _buildingHash, uint256 _actionTimeout) 
         public 
     { 
         require(msg.sender == owner);
         require(exists[_buildingHash]);
-        mapping_7[_buildingHash] = varg1;
+        actionTimeout[_buildingHash] = _actionTimeout;
     }
 
     function setWood(bytes32 _buildingHash, uint256 _amount) 
@@ -133,11 +135,12 @@ contract BuildingStorage {
         wood[_buildingHash] = _amount;
     }
 
-    function 0xdce9f070(bytes32 _buildingHash) 
+    function getAction(bytes32 _buildingHash) 
         public 
+        returns (uint256)
     { 
         require(exists[_buildingHash]);
-        return mapping_4[_buildingHash];
+        return action[_buildingHash];
     }
 
     function getWood(bytes32 _buildingHash) 
@@ -175,7 +178,7 @@ contract BuildingStorage {
         public 
     { 
         require(msg.sender == owner);
-        require(bool(newOwner != address(0x0)));
+        require(newOwner != address(0x0));
         OwnershipTransferred(owner, newOwner);
         owner = newOwner;
     }
@@ -189,10 +192,11 @@ contract BuildingStorage {
         names[_buildingHash] = _name;
     }
 
-    function 0xfe6f1143(bytes32 _buildingHash) 
+    function getActionValue(bytes32 _buildingHash) 
         public 
+        returns (bytes32)
     { 
         require(exists[_buildingHash]);
-        return uint256(mapping_6[_buildingHash]);
+        return actionValue[_buildingHash];
     }
 }
