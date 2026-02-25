@@ -15,7 +15,7 @@ contract BuildingStorage {
     
     // tracks whether a given hash has been registered via createBuilding()
     mapping(bytes32 => bool) internal exists;
-    mapping(bytes32 => uint256) internal names;
+    mapping(bytes32 => bytes16) internal names;
 
     mapping(bytes32 => uint256) internal action;
     mapping(bytes32 => uint256) internal actionRate;
@@ -27,7 +27,7 @@ contract BuildingStorage {
     mapping(bytes32 => uint256) internal wood;
     mapping(bytes32 => uint256) internal stone;
 
-    // Events
+    // events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     function BuildingStorage() public {
@@ -85,7 +85,7 @@ contract BuildingStorage {
         returns (uint256)
     { 
         require(exists[_buildingHash]);
-        return actionRate[varg0];
+        return actionRate[_buildingHash];
     }
 
     function getName(bytes32 _buildingHash) 
