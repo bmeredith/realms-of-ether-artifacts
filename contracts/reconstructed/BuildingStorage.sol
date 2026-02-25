@@ -4,23 +4,27 @@ pragma solidity 0.4.18;
 /// @notice Reconstructed by wilt.eth/@wilty_stilty
 ///
 /// @notice Persistent on-chain storage contract for Buildings in Realms of Ether.
-/// Stores stats (costs, recruitments, etc.) and their resources (gold, wood, stone)
+/// Stores attributes (costs, recruitments, etc.) and their resources (gold, wood, stone)
 /// for each building, keyed by a bytes32 hash identifier.
 ///
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract BuildingStorage {
     address public owner;
-    uint256[] _getIndexLength; // STORAGE[0x1]
-    mapping(bytes32 => bool) exists; // STORAGE[0x2]
-    mapping(bytes32 => uint256) mapping_3; // STORAGE[0x3]
-    mapping(bytes32 => uint256) mapping_4; // STORAGE[0x4]
-    mapping(bytes32 => uint256) mapping_5; // STORAGE[0x5]
-    mapping(bytes32 => uint256) mapping_6; // STORAGE[0x6]
-    mapping(bytes32 => uint256) mapping_7; // STORAGE[0x7]
-    mapping(bytes32 => uint256) gold; // STORAGE[0x8] mapping_8
-    mapping(bytes32 => uint256) wood; // STORAGE[0x9] mapping_9
-    mapping(bytes32 => uint256) stone; // STORAGE[0xa] mapping_a
+    bytes32[] internal buildingHashes; // STORAGE[0x1]
+    
+    // tracks whether a given hash has been registered via createBuilding()
+    mapping(bytes32 => bool) internal exists; // STORAGE[0x2]
+    mapping(bytes32 => uint256) internal mapping_3; // STORAGE[0x3]
+    mapping(bytes32 => uint256) internal mapping_4; // STORAGE[0x4]
+    mapping(bytes32 => uint256) internal mapping_5; // STORAGE[0x5]
+    mapping(bytes32 => uint256) internal mapping_6; // STORAGE[0x6]
+    mapping(bytes32 => uint256) internal mapping_7; // STORAGE[0x7]
+    
+    // resources
+    mapping(bytes32 => uint256) internal gold; // STORAGE[0x8] mapping_8
+    mapping(bytes32 => uint256) internal wood; // STORAGE[0x9] mapping_9
+    mapping(bytes32 => uint256) internal stone; // STORAGE[0xa] mapping_a
 
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -40,21 +44,14 @@ contract BuildingStorage {
         return mapping_7[_buildingHash];
     }
 
-    function 0x21d26a38(bytes32 _buildingHash) 
+    function createBuilding(bytes32 _buildingHash) 
         public 
     { 
         require(msg.sender == owner);
-        require(bool(!exists[_buildingHash]));
-        _getIndexLength.length += 1;
-        if (!_getIndexLength.length <= 1 + _getIndexLength.length) {
-            v0 = v1 = keccak256(1) + (1 + _getIndexLength.length);
-            while (keccak256(1) + _getIndexLength.length > v0) {
-                STORAGE[v0] = 0;
-                v0 += 1;
-            }
-        }
-        _getIndexLength[_getIndexLength.length] = _buildingHash;
-        exists[_buildingHash] = 1;
+        require(!exists[_buildingHash]);
+        
+        buildingHashes.push(_buildingHash);
+        exists[_buildingHash] = true;
     }
 
     function 0x2c5e9b09(bytes32 _buildingHash, uint256 varg1) 
@@ -97,9 +94,9 @@ contract BuildingStorage {
 
     function getHash(uint256 _nonce) 
         public 
+        returns (bytes32)
     { 
-        assert(_nonce < _getIndexLength.length);
-        return uint256(_getIndexLength[_nonce]);
+        return buildingHashes[_nonce];
     }
 
     function setStone(bytes32 _buildingHash, uint256 _amount) 
@@ -153,7 +150,7 @@ contract BuildingStorage {
         public 
         returns (uint256)
     { 
-        return _getIndexLength.length;
+        return buildingHashes.length;
     }
 
     function getStone(bytes32 _buildingHash) 
