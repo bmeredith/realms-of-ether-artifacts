@@ -1,0 +1,151 @@
+[{
+    "constant": false,
+    "inputs": [{
+        "name": "_troupStorage",
+        "type": "address"
+      }, {
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getTroup",
+    "outputs": [{
+        "name": "",
+        "type": "bytes16"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupStorage",
+        "type": "address"
+      }, {
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_name",
+        "type": "bytes16"
+      }, {
+        "name": "_life",
+        "type": "uint256"
+      }, {
+        "name": "_strength",
+        "type": "uint256"
+      }, {
+        "name": "_intelligence",
+        "type": "uint256"
+      }, {
+        "name": "_dexterity",
+        "type": "uint256"
+      }, {
+        "name": "_gold",
+        "type": "uint256"
+      }, {
+        "name": "_wood",
+        "type": "uint256"
+      }, {
+        "name": "_stone",
+        "type": "uint256"
+      }
+    ],
+    "name": "createTroup",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "proxy",
+        "type": "address"
+      }, {
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgrade",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupStorage",
+        "type": "address"
+      }, {
+        "name": "_nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHash",
+    "outputs": [{
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupStorage",
+        "type": "address"
+      }
+    ],
+    "name": "getIndexLength",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_troupStorage",
+        "type": "address"
+      }, {
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getCosts",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  }
+]
