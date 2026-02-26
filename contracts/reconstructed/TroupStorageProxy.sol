@@ -25,12 +25,12 @@ contract TroupStorageProxy {
             uint256
         )
     {
-        ITroupStorage storage = ITroupStorage(_troupStorage);
-        bytes16 name = storage.getName(_troupHash);
-        uint256 life = storage.getLife(_troupHash);
-        uint256 strength = storage.getStrength(_troupHash);
-        uint256 intelligence = storage.getIntelligence(_troupHash);
-        uint256 dexterity = storage.getDexterity(_troupHash);
+        ITroupStorage troupStorage = ITroupStorage(_troupStorage);
+        bytes16 name = troupStorage.getName(_troupHash);
+        uint256 life = troupStorage.getLife(_troupHash);
+        uint256 strength = troupStorage.getStrength(_troupHash);
+        uint256 intelligence = troupStorage.getIntelligence(_troupHash);
+        uint256 dexterity = troupStorage.getDexterity(_troupHash);
         return (name, life, strength, intelligence, dexterity);
     }
 
@@ -48,16 +48,16 @@ contract TroupStorageProxy {
     ) 
         public 
     { 
-        ITroupStorage storage = ITroupStorage(_troupStorage);
-        storage.createTroup(_troupHash);
-        storage.setName(_troupHash, _name);
-        storage.setLife(_troupHash, _life);
-        storage.setStrength(_troupHash, _strength);
-        storage.setIntelligence(_troupHash, _intelligence);
-        storage.setDexterity(_troupHash, _dexterity);
-        storage.setGold(_troupHash, _gold);
-        storage.setWood(_troupHash, _wood);
-        storage.setStone(_troupHash, _stone);
+        ITroupStorage troupStorage = ITroupStorage(_troupStorage);
+        troupStorage.createTroup(_troupHash);
+        troupStorage.setName(_troupHash, _name);
+        troupStorage.setLife(_troupHash, _life);
+        troupStorage.setStrength(_troupHash, _strength);
+        troupStorage.setIntelligence(_troupHash, _intelligence);
+        troupStorage.setDexterity(_troupHash, _dexterity);
+        troupStorage.setGold(_troupHash, _gold);
+        troupStorage.setWood(_troupHash, _wood);
+        troupStorage.setStone(_troupHash, _stone);
     }
 
     function upgrade(address proxy, address implementation) 
@@ -84,10 +84,10 @@ contract TroupStorageProxy {
         public 
         returns (uint256, uint256, uint256)
     { 
-        ITroupStorage storage = ITroupStorage(_troupStorage);
-        uint256 gold = storage.getGold(_troupHash);
-        uint256 wood = storage.getWood(_troupHash);
-        uint256 stone = storage.getStone(_troupHash);
+        ITroupStorage troupStorage = ITroupStorage(_troupStorage);
+        uint256 gold = troupStorage.getGold(_troupHash);
+        uint256 wood = troupStorage.getWood(_troupHash);
+        uint256 stone = troupStorage.getStone(_troupHash);
         return (gold, wood, stone);
     }
 

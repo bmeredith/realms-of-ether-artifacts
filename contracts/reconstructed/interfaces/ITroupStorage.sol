@@ -1,3 +1,5 @@
+pragma solidity 0.4.18;
+
 interface ITroupStorage {
     function createTroup(bytes32 _troupHash) external;
     function setName(bytes32 _troupHash, bytes16 _name) external;
