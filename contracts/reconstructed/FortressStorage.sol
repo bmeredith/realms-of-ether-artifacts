@@ -10,7 +10,7 @@ pragma solidity 0.4.18;
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract FortressStorage {
-    address _owner; // STORAGE[0x0] bytes 0 to 19
+    address public owner; // STORAGE[0x0] bytes 0 to 19
     uint256 _genesisTime; // STORAGE[0x1]
     uint256 stor_2; // STORAGE[0x2]
     mapping (address => uint256[]) mapping_3; // STORAGE[0x3]
@@ -62,7 +62,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_10[_fortressHash] = _wins;
     }
@@ -117,7 +117,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         v0 = 0x11f9();
         require(v0 > array_7.length);
         require(bool(!_getName[_fortressHash]));
@@ -155,7 +155,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_10[uint256(keccak256(_fortressHash, _troupHash))] = _amount;
     }
@@ -182,7 +182,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[uint256(_fortressHash)]);
         assert(mapping_6[uint256(_fortressHash)] < mapping_3[_getOwner[uint256(_fortressHash)]].length);
         mapping_3[_getOwner[uint256(_fortressHash)]][mapping_6[uint256(_fortressHash)]] = uint256(0);
@@ -224,7 +224,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_b[_fortressHash] = _x;
     }
@@ -246,7 +246,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_f[_fortressHash] = _amount;
     }
@@ -263,7 +263,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_d[_fortressHash] = _amount;
     }
@@ -291,12 +291,6 @@ contract FortressStorage {
         return _balanceOf[varg0];
     }
 
-    function owner() 
-        public 
-    { 
-        return _owner;
-    }
-
     function setBuildingLevel(
         bytes32 _fortressHash, 
         bytes32 _buildingHash, 
@@ -304,7 +298,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_12[uint256(keccak256(_fortressHash, _buildingHash))] = _level;
     }
@@ -312,7 +306,7 @@ contract FortressStorage {
     function startMinting() 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_genesisTime == 0);
         _genesisTime = block.timestamp;
     }
@@ -323,7 +317,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_e[_fortressHash] = _amount;
     }
@@ -359,7 +353,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_c[_fortressHash] = _y;
     }
@@ -371,7 +365,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_13[uint256(keccak256(_fortressHash, _timeout))] = _timeout;
     }
@@ -435,10 +429,10 @@ contract FortressStorage {
     function transferOwnership(address newOwner) 
         public 
     { 
-        require(msg.sender == _owner);
-        require(bool(newOwner != address(0x0)));
-        emit OwnershipTransferred(_owner, newOwner);
-        _owner = newOwner;
+        require(msg.sender == owner);
+        require(newOwner != address(0));
+        OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
     }
 
     function getIndexLength(address _user) 
@@ -454,7 +448,7 @@ contract FortressStorage {
     ) 
         public 
     { 
-        require(msg.sender == _owner);
+        require(msg.sender == owner);
         require(_getName[_fortressHash]);
         mapping_9[_fortressHash] = _name >> 128 | bytes16(mapping_9[_fortressHash]);
     }
