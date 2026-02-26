@@ -287,7 +287,7 @@ contract FortressStorageProxy {
         uint256 _stone, 
         uint256 _wood, 
         uint256 _level, 
-        address _owner
+        address _user
     ) 
         public 
         payable 
@@ -295,7 +295,7 @@ contract FortressStorageProxy {
         require(bool(varg0.code.size));
 
         // 0x43244b61 = createFortress(bytes32,address)
-        v0 = _fortressStorage.call(uint32(0x43244b61), _fortressHash, _owner).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0x43244b61), _fortressHash, _user).gas(msg.gas - 710);
         require(bool(v0));
         require(bool(varg0.code.size));
 
