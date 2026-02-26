@@ -48,6 +48,9 @@ contract FortressStorageProxy {
         );
     }
 
+    /// @notice Sets fortress ownership to an arbitrary address. Used by the
+    /// auction system to escrow fortresses into the game contract on auction
+    /// start, and release them to the winning bidder on auction end.
     function setOwner(
         address _fortressStorage, 
         bytes32 _fortressHash, 
@@ -162,6 +165,8 @@ contract FortressStorageProxy {
         return IFortressStorage(_fortressStorage).getOwner(_fortressHash);
     }
 
+    /// @notice Updates fortress resources and building level after a build action.
+    /// _gold, _stone, _wood are the post-deduction balances, not the costs.
     function build(
         address _fortressStorage, 
         bytes32 _fortressHash, 
@@ -210,6 +215,8 @@ contract FortressStorageProxy {
         IFortressStorage(_fortressStorage).setWood(_fortressHash, _amount);
     }
 
+    /// @notice Transfers fortress ownership directly between players.
+    /// Called by transferFortress() in the main game contract.
     function transfer(
         address _fortressStorage, 
         bytes32 _fortressHash, 
@@ -275,7 +282,7 @@ contract FortressStorageProxy {
         payable 
         returns (uint256)
     { 
-        IFortressStorage(_fortressStorage).getTroups(_fortressHash, _troupHash);
+        return IFortressStorage(_fortressStorage).getTroups(_fortressHash, _troupHash);
     }
 
     function() public payable {
