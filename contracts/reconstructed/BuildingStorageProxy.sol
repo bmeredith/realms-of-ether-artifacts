@@ -89,6 +89,8 @@ contract BuildingStorageProxy {
         return IBuildingStorage(_buildingStorage).getIndexLength();
     }
 
+    /// @dev Returns (gold, stone, wood) — note stone and wood are swapped
+    /// compared to the (gold, wood, stone) ordering used elsewhere in the codebase
     function getCosts(
         address _buildingStorage,
         bytes32 _buildingHash
