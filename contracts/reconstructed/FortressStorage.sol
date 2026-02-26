@@ -10,6 +10,7 @@ pragma solidity 0.4.18;
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract FortressStorage {
+    address _owner; // STORAGE[0x0] bytes 0 to 19
     uint256 _genesisTime; // STORAGE[0x1]
     uint256 stor_2; // STORAGE[0x2]
     mapping (address => uint256[]) mapping_3; // STORAGE[0x3]
@@ -28,7 +29,6 @@ contract FortressStorage {
     mapping (uint256 => uint256) mapping_10; // STORAGE[0x10]
     mapping (uint256 => uint256) mapping_12; // STORAGE[0x12]
     mapping (uint256 => uint256) mapping_13; // STORAGE[0x13]
-    address _owner; // STORAGE[0x0] bytes 0 to 19
 
     // Events
     OwnershipTransferred(address, address);
@@ -43,12 +43,14 @@ contract FortressStorage {
 
     function getFortressCount() 
         public 
+        returns (uint256)
     { 
         return array_7.length;
     }
 
     function totalSupply() 
         public 
+        returns (uint256)
     { 
         v0 = 0xbc1();
         return v0;
@@ -88,6 +90,7 @@ contract FortressStorage {
 
     function getY(bytes32 _fortressHash) 
         public 
+        returns (int256)
     { 
         require(_getName[_fortressHash]);
         return mapping_c[_fortressHash];
@@ -98,6 +101,7 @@ contract FortressStorage {
         bytes32 _buildingHash
     ) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_12[uint256(keccak256(_fortressHash, _buildingHash))];
@@ -158,6 +162,7 @@ contract FortressStorage {
 
     function getFortressesAvailable()
         public 
+        returns (uint256)
     { 
         v0 = 0x11f9();
         return v0;
@@ -165,6 +170,7 @@ contract FortressStorage {
 
     function getName(bytes32 _fortressHash) 
         public 
+        returns (bytes16)
     { 
         require(_getName[uint256(_fortressHash)]);
         return bytes16(mapping_9[uint256(_fortressHash)] << 128);
@@ -228,6 +234,7 @@ contract FortressStorage {
         bytes32 _troupHash
     ) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_10[uint256(keccak256(_fortressHash, _troupHash))];
@@ -272,6 +279,7 @@ contract FortressStorage {
         uint256 _index
     ) 
         public 
+        returns (bytes32)
     { 
         assert(_index < mapping_3[_user].length);
         return uint256(mapping_3[_user][_index]);
@@ -331,6 +339,7 @@ contract FortressStorage {
         bytes32 _buildingHash
     )
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_13[uint256(keccak256(_fortressHash, _buildingHash))];
@@ -338,6 +347,7 @@ contract FortressStorage {
 
     function getWins(bytes32 _fortressHash) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_10[_fortressHash];
@@ -378,6 +388,7 @@ contract FortressStorage {
 
     function getX(bytes32 _fortressHash) 
         public 
+        returns (int256)
     { 
         require(_getName[_fortressHash]);
         return mapping_b[_fortressHash];
@@ -391,6 +402,7 @@ contract FortressStorage {
 
     function getOwner(bytes32 _fortressHash) 
         public 
+        returns (address)
     { 
         require(_getName[uint256(_fortressHash)]);
         return _getOwner[uint256(_fortressHash)];
@@ -398,6 +410,7 @@ contract FortressStorage {
 
     function getWood(bytes32 _fortressHash) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_e[_fortressHash];
@@ -405,6 +418,7 @@ contract FortressStorage {
 
     function getStone(bytes32 _fortressHash) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_f[_fortressHash];
@@ -412,6 +426,7 @@ contract FortressStorage {
 
     function getGold(bytes32 _fortressHash) 
         public 
+        returns (uint256)
     { 
         require(_getName[_fortressHash]);
         return mapping_d[_fortressHash];
@@ -428,6 +443,7 @@ contract FortressStorage {
 
     function getIndexLength(address _user) 
         public 
+        returns (uint256)
     { 
         return mapping_4[_user];
     }
