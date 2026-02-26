@@ -55,14 +55,14 @@ contract FortressStorage {
     }
 
     function setWins(
-        bytes32 varg0, 
-        uint256 varg1
+        bytes32 _fortressHash, 
+        uint256 _wins
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_10[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_10[_fortressHash] = _wins;
     }
 
     function _SafeAdd(
@@ -86,21 +86,21 @@ contract FortressStorage {
         return varg1 - varg0;
     }
 
-    function getY(bytes32 varg0) 
+    function getY(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_c[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_c[_fortressHash];
     }
 
     function getBuildingLevel(
-        bytes32 varg0, 
-        bytes32 varg1
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash
     ) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_12[uint256(keccak256(varg0, varg1))];
+        require(_getName[_fortressHash]);
+        return mapping_12[uint256(keccak256(_fortressHash, _buildingHash))];
     }
 
     function genesisTime() public { 
@@ -108,15 +108,15 @@ contract FortressStorage {
     }
 
     function createFortress(
-        bytes32 varg0, 
-        address varg1
+        bytes32 _fortressHash, 
+        address _user
     ) 
         public 
     { 
         require(msg.sender == _owner);
         v0 = 0x11f9();
         require(v0 > array_7.length);
-        require(bool(!_getName[varg0]));
+        require(bool(!_getName[_fortressHash]));
         array_7.length += 1;
         if (!array_7.length <= 1 + array_7.length) {
             v1 = v2 = keccak256(7) + (1 + array_7.length);
@@ -125,35 +125,35 @@ contract FortressStorage {
                 v1 += 1;
             }
         }
-        array_7[array_7.length] = varg0;
-        _getName[varg0] = 1;
-        _getOwner[varg0] = varg1;
-        mapping_3[varg1].length += 1;
-        if (!mapping_3[varg1].length <= 1 + mapping_3[varg1].length) {
-            v3 = v4 = keccak256(keccak256(varg1, 3)) + (1 + mapping_3[varg1].length);
-            while (keccak256(keccak256(varg1, 3)) + mapping_3[varg1].length > v3) {
+        array_7[array_7.length] = _fortressHash;
+        _getName[_fortressHash] = 1;
+        _getOwner[_fortressHash] = _user;
+        mapping_3[_user].length += 1;
+        if (!mapping_3[_user].length <= 1 + mapping_3[_user].length) {
+            v3 = v4 = keccak256(keccak256(_user, 3)) + (1 + mapping_3[_user].length);
+            while (keccak256(keccak256(_user, 3)) + mapping_3[_user].length > v3) {
                 STORAGE[v3] = 0;
                 v3 += 1;
             }
         }
-        mapping_3[varg1][mapping_3[varg1].length] = varg0;
-        mapping_6[varg0] = mapping_4[varg1];
-        v5 = _SafeAdd(1, mapping_4[varg1]);
-        mapping_4[varg1] = v5;
-        v6 = _SafeAdd(1, _balanceOf[varg1]);
-        _balanceOf[varg1] = v6;
+        mapping_3[_user][mapping_3[_user].length] = _fortressHash;
+        mapping_6[_fortressHash] = mapping_4[_user];
+        v5 = _SafeAdd(1, mapping_4[_user]);
+        mapping_4[_user] = v5;
+        v6 = _SafeAdd(1, _balanceOf[_user]);
+        _balanceOf[_user] = v6;
     }
 
     function setTroups(
-        bytes32 varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        bytes32 _fortressHash, 
+        bytes32 _troupHash, 
+        uint256 _amount
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_10[uint256(keccak256(varg0, varg1))] = varg2;
+        require(_getName[_fortressHash]);
+        mapping_10[uint256(keccak256(_fortressHash, _troupHash))] = _amount;
     }
 
     function getFortressesAvailable()
@@ -163,40 +163,40 @@ contract FortressStorage {
         return v0;
     }
 
-    function getName(bytes32 saleId) 
+    function getName(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[uint256(saleId)]);
-        return bytes16(mapping_9[uint256(saleId)] << 128);
+        require(_getName[uint256(_fortressHash)]);
+        return bytes16(mapping_9[uint256(_fortressHash)] << 128);
     }
 
     function setOwner(
-        bytes32 node, 
-        address owner
+        bytes32 _fortressHash, 
+        address _newOwner
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[uint256(node)]);
-        assert(mapping_6[uint256(node)] < mapping_3[_getOwner[uint256(node)]].length);
-        mapping_3[_getOwner[uint256(node)]][mapping_6[uint256(node)]] = uint256(0);
-        v0 = _SafeSub(1, _balanceOf[_getOwner[uint256(node)]]);
-        _balanceOf[_getOwner[uint256(node)]] = v0;
-        _getOwner[uint256(node)] = owner;
-        mapping_3[owner].length += 1;
-        if (!mapping_3[owner].length <= 1 + mapping_3[owner].length) {
-            v1 = v2 = keccak256(keccak256(owner, 3)) + (1 + mapping_3[owner].length);
-            while (keccak256(keccak256(owner, 3)) + mapping_3[owner].length > v1) {
+        require(_getName[uint256(_fortressHash)]);
+        assert(mapping_6[uint256(_fortressHash)] < mapping_3[_getOwner[uint256(_fortressHash)]].length);
+        mapping_3[_getOwner[uint256(_fortressHash)]][mapping_6[uint256(_fortressHash)]] = uint256(0);
+        v0 = _SafeSub(1, _balanceOf[_getOwner[uint256(_fortressHash)]]);
+        _balanceOf[_getOwner[uint256(_fortressHash)]] = v0;
+        _getOwner[uint256(_fortressHash)] = _newOwner;
+        mapping_3[_newOwner].length += 1;
+        if (!mapping_3[_newOwner].length <= 1 + mapping_3[_newOwner].length) {
+            v1 = v2 = keccak256(keccak256(_newOwner, 3)) + (1 + mapping_3[_newOwner].length);
+            while (keccak256(keccak256(_newOwner, 3)) + mapping_3[_newOwner].length > v1) {
                 STORAGE[v1] = 0;
                 v1 += 1;
             }
         }
-        mapping_3[owner][mapping_3[owner].length] = uint256(node);
-        mapping_6[uint256(node)] = mapping_4[owner];
-        v3 = _SafeAdd(1, mapping_4[owner]);
-        mapping_4[owner] = v3;
-        v4 = _SafeAdd(1, _balanceOf[owner]);
-        _balanceOf[owner] = v4;
+        mapping_3[_newOwner][mapping_3[_newOwner].length] = uint256(_fortressHash);
+        mapping_6[uint256(_fortressHash)] = mapping_4[_newOwner];
+        v3 = _SafeAdd(1, mapping_4[_newOwner]);
+        mapping_4[_newOwner] = v3;
+        v4 = _SafeAdd(1, _balanceOf[_newOwner]);
+        _balanceOf[_newOwner] = v4;
     }
 
     function 0x5d694a72() 
@@ -213,35 +213,35 @@ contract FortressStorage {
     }
 
     function setX(
-        bytes32 varg0, 
-        int256 varg1
+        bytes32 _fortressHash, 
+        int256 _x
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_b[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_b[_fortressHash] = _x;
     }
 
     function getTroups(
-        bytes32 varg0, 
-        bytes32 varg1
+        bytes32 _fortressHash, 
+        bytes32 _troupHash
     ) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_10[uint256(keccak256(varg0, varg1))];
+        require(_getName[_fortressHash]);
+        return mapping_10[uint256(keccak256(_fortressHash, _troupHash))];
     }
 
     function setStone(
-        bytes32 varg0, 
-        uint256 varg1
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_f[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_f[_fortressHash] = _amount;
     }
 
     function balanceOf(address account) 
@@ -251,14 +251,14 @@ contract FortressStorage {
     }
 
     function setGold(
-        bytes32 varg0, 
-        uint256 varg1
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_d[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_d[_fortressHash] = _amount;
     }
 
     function 0x7679bede(uint256 varg0) 
@@ -268,13 +268,13 @@ contract FortressStorage {
     }
 
     function getHashFromIndex(
-        address varg0, 
-        uint256 varg1
+        address _user, 
+        uint256 _index
     ) 
         public 
     { 
-        assert(varg1 < mapping_3[varg0].length);
-        return uint256(mapping_3[varg0][varg1]);
+        assert(_index < mapping_3[_user].length);
+        return uint256(mapping_3[_user][_index]);
     }
 
     function 0x7ce3705e(address varg0) 
@@ -290,15 +290,15 @@ contract FortressStorage {
     }
 
     function setBuildingLevel(
-        bytes32 varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash, 
+        uint256 _level
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_12[uint256(keccak256(varg0, varg1))] = varg2;
+        require(_getName[_fortressHash]);
+        mapping_12[uint256(keccak256(_fortressHash, _buildingHash))] = _level;
     }
 
     function startMinting() 
@@ -310,14 +310,14 @@ contract FortressStorage {
     }
 
     function setWood(
-        bytes32 varg0, 
-        uint256 varg1
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_e[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_e[_fortressHash] = _amount;
     }
 
     function 0xab756f29(address varg0) 
@@ -327,43 +327,43 @@ contract FortressStorage {
     }
 
     function getBuildingTimeout(
-        bytes32 varg0, 
-        bytes32 varg1
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash
     )
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_13[uint256(keccak256(varg0, varg1))];
+        require(_getName[_fortressHash]);
+        return mapping_13[uint256(keccak256(_fortressHash, _buildingHash))];
     }
 
-    function getWins(bytes32 varg0) 
+    function getWins(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_10[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_10[_fortressHash];
     }
 
     function setY(
-        bytes32 varg0, 
-        int256 varg1
+        bytes32 _fortressHash, 
+        int256 _y
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_c[varg0] = varg1;
+        require(_getName[_fortressHash]);
+        mapping_c[_fortressHash] = _y;
     }
 
     function setBuildingTimeout(
-        bytes32 varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash, 
+        uint256 _timeout
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_13[uint256(keccak256(varg0, varg1))] = varg2;
+        require(_getName[_fortressHash]);
+        mapping_13[uint256(keccak256(_fortressHash, _timeout))] = _timeout;
     }
 
     function 0xc2fe3942(
@@ -376,11 +376,11 @@ contract FortressStorage {
         return uint256(mapping_3[varg0][varg1]);
     }
 
-    function getX(bytes32 varg0) 
+    function getX(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_b[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_b[_fortressHash];
     }
 
     function 0xcf2dd7d1(uint256 varg0) 
@@ -389,32 +389,32 @@ contract FortressStorage {
         return _getName[varg0];
     }
 
-    function getOwner(bytes32 _domainHash) 
+    function getOwner(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[uint256(_domainHash)]);
-        return _getOwner[uint256(_domainHash)];
+        require(_getName[uint256(_fortressHash)]);
+        return _getOwner[uint256(_fortressHash)];
     }
 
-    function getWood(bytes32 varg0) 
+    function getWood(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_e[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_e[_fortressHash];
     }
 
-    function getStone(bytes32 varg0) 
+    function getStone(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_f[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_f[_fortressHash];
     }
 
-    function getGold(bytes32 varg0) 
+    function getGold(bytes32 _fortressHash) 
         public 
     { 
-        require(_getName[varg0]);
-        return mapping_d[varg0];
+        require(_getName[_fortressHash]);
+        return mapping_d[_fortressHash];
     }
 
     function transferOwnership(address newOwner) 
@@ -426,21 +426,21 @@ contract FortressStorage {
         _owner = newOwner;
     }
 
-    function getIndexLength(address varg0) 
+    function getIndexLength(address _user) 
         public 
     { 
-        return mapping_4[varg0];
+        return mapping_4[_user];
     }
 
     function setName(
-        bytes32 varg0, 
-        bytes16 varg1
+        bytes32 _fortressHash, 
+        bytes16 _name
     ) 
         public 
     { 
         require(msg.sender == _owner);
-        require(_getName[varg0]);
-        mapping_9[varg0] = varg1 >> 128 | bytes16(mapping_9[varg0]);
+        require(_getName[_fortressHash]);
+        mapping_9[_fortressHash] = _name >> 128 | bytes16(mapping_9[_fortressHash]);
     }
 
     function 0xbc1() 
