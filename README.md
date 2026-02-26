@@ -61,7 +61,7 @@ forge build
 |--------------------------|-------------------------------------------------------------------------|:-----------------------------:
 | Realms of Ether          | https://etherscan.io/address/0x0716d44d5991b15256a2de5769e1376d569bba7c |
 | FortressStorage          | https://etherscan.io/address/0x12e9b4B43A8e8788569BE5DF6fc3ed88780c4DfC |
-| FortressStorageProxy     | https://etherscan.io/address/0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a |
+| FortressStorageProxy     | https://etherscan.io/address/0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a | ✅
 | BuildingStorage          | https://etherscan.io/address/0x3ecFD43652462a9EDc06f5c4e3e65e1E9A1FAF24 | ✅
 | BuildingStorageProxy     | https://etherscan.io/address/0xb939a1d96dda7271d6d89eaceabd9163d0502165 | ✅
 | TroupStorage             | https://etherscan.io/address/0xAE066769aa0fC472f1ee10360e05f2a6d903c1f3 | ✅
