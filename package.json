@@ -1,0 +1,14 @@
+{
+  "name": "realms-of-ether-reconstructed",
+  "version": "1.0.0",
+  "author": "bmeredith",
+  "license": "MIT",
+  "scripts": {
+    "build": "forge build",
+    "diff": "node utils/diff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmeredith/solidity-json-writer.git"
+  }
+}

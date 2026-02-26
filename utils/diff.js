@@ -1,6 +1,13 @@
 // diff.js
 const fs = require("fs");
 
+const CONTRACT = process.argv[2];
+if (!CONTRACT) {
+  console.error("Usage: node diff.js <ContractName>");
+  console.error("Example: node diff.js TroupStorage");
+  process.exit(1);
+}
+
 function clean(hex) {
   hex = hex.trim().toLowerCase();
   if (hex.length % 2) throw new Error("odd-length hex");
@@ -26,21 +33,23 @@ function diff(a, b, ctxBytes = 32) {
   return null;
 }
 
-// Put your deployed and compiled runtime hex in two files:
-const deployedFileFound = fs.existsSync("deployed.hex");
-if (!deployedFileFound) {
-  console.log('deployed.hex not found');
-  process.exit(0);
-}
-
-const compiledFileFound = fs.existsSync("compiled.hex");
+const compiledFilePath = `./out/${CONTRACT}.sol/${CONTRACT}.json`;
+const compiledFileFound = fs.existsSync(compiledFilePath);
 if (!compiledFileFound) {
-  console.log('compiled.hex not found');
+  console.log('Compiled bytecode not found. Try building the contract.');
   process.exit(0);
 }
 
-const deployed = clean(fs.readFileSync("deployed.hex", "utf8"));
-const compiled = clean(fs.readFileSync("compiled.hex", "utf8"));
+const deployedFilePath = `./artifacts/${CONTRACT}/deployed.hex`;
+const deployedFileFound = fs.existsSync(deployedFilePath);
+if (!deployedFileFound) {
+  console.log(`$Deployed bytecode not found at ${deployedFilePath}`);
+  process.exit(0);
+}
+
+const compiledJson = JSON.parse(fs.readFileSync(compiledFilePath, "utf8"));
+const compiled = clean(compiledJson.deployedBytecode.object);
+const deployed = clean(fs.readFileSync(deployedFilePath, "utf8"));
 
 const d = diff(deployed, compiled);
 if (!d) {
