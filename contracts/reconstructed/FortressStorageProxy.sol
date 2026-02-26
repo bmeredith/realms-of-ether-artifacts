@@ -6,7 +6,7 @@ pragma solidity 0.4.18;
 /// @notice Logic library contract for fortress management in Realms of Ether.
 /// Called via delegatecall from the main game contract, allowing the main
 /// game contract to interact with FortressStorage using its own execution context.
-/// Also provides read-only convenience functions 
+/// Also provides read-only convenience functions (getFortress, getResources)
 /// that can be called directly.
 ///
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
@@ -19,6 +19,7 @@ contract FortressStorageProxy {
     ) 
         public
         payable 
+        returns (uint256)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
@@ -33,6 +34,13 @@ contract FortressStorageProxy {
     ) 
         public 
         payable 
+        returns (
+            bytes16,
+            address,
+            int256,
+            int256,
+            uint256
+        )
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
@@ -92,6 +100,7 @@ contract FortressStorageProxy {
     function getFortressesAvailable(address _fortressStorage)
         public 
         payable 
+        returns (uint256)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
@@ -103,6 +112,7 @@ contract FortressStorageProxy {
     function getFortressCount(address _fortressStorage) 
         public 
         payable 
+        returns (uint256)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
@@ -118,13 +128,21 @@ contract FortressStorageProxy {
     ) 
         public 
         payable 
+        returns (
+            uint256,
+            uint256
+        )
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0x31857c44 = getBuildingLevel(bytes32,bytes32)
         v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x31857c44), _fortressHash, _buildingHash).gas(msg.gas - 710);
         require(bool(v0));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0xb41cddba = getBuildingTimeout(bytes32,bytes32)
         v2, /* uint256 */ v3 = _fortressStorage.call(uint32(0xb41cddba), _fortressHash, _buildingHash).gas(msg.gas - 710);
         require(bool(v2));
         return v1, v3;
@@ -137,6 +155,7 @@ contract FortressStorageProxy {
     ) 
         public
         payable 
+        returns (bytes32)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
@@ -165,17 +184,28 @@ contract FortressStorageProxy {
     ) 
         public 
         payable 
+        returns (
+            uint256,
+            uint256,
+            uint256
+        )
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0xe75f7871 = getGold(bytes32)
         v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0xe75f7871), _fortressHash).gas(msg.gas - 710);
         require(bool(v0));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0xe382af35 = getStone(bytes32)
         v2, /* uint256 */ v3 = _fortressStorage.call(uint32(0xe382af35), _fortressHash).gas(msg.gas - 710);
         require(bool(v2));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0xe0d87dc2 = getWood(bytes32)
         v4, /* uint256 */ v5 = _fortressStorage.call(uint32(0xe0d87dc2), _fortressHash).gas(msg.gas - 710);
         require(bool(v4));
         return v1, v3, v5;
@@ -187,6 +217,7 @@ contract FortressStorageProxy {
     ) 
         public 
         payable 
+        returns (address)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(account.code.size));
@@ -361,9 +392,12 @@ contract FortressStorageProxy {
     ) 
         public 
         payable 
+        returns (uint256)
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
+
+        // 0x6c4426be = getTroups(bytes32,bytes32)
         v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x6c4426be), _fortressHash, _troupHash).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
