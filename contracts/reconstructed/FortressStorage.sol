@@ -30,52 +30,75 @@ contract FortressStorage {
     mapping (uint256 => uint256) mapping_13; // STORAGE[0x13]
     address _owner; // STORAGE[0x0] bytes 0 to 19
 
-
     // Events
     OwnershipTransferred(address, address);
 
-    function 0x11f9() private { 
+    function 0x11f9() 
+        private 
+    { 
         v0 = 0xbc1();
         v1 = _SafeSub(array_7.length, v0);
         return v1;
     }
 
-    function fallback() public payable { 
-        revert();
-    }
-
-    function 0x10cfcf0c() public { 
+    function getFortressCount() 
+        public 
+    { 
         return array_7.length;
     }
 
-    function totalSupply() public { 
+    function totalSupply() 
+        public 
+    { 
         v0 = 0xbc1();
         return v0;
     }
 
-    function 0x2fb59b80(uint256 varg0, uint256 varg1) public { 
+    function setWins(
+        bytes32 varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_10[varg0] = varg1;
     }
 
-    function _SafeAdd(uint256 varg0, uint256 varg1) private { 
+    function _SafeAdd(
+        uint256 varg0, 
+        uint256 varg1
+    ) 
+        private 
+    { 
         v0 = varg1 + varg0 >= varg1;
         assert(bool(v0));
         return varg1 + varg0;
     }
 
-    function _SafeSub(uint256 varg0, uint256 varg1) private { 
+    function _SafeSub(
+        uint256 varg0, 
+        uint256 varg1
+    ) 
+        private 
+    { 
         assert(varg0 <= varg1);
         return varg1 - varg0;
     }
 
-    function 0x3141d0db(uint256 varg0) public { 
+    function getY(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_c[varg0];
     }
 
-    function 0x31857c44(uint256 varg0, uint256 varg1) public { 
+    function getBuildingLevel(
+        bytes32 varg0, 
+        bytes32 varg1
+    ) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_12[uint256(keccak256(varg0, varg1))];
     }
@@ -84,7 +107,12 @@ contract FortressStorage {
         return _genesisTime;
     }
 
-    function 0x43244b61(uint256 varg0, address varg1) public { 
+    function createFortress(
+        bytes32 varg0, 
+        address varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         v0 = 0x11f9();
         require(v0 > array_7.length);
@@ -116,23 +144,38 @@ contract FortressStorage {
         _balanceOf[varg1] = v6;
     }
 
-    function 0x45c7d3a6(uint256 varg0, uint256 varg1, uint256 varg2) public { 
+    function setTroups(
+        bytes32 varg0, 
+        bytes32 varg1, 
+        uint256 varg2
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_10[uint256(keccak256(varg0, varg1))] = varg2;
     }
 
-    function 0x468c7804() public { 
+    function getFortressesAvailable()
+        public 
+    { 
         v0 = 0x11f9();
         return v0;
     }
 
-    function getName(bytes32 saleId) public { 
+    function getName(bytes32 saleId) 
+        public 
+    { 
         require(_getName[uint256(saleId)]);
         return bytes16(mapping_9[uint256(saleId)] << 128);
     }
 
-    function setOwner(bytes32 node, address owner) public { 
+    function setOwner(
+        bytes32 node, 
+        address owner
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[uint256(node)]);
         assert(mapping_6[uint256(node)] < mapping_3[_getOwner[uint256(node)]].length);
@@ -156,155 +199,253 @@ contract FortressStorage {
         _balanceOf[owner] = v4;
     }
 
-    function 0x5d694a72() public { 
+    function 0x5d694a72() 
+        public 
+    { 
         return stor_2;
     }
 
-    function 0x66a7045c(uint256 varg0) public { 
+    function 0x66a7045c(uint256 varg0) 
+        public 
+    { 
         assert(varg0 < array_7.length);
         return uint256(array_7[varg0]);
     }
 
-    function 0x69c6821d(uint256 varg0, uint256 varg1) public { 
+    function setX(
+        bytes32 varg0, 
+        int256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_b[varg0] = varg1;
     }
 
-    function 0x6c4426be(uint256 varg0, uint256 varg1) public { 
+    function getTroups(
+        bytes32 varg0, 
+        bytes32 varg1
+    ) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_10[uint256(keccak256(varg0, varg1))];
     }
 
-    function 0x6d0af38e(uint256 varg0, uint256 varg1) public { 
+    function setStone(
+        bytes32 varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_f[varg0] = varg1;
     }
 
-    function balanceOf(address account) public { 
+    function balanceOf(address account) 
+        public 
+    { 
         return _balanceOf[account];
     }
 
-    function 0x70c92125(uint256 varg0, uint256 varg1) public { 
+    function setGold(
+        bytes32 varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_d[varg0] = varg1;
     }
 
-    function 0x7679bede(uint256 varg0) public { 
+    function 0x7679bede(uint256 varg0) 
+        public 
+    { 
         return mapping_6[varg0];
     }
 
-    function 0x78a11bf0(address varg0, uint256 varg1) public { 
+    function getHashFromIndex(
+        address varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         assert(varg1 < mapping_3[varg0].length);
         return uint256(mapping_3[varg0][varg1]);
     }
 
-    function 0x7ce3705e(address varg0) public { 
+    function 0x7ce3705e(address varg0) 
+        public 
+    { 
         return _balanceOf[varg0];
     }
 
-    function owner() public { 
+    function owner() 
+        public 
+    { 
         return _owner;
     }
 
-    function 0x8ff4efb7(uint256 varg0, uint256 varg1, uint256 varg2) public { 
+    function setBuildingLevel(
+        bytes32 varg0, 
+        bytes32 varg1, 
+        uint256 varg2
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_12[uint256(keccak256(varg0, varg1))] = varg2;
     }
 
-    function startMinting() public { 
+    function startMinting() 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_genesisTime == 0);
         _genesisTime = block.timestamp;
     }
 
-    function 0x9c8b8588(uint256 varg0, uint256 varg1) public { 
+    function setWood(
+        bytes32 varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_e[varg0] = varg1;
     }
 
-    function 0xab756f29(address varg0) public { 
+    function 0xab756f29(address varg0) 
+        public 
+    { 
         return mapping_4[varg0];
     }
 
-    function 0xb41cddba(uint256 varg0, uint256 varg1) public { 
+    function getBuildingTimeout(
+        bytes32 varg0, 
+        bytes32 varg1
+    )
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_13[uint256(keccak256(varg0, varg1))];
     }
 
-    function 0xb6d7e8a1(uint256 varg0) public { 
+    function getWins(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_10[varg0];
     }
 
-    function 0xb874b685(uint256 varg0, uint256 varg1) public { 
+    function setY(
+        bytes32 varg0, 
+        int256 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_c[varg0] = varg1;
     }
 
-    function 0xb9d8a1cf(uint256 varg0, uint256 varg1, uint256 varg2) public { 
+    function setBuildingTimeout(
+        bytes32 varg0, 
+        bytes32 varg1, 
+        uint256 varg2
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_13[uint256(keccak256(varg0, varg1))] = varg2;
     }
 
-    function 0xc2fe3942(address varg0, uint256 varg1) public { 
+    function 0xc2fe3942(
+        address varg0, 
+        uint256 varg1
+    ) 
+        public 
+    { 
         assert(varg1 < mapping_3[varg0].length);
         return uint256(mapping_3[varg0][varg1]);
     }
 
-    function 0xcdf28eaf(uint256 varg0) public { 
+    function getX(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_b[varg0];
     }
 
-    function 0xcf2dd7d1(uint256 varg0) public { 
+    function 0xcf2dd7d1(uint256 varg0) 
+        public 
+    { 
         return _getName[varg0];
     }
 
-    function getOwner(bytes32 _domainHash) public { 
+    function getOwner(bytes32 _domainHash) 
+        public 
+    { 
         require(_getName[uint256(_domainHash)]);
         return _getOwner[uint256(_domainHash)];
     }
 
-    function 0xe0d87dc2(uint256 varg0) public { 
+    function getWood(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_e[varg0];
     }
 
-    function 0xe382af35(uint256 varg0) public { 
+    function getStone(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_f[varg0];
     }
 
-    function 0xe75f7871(uint256 varg0) public { 
+    function getGold(bytes32 varg0) 
+        public 
+    { 
         require(_getName[varg0]);
         return mapping_d[varg0];
     }
 
-    function transferOwnership(address newOwner) public { 
+    function transferOwnership(address newOwner) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(bool(newOwner != address(0x0)));
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
     }
 
-    function 0xf5807181(address varg0) public { 
+    function getIndexLength(address varg0) 
+        public 
+    { 
         return mapping_4[varg0];
     }
 
-    function 0xf776c071(uint256 varg0, bytes16 varg1) public { 
+    function setName(
+        bytes32 varg0, 
+        bytes16 varg1
+    ) 
+        public 
+    { 
         require(msg.sender == _owner);
         require(_getName[varg0]);
         mapping_9[varg0] = varg1 >> 128 | bytes16(mapping_9[varg0]);
     }
 
-    function 0xbc1() private { 
+    function 0xbc1() 
+        private 
+    { 
         if (_genesisTime != 0) {
             assert(bool(900));
             v0 = _SafeAdd((block.timestamp - _genesisTime) / 900, stor_2);
@@ -312,5 +453,9 @@ contract FortressStorage {
         } else {
             return stor_2;
         }
+    }
+
+    function() public payable {
+        revert();
     }
 }
