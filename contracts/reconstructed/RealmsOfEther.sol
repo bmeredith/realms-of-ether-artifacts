@@ -185,7 +185,7 @@ contract RealmsOfEther is Pausable {
 
     function unknown_0x2811(uint256 varg0, uint256 varg1, uint256 varg2, uint256 varg3, uint256 varg4, uint256 varg5, uint256 varg6) private { 
         if (varg5 == goldHash) {
-            v0 = varg3.add(1);
+            v0 = varg3.add(1); // level of mine
             v1 = v0.mul(varg4);
             v2 = v1.add(varg2);
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -195,7 +195,7 @@ contract RealmsOfEther is Pausable {
             require(bool(v3));
         }
         if (varg5 == stoneHash) {
-            v4 = varg3.add(1);
+            v4 = varg3.add(1); // level of mine
             v5 = v4.mul(varg4);
             v6 = v5.add(varg1);
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
@@ -207,9 +207,9 @@ contract RealmsOfEther is Pausable {
         if (varg5 != woodHash) {
             return ;
         } else {
-            v8 = varg3.add(1);
-            v9 = v8.mul(varg4);
-            v10 = v9.add(varg0);
+            v8 = varg3.add(1); // varg3: level of mine + 1
+            v9 = v8.mul(varg4); // varg4: action rate
+            v10 = v9.add(varg0); // v10 = new wood amount = ((level+1)*action rate)+current wood amount
             require(bool(0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a.code.size));
 
             // 0xa04e8cb9 = setWood(address,bytes32,uint256)
@@ -310,9 +310,9 @@ contract RealmsOfEther is Pausable {
 
     function build(bytes32 _fortressHash, bytes32 _buildingHash) public whenNotPaused {
         unknown_0x26af(_fortressHash);
-        (v0, v1, v2) = unknown_0x1749(_fortressHash);
-        (v3, v4, v5) = unknown_0x14f4(_buildingHash);
-        (v6, v7) = unknown_0x1a67(_buildingHash, _fortressHash);
+        (v0, v1, v2) = unknown_0x1749(_fortressHash); // get fortress resources
+        (v3, v4, v5) = unknown_0x14f4(_buildingHash); // get building costs
+        (v6, v7) = unknown_0x1a67(_buildingHash, _fortressHash); // get fortress building (timeout, level)
         v8  = v7.add(1);
         v9  = v8.mul(v5);
         v10 = v8.mul(v4);

@@ -4,8 +4,9 @@ pragma solidity 0.4.18;
 /// @notice Reconstructed by wilt.eth/@wilty_stilty
 ///
 /// @notice Persistent on-chain storage contract for Buildings in Realms of Ether.
-/// Stores attributes (costs, recruitments, etc.) and their resources (gold, wood, stone)
-/// for each building, keyed by a bytes32 hash identifier.
+/// Stores build costs (gold, wood, stone) and action attributes for each building,
+/// keyed by a bytes32 hash identifier. Buildings can either be mined for resources
+/// or used to recruit troups, each on a timed interval.
 ///
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
@@ -15,14 +16,24 @@ contract BuildingStorage {
     
     // tracks whether a given hash has been registered via createBuilding()
     mapping(bytes32 => bool) internal exists;
+
+    // name of the building
     mapping(bytes32 => bytes16) internal names;
 
+    // type of action the building supports (1=mine, 2=recruit)
     mapping(bytes32 => uint256) internal action;
+    
+    // base resource yield per level when mining
     mapping(bytes32 => uint256) internal actionRate;
+
+    // if action=1 (mine): a hash identifying the resource type (gold, wood, or stone)
+    // if action=2 (recruit): a hash identifying the troup to recruit
     mapping(bytes32 => bytes32) internal actionValue;
+
+    // cooldown (in hours) between mining or recruiting actions
     mapping(bytes32 => uint256) internal actionTimeout;
     
-    // resources
+    // resources required to construct the building
     mapping(bytes32 => uint256) internal gold;
     mapping(bytes32 => uint256) internal wood;
     mapping(bytes32 => uint256) internal stone;
@@ -178,12 +189,12 @@ contract BuildingStorage {
         public 
     { 
         require(msg.sender == owner);
-        require(newOwner != address(0x0));
+        require(newOwner != address(0));
         OwnershipTransferred(owner, newOwner);
         owner = newOwner;
     }
 
-    function setname(bytes32 _buildingHash, bytes16 _name) 
+    function setName(bytes32 _buildingHash, bytes16 _name) 
         public 
     { 
         require(msg.sender == owner);
