@@ -1,6 +1,32 @@
 pragma solidity 0.4.18;
 
 contract TroupStorageProxy {
+    function getTroup(address _troupStorage, bytes32 _troupHash)
+        public 
+    { 
+        MEM[32 + MEM[64]] = 0;
+        require(bool(_troupStorage.code.size));
+        v0, /* bytes16 */ v1 = _troupStorage.getName(_troupHash).gas(msg.gas - 710);
+        require(bool(v0));
+        MEM[32 + MEM[64]] = 0;
+        require(bool(_troupStorage.code.size));
+        v2, /* uint256 */ v3 = _troupStorage.call(uint32(0x82f0b31c), _troupHash).gas(msg.gas - 710);
+        require(bool(v2));
+        MEM[32 + MEM[64]] = 0;
+        require(bool(_troupStorage.code.size));
+        v4, /* uint256 */ v5 = _troupStorage.call(uint32(0x6453da9a), _troupHash).gas(msg.gas - 710);
+        require(bool(v4));
+        MEM[32 + MEM[64]] = 0;
+        require(bool(_troupStorage.code.size));
+        v6, /* uint256 */ v7 = _troupStorage.call(uint32(0x79525281), _troupHash).gas(msg.gas - 710);
+        require(bool(v6));
+        MEM[32 + MEM[64]] = 0;
+        require(bool(_troupStorage.code.size));
+        v8, /* uint256 */ v9 = _troupStorage.call(uint32(0x9342ccc2), _troupHash).gas(msg.gas - 710);
+        require(bool(v8));
+        return bytes16(v1), v3, v5, v7, v9;
+    }
+
     function createTroup(
         address _troupStorage, 
         bytes32 _troupHash, 
@@ -91,31 +117,5 @@ contract TroupStorageProxy {
 
     function fallback() public payable { 
         revert();
-    }
-
-    function getTroup(address _troupStorage, bytes32 _troupHash)
-        public 
-    { 
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v0, /* bytes16 */ v1 = _troupStorage.getName(_troupHash).gas(msg.gas - 710);
-        require(bool(v0));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v2, /* uint256 */ v3 = _troupStorage.call(uint32(0x82f0b31c), _troupHash).gas(msg.gas - 710);
-        require(bool(v2));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v4, /* uint256 */ v5 = _troupStorage.call(uint32(0x6453da9a), _troupHash).gas(msg.gas - 710);
-        require(bool(v4));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v6, /* uint256 */ v7 = _troupStorage.call(uint32(0x79525281), _troupHash).gas(msg.gas - 710);
-        require(bool(v6));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v8, /* uint256 */ v9 = _troupStorage.call(uint32(0x9342ccc2), _troupHash).gas(msg.gas - 710);
-        require(bool(v8));
-        return bytes16(v1), v3, v5, v7, v9;
     }
 }
