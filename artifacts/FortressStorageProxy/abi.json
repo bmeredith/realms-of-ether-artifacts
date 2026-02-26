@@ -1,0 +1,429 @@
+[{
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "getIndexLength",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getFortress",
+    "outputs": [{
+        "name": "",
+        "type": "bytes16"
+      }, {
+        "name": "",
+        "type": "address"
+      }, {
+        "name": "",
+        "type": "int256"
+      }, {
+        "name": "",
+        "type": "int256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "setOwner",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setGold",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }
+    ],
+    "name": "getFortressesAvailable",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }
+    ],
+    "name": "getFortressCount",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_buildingHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getBuilding",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_user",
+        "type": "address"
+      }, {
+        "name": "_index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getHashFromIndex",
+    "outputs": [{
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_troupHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTroups",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getResources",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }, {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getOwner",
+    "outputs": [{
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_buildingHash",
+        "type": "bytes32"
+      }, {
+        "name": "_gold",
+        "type": "uint256"
+      }, {
+        "name": "_stone",
+        "type": "uint256"
+      }, {
+        "name": "_wood",
+        "type": "uint256"
+      }, {
+        "name": "_level",
+        "type": "uint256"
+      }
+    ],
+    "name": "build",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStone",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "proxy",
+        "type": "address"
+      }, {
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgrade",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setWood",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_name",
+        "type": "bytes16"
+      }, {
+        "name": "_x",
+        "type": "int256"
+      }, {
+        "name": "_y",
+        "type": "int256"
+      }, {
+        "name": "_gold",
+        "type": "uint256"
+      }, {
+        "name": "_stone",
+        "type": "uint256"
+      }, {
+        "name": "_wood",
+        "type": "uint256"
+      }, {
+        "name": "_wins",
+        "type": "uint256"
+      }, {
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "createFortress",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }
+    ],
+    "name": "startMinting",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_buildingHash",
+        "type": "bytes32"
+      }, {
+        "name": "_timeout",
+        "type": "uint256"
+      }
+    ],
+    "name": "setBuildingTimeout",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "constant": false,
+    "inputs": [{
+        "name": "_fortressStorage",
+        "type": "address"
+      }, {
+        "name": "_fortressHash",
+        "type": "bytes32"
+      }, {
+        "name": "_troupHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getTroups",
+    "outputs": [{
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  }
+]
