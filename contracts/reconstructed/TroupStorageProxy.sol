@@ -1,30 +1,37 @@
 pragma solidity 0.4.18;
 
+/// @title TroupStorageProxy for Realms of Ether (https://www.realmsofether.com)
+/// @notice Reconstructed by wilt.eth/@wilty_stilty
+///
+/// @notice Logic library contract for troup management in Realms of Ether.
+/// Intended to be called via delegatecall from the main game contract,
+/// allowing the main game contract to interact with TroupStorage while
+/// keeping the main contract's bytecode size within limits.
+/// Also provides read-only convenience functions (getTroup, getCosts)
+/// that can be called directly.
+///
+/// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
+/// This file has been reconstructed in its entirety from the deployed bytecode.
+import {ITroupStorage} from "./interfaces/ITroupStorage.sol";
+
 contract TroupStorageProxy {
     function getTroup(address _troupStorage, bytes32 _troupHash)
-        public 
-    { 
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v0, /* bytes16 */ v1 = _troupStorage.getName(_troupHash).gas(msg.gas - 710);
-        require(bool(v0));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v2, /* uint256 */ v3 = _troupStorage.call(uint32(0x82f0b31c), _troupHash).gas(msg.gas - 710);
-        require(bool(v2));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v4, /* uint256 */ v5 = _troupStorage.call(uint32(0x6453da9a), _troupHash).gas(msg.gas - 710);
-        require(bool(v4));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v6, /* uint256 */ v7 = _troupStorage.call(uint32(0x79525281), _troupHash).gas(msg.gas - 710);
-        require(bool(v6));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v8, /* uint256 */ v9 = _troupStorage.call(uint32(0x9342ccc2), _troupHash).gas(msg.gas - 710);
-        require(bool(v8));
-        return bytes16(v1), v3, v5, v7, v9;
+        public
+        returns (
+            bytes16,
+            uint256,
+            uint256,
+            uint256,
+            uint256
+        )
+    {
+        ITroupStorage storage = ITroupStorage(_troupStorage);
+        bytes16 name = storage.getName(_troupHash);
+        uint256 life = storage.getLife(_troupHash);
+        uint256 strength = storage.getStrength(_troupHash);
+        uint256 intelligence = storage.getIntelligence(_troupHash);
+        uint256 dexterity = storage.getDexterity(_troupHash);
+        return (name, life, strength, intelligence, dexterity);
     }
 
     function createTroup(
@@ -41,78 +48,47 @@ contract TroupStorageProxy {
     ) 
         public 
     { 
-        require(bool(troupStorage.code.size));
-        v0 = _troupStorage.call(uint32(0x7a65efc9), _troupHash).gas(msg.gas - 710);
-        require(bool(v0));
-        require(bool(_troupStorage.code.size));
-        v1 = _troupStorage.call(uint32(0xf776c071), _troupHash, _name).gas(msg.gas - 710);
-        require(bool(v1));
-        require(bool(_troupStorage.code.size));
-        v2 = _troupStorage.call(uint32(0xc74d8903), _troupHash, _life).gas(msg.gas - 710);
-        require(bool(v2));
-        require(bool(_troupStorage.code.size));
-        v3 = _troupStorage.call(uint32(0x80461f9), _troupHash, _strength).gas(msg.gas - 710);
-        require(bool(v3));
-        require(bool(_troupStorage.code.size));
-        v4 = _troupStorage.call(uint32(0x41731f8b), _troupHash, _intelligence).gas(msg.gas - 710);
-        require(bool(v4));
-        require(bool(_troupStorage.code.size));
-        v5 = _troupStorage.call(uint32(0x718de536), _troupHash, _dexterity).gas(msg.gas - 710);
-        require(bool(v5));
-        require(bool(_troupStorage.code.size));
-        v6 = _troupStorage.call(uint32(0x70c92125), _troupHash, _gold).gas(msg.gas - 710);
-        require(bool(v6));
-        require(bool(_troupStorage.code.size));
-        v7 = _troupStorage.call(uint32(0x9c8b8588), _troupHash, _wood).gas(msg.gas - 710);
-        require(bool(v7));
-        require(bool(_troupStorage.code.size));
-        v8 = _troupStorage.call(uint32(0x6d0af38e), _troupHash, _stone).gas(msg.gas - 710);
-        require(bool(v8));
+        ITroupStorage storage = ITroupStorage(_troupStorage);
+        storage.createTroup(_troupHash);
+        storage.setName(_troupHash, _name);
+        storage.setLife(_troupHash, _life);
+        storage.setStrength(_troupHash, _strength);
+        storage.setIntelligence(_troupHash, _intelligence);
+        storage.setDexterity(_troupHash, _dexterity);
+        storage.setGold(_troupHash, _gold);
+        storage.setWood(_troupHash, _wood);
+        storage.setStone(_troupHash, _stone);
     }
 
     function upgrade(address proxy, address implementation) 
         public 
     { 
-        require(bool(proxy.code.size));
-        v0 = proxy.transferOwnership(implementation).gas(msg.gas - 710);
-        require(bool(v0));
+        ITroupStorage(proxy).transferOwnership(implementation);
     }
 
     function getHash(address _troupStorage, uint256 _nonce) 
         public 
+        returns (bytes32)
     {
-        require(bool(_troupStorage.code.size));
-        v0, /* uint256 */ v1 = _troupStorage.getHash(_nonce).gas(msg.gas - 710);
-        require(bool(v0));
-        return uint256(v1);
+        return ITroupStorage(_troupStorage).getHash(_nonce);
     }
 
     function getIndexLength(address _troupStorage) 
         public 
+        returns (uint256)
     { 
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v0, /* uint256 */ v1 = _troupStorage.getIndexLength().gas(msg.gas - 710);
-        require(bool(v0));
-        return v1;
+        return ITroupStorage(_troupStorage).getIndexLength();
     }
 
     function getCosts(address _troupStorage, bytes32 _troupHash) 
         public 
+        returns (uint256, uint256, uint256)
     { 
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v0, /* uint256 */ v1 = _troupStorage.call(uint32(0xe75f7871), _troupHash).gas(msg.gas - 710);
-        require(bool(v0));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v2, /* uint256 */ v3 = _troupStorage.call(uint32(0xe382af35), _troupHash).gas(msg.gas - 710);
-        require(bool(v2));
-        MEM[32 + MEM[64]] = 0;
-        require(bool(_troupStorage.code.size));
-        v4, /* uint256 */ v5 = _troupStorage.call(uint32(0xe0d87dc2), _troupHash).gas(msg.gas - 710);
-        require(bool(v4));
-        return v1, v3, v5;
+        ITroupStorage storage = ITroupStorage(_troupStorage);
+        uint256 gold = storage.getGold(_troupHash);
+        uint256 wood = storage.getWood(_troupHash);
+        uint256 stone = storage.getStone(_troupHash);
+        return (gold, wood, stone);
     }
 
     function fallback() public payable { 
