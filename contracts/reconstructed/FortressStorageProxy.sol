@@ -14,217 +14,231 @@ pragma solidity 0.4.18;
 
 contract FortressStorageProxy {
     function getIndexLength(
-        address varg0, 
-        address varg1
+        address _fortressStorage, 
+        address _user
     ) 
         public
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0xf5807181), varg1).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = varg0.call(uint32(0xf5807181), _user).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
 
     function getFortress(
-        address varg0, 
-        bytes32 varg1
+        address _fortressStorage, 
+        bytes32 _fortressHash
     ) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* bytes16 */ v1 = varg0.getName(varg1).gas(msg.gas - 710);
+        v0, /* bytes16 */ v1 = _fortressStorage.getName(_fortressHash).gas(msg.gas - 710);
         require(bool(v0));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v2, /* address */ v3 = varg0.getOwner(varg1).gas(msg.gas - 710);
+        v2, /* address */ v3 = _fortressStorage.getOwner(_fortressHash).gas(msg.gas - 710);
         require(bool(v2));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v4, /* uint256 */ v5 = varg0.call(uint32(0xcdf28eaf), varg1).gas(msg.gas - 710);
+
+        // 0xcdf28eaf = getX(bytes32)
+        v4, /* uint256 */ v5 = _fortressStorage.call(uint32(0xcdf28eaf), _fortressHash).gas(msg.gas - 710);
         require(bool(v4));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v6, /* uint256 */ v7 = varg0.call(uint32(0x3141d0db), varg1).gas(msg.gas - 710);
+
+        // 0x3141d0db = getY(bytes32)
+        v6, /* uint256 */ v7 = _fortressStorage.call(uint32(0x3141d0db), _fortressHash).gas(msg.gas - 710);
         require(bool(v6));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v8, /* uint256 */ v9 = varg0.call(uint32(0xb6d7e8a1), varg1).gas(msg.gas - 710);
+
+        // 0xb6d7e8a1 = getWins(bytes32)
+        v8, /* uint256 */ v9 = _fortressStorage.call(uint32(0xb6d7e8a1), _fortressHash).gas(msg.gas - 710);
         require(bool(v8));
         return bytes16(MEM[MEM[64]]), address(v3), v5, v7, v9;
     }
 
     function setOwner(
-        address varg0, 
-        bytes32 varg1, 
-        address varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        address _newOwner
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.setOwner(varg1, varg2).gas(msg.gas - 710);
+        v0 = varg0.setOwner(_fortressHash, _newOwner).gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function setGold(
-        address varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x70c92125), varg1, varg2).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0x70c92125), _fortressHash, _amount).gas(msg.gas - 710);
         require(bool(v0));
     }
 
-    function getFortressesAvailable(address varg0)
+    function getFortressesAvailable(address _fortressStorage)
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0x468c7804)).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x468c7804)).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
 
-    function getFortressCount(address varg0) 
+    function getFortressCount(address _fortressStorage) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0x10cfcf0c)).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x10cfcf0c)).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
 
     function getBuilding(
-        address varg0, 
-        bytes32 varg1, 
-        bytes32 varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash
     ) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0x31857c44), varg1, varg2).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x31857c44), _fortressHash, _buildingHash).gas(msg.gas - 710);
         require(bool(v0));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v2, /* uint256 */ v3 = varg0.call(uint32(0xb41cddba), varg1, varg2).gas(msg.gas - 710);
+        v2, /* uint256 */ v3 = _fortressStorage.call(uint32(0xb41cddba), _fortressHash, _buildingHash).gas(msg.gas - 710);
         require(bool(v2));
         return v1, v3;
     }
 
     function getHashFromIndex(
-        address varg0, 
-        address varg1, 
-        uint256 varg2
+        address _fortressStorage, 
+        address _user, 
+        uint256 _index
     ) 
         public
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0x78a11bf0), varg1, varg2).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x78a11bf0), _user, _index).gas(msg.gas - 710);
         require(bool(v0));
         return uint256(v1);
     }
 
     function setTroups(
-        address varg0, 
-        bytes32 varg1, 
-        bytes32 varg2, 
-        uint256 varg3
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        bytes32 _troupHash, 
+        uint256 _amount
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x45c7d3a6), varg1, varg2, varg3).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0x45c7d3a6), _fortressHash, _troupHash, _amount).gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function getResources(
-        address varg0, 
-        bytes32 varg1
+        address _fortressStorage, 
+        bytes32 _fortressHash
     ) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0xe75f7871), varg1).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0xe75f7871), _fortressHash).gas(msg.gas - 710);
         require(bool(v0));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v2, /* uint256 */ v3 = varg0.call(uint32(0xe382af35), varg1).gas(msg.gas - 710);
+        v2, /* uint256 */ v3 = _fortressStorage.call(uint32(0xe382af35), _fortressHash).gas(msg.gas - 710);
         require(bool(v2));
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v4, /* uint256 */ v5 = varg0.call(uint32(0xe0d87dc2), varg1).gas(msg.gas - 710);
+        v4, /* uint256 */ v5 = _fortressStorage.call(uint32(0xe0d87dc2), _fortressHash).gas(msg.gas - 710);
         require(bool(v4));
         return v1, v3, v5;
     }
 
     function getOwner(
-        address account, 
-        bytes32 DATA
+        address _fortressStorage, 
+        bytes32 _fortressHash
     ) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(account.code.size));
-        v0, /* address */ v1 = account.getOwner(uint256(DATA)).gas(msg.gas - 710);
+        v0, /* address */ v1 = _fortressStorage.getOwner(uint256(_fortressHash)).gas(msg.gas - 710);
         require(bool(v0));
         return address(v1);
     }
 
     function build(
-        address varg0, 
-        bytes32 varg1, 
-        bytes32 varg2, 
-        uint256 varg3, 
-        uint256 varg4, 
-        uint256 varg5, 
-        uint256 varg6
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash, 
+        uint256 _gold, 
+        uint256 _stone, 
+        uint256 _wood, 
+        uint256 _level
     )
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x70c92125), varg1, varg3).gas(msg.gas - 710);
+
+        // 0x70c92125 = setGold(bytes32,uint256)
+        v0 = varg0.call(uint32(0x70c92125), _fortressHash, _gold).gas(msg.gas - 710);
         require(bool(v0));
         require(bool(varg0.code.size));
-        v1 = varg0.call(uint32(0x6d0af38e), varg1, varg4).gas(msg.gas - 710);
+
+        // 0x6d0af38e = setStone(bytes32,uint256)
+        v1 = varg0.call(uint32(0x6d0af38e), _fortressHash, _stone).gas(msg.gas - 710);
         require(bool(v1));
         require(bool(varg0.code.size));
-        v2 = varg0.call(uint32(0x9c8b8588), varg1, varg5).gas(msg.gas - 710);
+
+        // 0x9c8b8588 = setWood(bytes32,uint256)
+        v2 = varg0.call(uint32(0x9c8b8588), _fortressHash, _wood).gas(msg.gas - 710);
         require(bool(v2));
         require(bool(varg0.code.size));
-        v3 = varg0.call(uint32(0x8ff4efb7), varg1, varg2, varg6).gas(msg.gas - 710);
+
+        // 0x8ff4efb7 = setBuildingLevel(bytes32,bytes32,uint256)
+        v3 = varg0.call(uint32(0x8ff4efb7), _fortressHash, _buildingHash, _level).gas(msg.gas - 710);
         require(bool(v3));
     }
 
     function setStone(
-        address varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x6d0af38e), varg1, varg2).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0x6d0af38e), _fortressHash, _amount).gas(msg.gas - 710);
         require(bool(v0));
     }
 
@@ -238,103 +252,119 @@ contract FortressStorageProxy {
     }
 
     function setWood(
-        address varg0, 
-        bytes32 varg1, 
-        uint256 varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        uint256 _amount
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x9c8b8588), varg1, varg2).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0x9c8b8588), _fortressHash, _amount).gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function transfer(
-        address varg0, 
-        bytes32 varg1, 
-        address varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        address _newOwner
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.setOwner(varg1, varg2).gas(msg.gas - 710);
+        v0 = _fortressStorage.setOwner(_fortressHash, _newOwner).gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function createFortress(
-        address varg0, 
-        bytes32 varg1, 
-        bytes16 varg2, 
-        int256 varg3, 
-        int256 varg4, 
-        uint256 varg5, 
-        uint256 varg6, 
-        uint256 varg7, 
-        uint256 varg8, 
-        address varg9
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        bytes16 _name, 
+        int256 _x, 
+        int256 _y, 
+        uint256 _gold, 
+        uint256 _stone, 
+        uint256 _wood, 
+        uint256 _level, 
+        address _owner
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0x43244b61), varg1, varg9).gas(msg.gas - 710);
+
+        // 0x43244b61 = createFortress(bytes32,address)
+        v0 = _fortressStorage.call(uint32(0x43244b61), _fortressHash, _owner).gas(msg.gas - 710);
         require(bool(v0));
         require(bool(varg0.code.size));
-        v1 = varg0.call(uint32(0xf776c071), varg1, varg2).gas(msg.gas - 710);
+
+        // 0xf776c071 = setName(bytes32,bytes16)
+        v1 = _fortressStorage.call(uint32(0xf776c071), _fortressHash, _name).gas(msg.gas - 710);
         require(bool(v1));
         require(bool(varg0.code.size));
-        v2 = varg0.call(uint32(0x69c6821d), varg1, varg3).gas(msg.gas - 710);
+
+        // 0x69c6821d = setX(bytes32,int256)
+        v2 = _fortressStorage.call(uint32(0x69c6821d), _fortressHash, _x).gas(msg.gas - 710);
         require(bool(v2));
         require(bool(varg0.code.size));
-        v3 = varg0.call(uint32(0xb874b685), varg1, varg4).gas(msg.gas - 710);
+
+        // 0xb874b685 = setY(bytes32,int256)
+        v3 = _fortressStorage.call(uint32(0xb874b685), _fortressHash, _y).gas(msg.gas - 710);
         require(bool(v3));
         require(bool(varg0.code.size));
-        v4 = varg0.call(uint32(0x70c92125), varg1, varg5).gas(msg.gas - 710);
+
+        // 0x70c92125 = setGold(bytes32,uint256)
+        v4 = _fortressStorage.call(uint32(0x70c92125), _fortressHash, _gold).gas(msg.gas - 710);
         require(bool(v4));
         require(bool(varg0.code.size));
-        v5 = varg0.call(uint32(0x6d0af38e), varg1, varg6).gas(msg.gas - 710);
+
+        // 0x6d0af38e = setStone(bytes32,uint256)
+        v5 = _fortressStorage.call(uint32(0x6d0af38e), _fortressHash, _stone).gas(msg.gas - 710);
         require(bool(v5));
         require(bool(varg0.code.size));
-        v6 = varg0.call(uint32(0x9c8b8588), varg1, varg7).gas(msg.gas - 710);
+
+        // 0x9c8b8588 = setWood(bytes32,uint256)
+        v6 = _fortressStorage.call(uint32(0x9c8b8588), _fortressHash, _wood).gas(msg.gas - 710);
         require(bool(v6));
         require(bool(varg0.code.size));
-        v7 = varg0.call(uint32(0x2fb59b80), varg1, varg8).gas(msg.gas - 710);
+
+        // 0x2fb59b80 = setLevel(bytes32,uint256)
+        v7 = _fortressStorage.call(uint32(0x2fb59b80), _fortressHash, _level).gas(msg.gas - 710);
         require(bool(v7));
     }
 
-    function startMinting(address varg0) public payable { 
+    function startMinting(address _fortressStorage) public payable { 
         require(bool(varg0.code.size));
-        v0 = varg0.startMinting().gas(msg.gas - 710);
+        v0 = _fortressStorage.startMinting().gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function setBuildingTimeout(
-        address varg0,
-        bytes32 varg1, 
-        bytes32 varg2, 
-        uint256 varg3
+        address _fortressStorage,
+        bytes32 _fortressHash, 
+        bytes32 _buildingHash, 
+        uint256 _timeout
     ) 
         public 
         payable 
     { 
         require(bool(varg0.code.size));
-        v0 = varg0.call(uint32(0xb9d8a1cf), varg1, varg2, varg3).gas(msg.gas - 710);
+        v0 = _fortressStorage.call(uint32(0xb9d8a1cf), _fortressHash, _buildingHash, _timeout).gas(msg.gas - 710);
         require(bool(v0));
     }
 
     function getTroups(
-        address varg0, 
-        bytes32 varg1, 
-        bytes32 varg2
+        address _fortressStorage, 
+        bytes32 _fortressHash, 
+        bytes32 _troupHash
     ) 
         public 
         payable 
     { 
         MEM[32 + MEM[64]] = 0;
         require(bool(varg0.code.size));
-        v0, /* uint256 */ v1 = varg0.call(uint32(0x6c4426be), varg1, varg2).gas(msg.gas - 710);
+        v0, /* uint256 */ v1 = _fortressStorage.call(uint32(0x6c4426be), _fortressHash, _troupHash).gas(msg.gas - 710);
         require(bool(v0));
         return v1;
     }
