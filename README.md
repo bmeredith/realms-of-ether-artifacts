@@ -4,6 +4,18 @@
 
 This repository is meant to provide a reconstruction and more in-depth look into the [Realms of Ether](https://realmsofether.com/) smart contract source code. The code of the original smart contracts remains unavailable, but using different techniques it is still possible reconstruct those lost smart contracts to exactly match the original logic and bytecode. This allows the smart contracts to be verified and readable on [Etherscan](https://etherscan.io).
 
+## Contracts
+
+| **Contract**             | **Contract Address**                                                    | **Reconstructed and Verified** 
+|--------------------------|-------------------------------------------------------------------------|:-----------------------------:
+| Realms of Ether          | [0x0716d44d5991b15256a2de5769e1376d569bba7c](https://etherscan.io/address/0x0716d44d5991b15256a2de5769e1376d569bba7c) |
+| FortressStorage          | [0x12e9b4B43A8e8788569BE5DF6fc3ed88780c4DfC](https://etherscan.io/address/0x12e9b4B43A8e8788569BE5DF6fc3ed88780c4DfC) |
+| FortressStorageProxy     | [0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a](https://etherscan.io/address/0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a) | ✅
+| BuildingStorage          | [0x3ecFD43652462a9EDc06f5c4e3e65e1E9A1FAF24](https://etherscan.io/address/0x3ecFD43652462a9EDc06f5c4e3e65e1E9A1FAF24) | ✅
+| BuildingStorageProxy     | [0xb939a1d96dda7271d6d89eaceabd9163d0502165](https://etherscan.io/address/0xb939a1d96dda7271d6d89eaceabd9163d0502165) | ✅
+| TroupStorage             | [0xAE066769aa0fC472f1ee10360e05f2a6d903c1f3](https://etherscan.io/address/0xAE066769aa0fC472f1ee10360e05f2a6d903c1f3) | ✅
+| TroupStorageProxy        | [0x902904b1833def4aef05b99cea93cc3383cd2d4a](https://etherscan.io/address/0x902904b1833def4aef05b99cea93cc3383cd2d4a) | ✅
+
 ## Installation
 
 ### 1. Install foundry
@@ -54,18 +66,6 @@ forge build
 
 ## Notes
 - Not all function parameter names or function output names are 1-to-1 match. Decompilation of those is not possible. It is a best effort to identify those and have the reconstructed contract be more readable.
-
-## Contracts
-
-| **Contract**             | **Contract Address**                                                    | **Reconstructed and Verified** 
-|--------------------------|-------------------------------------------------------------------------|:-----------------------------:
-| Realms of Ether          | https://etherscan.io/address/0x0716d44d5991b15256a2de5769e1376d569bba7c |
-| FortressStorage          | https://etherscan.io/address/0x12e9b4B43A8e8788569BE5DF6fc3ed88780c4DfC |
-| FortressStorageProxy     | https://etherscan.io/address/0xe5ef9a283508bbfd11d5379efc4146a4e4a26b8a | ✅
-| BuildingStorage          | https://etherscan.io/address/0x3ecFD43652462a9EDc06f5c4e3e65e1E9A1FAF24 | ✅
-| BuildingStorageProxy     | https://etherscan.io/address/0xb939a1d96dda7271d6d89eaceabd9163d0502165 | ✅
-| TroupStorage             | https://etherscan.io/address/0xAE066769aa0fC472f1ee10360e05f2a6d903c1f3 | ✅
-| TroupStorageProxy        | https://etherscan.io/address/0x902904b1833def4aef05b99cea93cc3383cd2d4a | ✅
 
 ## Method/Event Identifiers
 
