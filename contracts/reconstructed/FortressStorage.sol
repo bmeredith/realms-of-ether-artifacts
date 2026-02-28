@@ -21,19 +21,19 @@ contract FortressStorage {
     mapping(address => uint256) public ownerFortressesLength; // STORAGE[0x4]
     mapping(address => uint256) public ownerFortressesCount; // STORAGE[0x5]
     mapping(bytes32 => uint256) public fortressOwnerIndex; // STORAGE[0x6]
-    bytes32[] fortressHashes; // STORAGE[0x7]
-    mapping(bytes32 => bool) exists; // STORAGE[0x8]
-    mapping(bytes32 => bytes16) names; // STORAGE[0x9]
-    mapping(bytes32 => address) fortressOwner; // STORAGE[0xa]
-    mapping(bytes32 => int256) x; // STORAGE[0xb]
-    mapping(bytes32 => int256) y; // STORAGE[0xc]
-    mapping(bytes32 => uint256) gold; // STORAGE[0xd]
-    mapping(bytes32 => uint256) wood; // STORAGE[0xe]
-    mapping(bytes32 => uint256) stone; // STORAGE[0xf]
-    mapping(bytes32 => uint256) troups; // STORAGE[0x10]
+    bytes32[] public fortressHashes; // STORAGE[0x7]
+    mapping(bytes32 => bool) internal exists; // STORAGE[0x8]
+    mapping(bytes32 => bytes16) internal names; // STORAGE[0x9]
+    mapping(bytes32 => address) internal fortressOwner; // STORAGE[0xa]
+    mapping(bytes32 => int256) internal x; // STORAGE[0xb]
+    mapping(bytes32 => int256) internal y; // STORAGE[0xc]
+    mapping(bytes32 => uint256) internal gold; // STORAGE[0xd]
+    mapping(bytes32 => uint256) internal wood; // STORAGE[0xe]
+    mapping(bytes32 => uint256) internal stone; // STORAGE[0xf]
+    mapping(bytes32 => uint256) internal troups; // STORAGE[0x10]
     // STORAGE[0x11] - unknown, may be unused or unreferenced
-    mapping(bytes32 => uint256) buildingLevel; // STORAGE[0x12]
-    mapping(bytes32 => uint256) buildingTimeout; // STORAGE[0x13]
+    mapping(bytes32 => uint256) internal buildingLevel; // STORAGE[0x12]
+    mapping(bytes32 => uint256) internal buildingTimeout; // STORAGE[0x13]
 
     // Events
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -152,7 +152,7 @@ contract FortressStorage {
         require(msg.sender == owner);
         require(exists[_fortressHash]);
         assert(fortressOwnerIndex[_fortressHash] < ownerFortresses[fortressOwner[_fortressHash]].length);
-        ownerFortresses[fortressOwner[_fortressHash]][fortressOwnerIndex[_fortressHash]] = uint256(0);
+        ownerFortresses[fortressOwner[_fortressHash]][fortressOwnerIndex[_fortressHash]] = bytes32(0);
         ownerFortressesCount[fortressOwner[_fortressHash]] = ownerFortressesCount[fortressOwner[_fortressHash]].sub(1);
         fortressOwner[_fortressHash] = _newOwner;
 
@@ -163,7 +163,9 @@ contract FortressStorage {
         ownerFortressesCount[_newOwner] = ownerFortressesCount[_newOwner].add(1);
     }
 
-    function 0x5d694a72() 
+    // 0x5d694a72 - this is not the real function name
+    // it was mined to get a collision match of the actual function name for now
+    function genesis30456072818() 
         public 
         returns (uint256)
     { 
@@ -201,6 +203,13 @@ contract FortressStorage {
         require(msg.sender == owner);
         require(exists[_fortressHash]);
         stone[_fortressHash] = _amount;
+    }
+
+    function balanceOf(address _owner) 
+        public 
+        returns (uint256) 
+    {
+        return ownerFortressesCount[_owner];
     }
 
     function setGold(
@@ -378,7 +387,7 @@ contract FortressStorage {
         returns (uint256)
     { 
         if (genesisTime != 0) {
-            return _stor_2.add((block.timestamp - genesisTime) / 900);
+            return stor_2.add((block.timestamp - genesisTime) / 900);
         } else {
             return stor_2;
         }
