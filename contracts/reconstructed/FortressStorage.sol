@@ -209,6 +209,7 @@ contract FortressStorage {
 
     function 0x5d694a72() 
         public 
+        returns (uint256)
     { 
         return stor_2;
     }
