@@ -1,5 +1,7 @@
 pragma solidity 0.4.18;
 
+import "./SafeMath.sol";
+
 /// @title FortressStorage for Realms of Ether (https://www.realmsofether.com)
 /// @notice Reconstructed by wilt.eth/@wilty_stilty
 ///
@@ -10,6 +12,8 @@ pragma solidity 0.4.18;
 /// @dev RECONSTRUCTION NOTICE: The original source code for this contract was lost.
 /// This file has been reconstructed in its entirety from the deployed bytecode.
 contract FortressStorage {
+    using SafeMath for uint256;
+
     address public owner; // STORAGE[0x0] bytes 0 to 19
     uint256 public genesisTime; // STORAGE[0x1]
     uint256 stor_2; // STORAGE[0x2] 0x5d694a72
@@ -39,12 +43,12 @@ contract FortressStorage {
         stor_2 = 1000;
     }
 
-    function unknown_0x11f9() 
+    function _getFortressesAvailable() 
         private 
+        returns (uint256)
     { 
         uint256 fortressesRemaining = _fortressesRemaining();
-        v1 = _SafeSub(fortressHashes.length, fortressesRemaining);
-        return v1;
+        return fortressesRemaining - fortressHashes.length;
     }
 
     function getFortressCount() 
@@ -58,8 +62,7 @@ contract FortressStorage {
         public 
         returns (uint256)
     { 
-        v0 = unknown_0xbc1();
-        return v0;
+        return _fortressesRemaining();
     }
 
     function setWins(
@@ -71,27 +74,6 @@ contract FortressStorage {
         require(msg.sender == owner);
         require(exists[_fortressHash]);
         troups[_fortressHash] = _wins;
-    }
-
-    function _SafeAdd(
-        uint256 varg0, 
-        uint256 varg1
-    ) 
-        private 
-    { 
-        v0 = varg1 + varg0 >= varg1;
-        assert(bool(v0));
-        return varg1 + varg0;
-    }
-
-    function _SafeSub(
-        uint256 varg0, 
-        uint256 varg1
-    ) 
-        private 
-    { 
-        assert(varg0 <= varg1);
-        return varg1 - varg0;
     }
 
     function getY(bytes32 _fortressHash) 
@@ -120,34 +102,18 @@ contract FortressStorage {
         public 
     { 
         require(msg.sender == owner);
-        v0 = unknown_0x11f9();
+        uint256 v0 = _getFortressesAvailable();
         require(v0 > fortressHashes.length);
         require(!exists[_fortressHash]);
-        fortressHashes.length += 1;
-        if (!fortressHashes.length <= 1 + fortressHashes.length) {
-            v1 = v2 = keccak256(7) + (1 + fortressHashes.length);
-            while (keccak256(7) + fortressHashes.length > v1) {
-                STORAGE[v1] = 0;
-                v1 += 1;
-            }
-        }
-        fortressHashes[fortressHashes.length] = _fortressHash;
-        exists[_fortressHash] = 1;
+        
+        fortressHashes.push(_fortressHash);
+        exists[_fortressHash] = true;
         fortressOwner[_fortressHash] = _user;
-        ownerFortresses[_user].length += 1;
-        if (!ownerFortresses[_user].length <= 1 + ownerFortresses[_user].length) {
-            v3 = v4 = keccak256(keccak256(_user, 3)) + (1 + ownerFortresses[_user].length);
-            while (keccak256(keccak256(_user, 3)) + ownerFortresses[_user].length > v3) {
-                STORAGE[v3] = 0;
-                v3 += 1;
-            }
-        }
-        ownerFortresses[_user][ownerFortresses[_user].length] = _fortressHash;
+        ownerFortresses[_user].push(_fortressHash);
+
         fortressOwnerIndex[_fortressHash] = ownerFortressesLength[_user];
-        v5 = _SafeAdd(1, ownerFortressesLength[_user]);
-        ownerFortressesLength[_user] = v5;
-        v6 = _SafeAdd(1, ownerFortressesCount[_user]);
-        ownerFortressesCount[_user] = v6;
+        ownerFortressesLength[_user] = ownerFortressesLength[_user].add(1);
+        ownerFortressesCount[_user] = ownerFortressesCount[_user].add(1);
     }
 
     function setTroups(
@@ -166,8 +132,7 @@ contract FortressStorage {
         public 
         returns (uint256)
     { 
-        v0 = unknown_0x11f9();
-        return v0;
+        return _getFortressesAvailable();
     }
 
     function getName(bytes32 _fortressHash) 
@@ -188,23 +153,14 @@ contract FortressStorage {
         require(exists[_fortressHash]);
         assert(fortressOwnerIndex[_fortressHash] < ownerFortresses[fortressOwner[_fortressHash]].length);
         ownerFortresses[fortressOwner[_fortressHash]][fortressOwnerIndex[_fortressHash]] = uint256(0);
-        v0 = _SafeSub(1, ownerFortressesCount[fortressOwner[_fortressHash]]);
-        ownerFortressesCount[fortressOwner[_fortressHash]] = v0;
+        ownerFortressesCount[fortressOwner[_fortressHash]] = ownerFortressesCount[fortressOwner[_fortressHash]].sub(1);
         fortressOwner[_fortressHash] = _newOwner;
-        ownerFortresses[_newOwner].length += 1;
-        if (!ownerFortresses[_newOwner].length <= 1 + ownerFortresses[_newOwner].length) {
-            v1 = v2 = keccak256(keccak256(_newOwner, 3)) + (1 + ownerFortresses[_newOwner].length);
-            while (keccak256(keccak256(_newOwner, 3)) + ownerFortresses[_newOwner].length > v1) {
-                STORAGE[v1] = 0;
-                v1 += 1;
-            }
-        }
-        ownerFortresses[_newOwner][ownerFortresses[_newOwner].length] = _fortressHash;
+
+        ownerFortresses[_newOwner].push(_fortressHash);
+
         fortressOwnerIndex[_fortressHash] = ownerFortressesLength[_newOwner];
-        v3 = _SafeAdd(1, ownerFortressesLength[_newOwner]);
-        ownerFortressesLength[_newOwner] = v3;
-        v4 = _SafeAdd(1, ownerFortressesCount[_newOwner]);
-        ownerFortressesCount[_newOwner] = v4;
+        ownerFortressesLength[_newOwner] = ownerFortressesLength[_newOwner].add(1);
+        ownerFortressesCount[_newOwner] = ownerFortressesCount[_newOwner].add(1);
     }
 
     function 0x5d694a72() 
@@ -422,9 +378,7 @@ contract FortressStorage {
         returns (uint256)
     { 
         if (genesisTime != 0) {
-            assert(bool(900));
-            v0 = _SafeAdd((block.timestamp - genesisTime) / 900, stor_2);
-            return v0;
+            return _stor_2.add((block.timestamp - genesisTime) / 900);
         } else {
             return stor_2;
         }
